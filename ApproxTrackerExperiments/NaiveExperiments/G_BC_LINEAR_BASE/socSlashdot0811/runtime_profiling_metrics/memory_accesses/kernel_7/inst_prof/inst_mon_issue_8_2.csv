@@ -1,0 +1,2 @@
+cycle,instruction,cta_id,cluster_id,warp_id,tid
+1279880, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,0,8,3,ffffffff

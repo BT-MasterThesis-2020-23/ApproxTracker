@@ -1,0 +1,3087 @@
+
+
+        *** GPGPU-Sim Simulator Version 4.2.0  [build gpgpu-sim_git-commit-5e9d31b8132651796656877ecb58fde27177ba7a_modified_303.0] ***
+
+
+GPGPU-Sim PTX: simulation mode 0 (can change with PTX_SIM_MODE_FUNC environment variable:
+               1=functional simulation only, 0=detailed performance simulator)
+GPGPU-Sim PTX: overriding embedded ptx with ptx file (PTX_SIM_USE_PTX_FILE is set)
+GPGPU-Sim: Configuration options:
+
+-save_embedded_ptx                      0 # saves ptx files embedded in binary as <n>.ptx
+-keep                                   0 # keep intermediate files created by GPGPU-Sim when interfacing with external programs
+-gpgpu_ptx_save_converted_ptxplus                    0 # Saved converted ptxplus to a file
+-gpgpu_occupancy_sm_number                   75 # The SM number to pass to ptxas when getting register usage for computing GPU occupancy. This parameter is required in the config.
+-ptx_opcode_latency_int           4,4,4,4,21 # Opcode latencies for integers <ADD,MAX,MUL,MAD,DIV,SHFL>Default 1,1,19,25,145,32
+-ptx_opcode_latency_fp           4,4,4,4,39 # Opcode latencies for single precision floating points <ADD,MAX,MUL,MAD,DIV>Default 1,1,1,1,30
+-ptx_opcode_latency_dp      64,64,64,64,330 # Opcode latencies for double precision floating points <ADD,MAX,MUL,MAD,DIV>Default 8,8,8,8,335
+-ptx_opcode_latency_sfu                   21 # Opcode latencies for SFU instructionsDefault 8
+-ptx_opcode_latency_tesnor                   64 # Opcode latencies for Tensor instructionsDefault 64
+-ptx_opcode_initiation_int            2,2,2,2,2 # Opcode initiation intervals for integers <ADD,MAX,MUL,MAD,DIV,SHFL>Default 1,1,4,4,32,4
+-ptx_opcode_initiation_fp            2,2,2,2,4 # Opcode initiation intervals for single precision floating points <ADD,MAX,MUL,MAD,DIV>Default 1,1,1,1,5
+-ptx_opcode_initiation_dp      64,64,64,64,130 # Opcode initiation intervals for double precision floating points <ADD,MAX,MUL,MAD,DIV>Default 8,8,8,8,130
+-ptx_opcode_initiation_sfu                    8 # Opcode initiation intervals for sfu instructionsDefault 8
+-ptx_opcode_initiation_tensor                   64 # Opcode initiation intervals for tensor instructionsDefault 64
+-cdp_latency         7200,8000,100,12000,1600 # CDP API latency <cudaStreamCreateWithFlags, cudaGetParameterBufferV2_init_perWarp, cudaGetParameterBufferV2_perKernel, cudaLaunchDeviceV2_init_perWarp, cudaLaunchDevicV2_perKernel>Default 7200,8000,100,12000,1600
+-network_mode                           2 # Interconnection network mode
+-inter_config_file                   mesh # Interconnection network config file
+-icnt_in_buffer_limit                  512 # in_buffer_limit
+-icnt_out_buffer_limit                  512 # out_buffer_limit
+-icnt_subnets                           2 # subnets
+-icnt_arbiter_algo                      1 # arbiter_algo
+-icnt_verbose                           0 # inct_verbose
+-icnt_grant_cycles                      1 # grant_cycles
+-gpgpu_ptx_use_cuobjdump                    1 # Use cuobjdump to extract ptx and sass from binaries
+-gpgpu_experimental_lib_support                    0 # Try to extract code from cuda libraries [Broken because of unknown cudaGetExportTable]
+-checkpoint_option                      0 #  checkpointing flag (0 = no checkpoint)
+-checkpoint_kernel                      1 #  checkpointing during execution of which kernel (1- 1st kernel)
+-checkpoint_CTA                         0 #  checkpointing after # of CTA (< less than total CTA)
+-resume_option                          0 #  resume flag (0 = no resume)
+-resume_kernel                          0 #  Resume from which kernel (1= 1st kernel)
+-resume_CTA                             0 #  resume from which CTA 
+-checkpoint_CTA_t                       0 #  resume from which CTA 
+-checkpoint_insn_Y                      0 #  resume from which CTA 
+-gpgpu_ptx_convert_to_ptxplus                    0 # Convert SASS (native ISA) to ptxplus and run ptxplus
+-gpgpu_ptx_force_max_capability                   75 # Force maximum compute capability
+-gpgpu_ptx_inst_debug_to_file                    0 # Dump executed instructions' debug information to file
+-gpgpu_ptx_inst_debug_file       inst_debug.txt # Executed instructions' debug output file
+-gpgpu_ptx_inst_debug_thread_uid                    1 # Thread UID for executed instructions' debug output
+-gpgpu_simd_model                       1 # 1 = post-dominator
+-gpgpu_shader_core_pipeline              1024:32 # shader core pipeline config, i.e., {<nthread>:<warpsize>}
+-gpgpu_tex_cache:l1  N:4:128:256,L:R:m:N:L,T:512:8,128:2 # per-shader L1 texture cache  (READ-ONLY) config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>:<rf>}
+-gpgpu_const_cache:l1 N:128:64:8,L:R:f:N:L,S:2:64,4 # per-shader L1 constant memory cache  (READ-ONLY) config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>} 
+-gpgpu_cache:il1     N:64:128:16,L:R:f:N:L,S:2:48,4 # shader L1 instruction cache config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>} 
+-gpgpu_cache:dl1     S:4:128:64,L:T:m:L:L,A:256:32,16:0,32 # per-shader L1 data cache config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq> | none}
+-gpgpu_l1_cache_write_ratio                   25 # L1D write ratio
+-gpgpu_l1_banks                         4 # The number of L1 cache banks
+-gpgpu_l1_banks_byte_interleaving                   32 # l1 banks byte interleaving granularity
+-gpgpu_l1_banks_hashing_function                    0 # l1 banks hashing function
+-gpgpu_l1_latency                      32 # L1 Hit Latency
+-gpgpu_smem_latency                    30 # smem Latency
+-gpgpu_cache:dl1PrefL1                 none # per-shader L1 data cache config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq> | none}
+-gpgpu_cache:dl1PrefShared                 none # per-shader L1 data cache config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq> | none}
+-gpgpu_gmem_skip_L1D                    0 # global memory access skip L1D cache (implements -Xptxas -dlcm=cg, default=no skip)
+-gpgpu_perfect_mem                      0 # enable perfect memory mode (no cache miss)
+-n_regfile_gating_group                    4 # group of lanes that should be read/written together)
+-gpgpu_clock_gated_reg_file                    0 # enable clock gated reg file for power calculations
+-gpgpu_clock_gated_lanes                    0 # enable clock gated lanes for power calculations
+-gpgpu_shader_registers                65536 # Number of registers per shader core. Limits number of concurrent CTAs. (default 8192)
+-gpgpu_registers_per_block                65536 # Maximum number of registers per CTA. (default 8192)
+-gpgpu_ignore_resources_limitation                    0 # gpgpu_ignore_resources_limitation (default 0)
+-gpgpu_shader_cta                      16 # Maximum number of concurrent CTAs in shader (default 32)
+-gpgpu_num_cta_barriers                   16 # Maximum number of named barriers per CTA (default 16)
+-gpgpu_n_clusters                      30 # number of processing clusters
+-gpgpu_n_cores_per_cluster                    1 # number of simd cores per cluster
+-gpgpu_n_cluster_ejection_buffer_size                   32 # number of packets in ejection buffer
+-gpgpu_n_ldst_response_buffer_size                    2 # number of response packets in ld/st unit ejection buffer
+-gpgpu_shmem_per_block                49152 # Size of shared memory per thread block or CTA (default 48kB)
+-gpgpu_shmem_size                   65536 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_option                 32,64 # Option list of shared memory sizes
+-gpgpu_unified_l1d_size                   96 # Size of unified data cache(L1D + shared memory) in KB
+-gpgpu_adaptive_cache_config                    1 # adaptive_cache_config
+-gpgpu_shmem_sizeDefault                65536 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_size_PrefL1                16384 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_size_PrefShared                16384 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_num_banks                   32 # Number of banks in the shared memory in each shader core (default 16)
+-gpgpu_shmem_limited_broadcast                    0 # Limit shared memory to do one broadcast per cycle (default on)
+-gpgpu_shmem_warp_parts                    1 # Number of portions a warp is divided into for shared memory bank conflict check 
+-gpgpu_mem_unit_ports                    1 # The number of memory transactions allowed per core cycle
+-gpgpu_shmem_warp_parts                    1 # Number of portions a warp is divided into for shared memory bank conflict check 
+-gpgpu_warpdistro_shader                   -1 # Specify which shader core to collect the warp size distribution from
+-gpgpu_warp_issue_shader                    0 # Specify which shader core to collect the warp issue distribution from
+-gpgpu_local_mem_map                    1 # Mapping from local memory space address to simulated GPU physical address space (default = enabled)
+-gpgpu_num_reg_banks                    8 # Number of register banks (default = 8)
+-gpgpu_reg_bank_use_warp_id                    0 # Use warp ID in mapping registers to banks (default = off)
+-gpgpu_sub_core_model                    1 # Sub Core Volta/Pascal model (default = off)
+-gpgpu_enable_specialized_operand_collector                    0 # enable_specialized_operand_collector
+-gpgpu_operand_collector_num_units_sp                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_dp                    0 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_units_sfu                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_int                    0 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_units_tensor_core                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_mem                    2 # number of collector units (default = 2)
+-gpgpu_operand_collector_num_units_gen                    8 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_in_ports_sp                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_dp                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_in_ports_sfu                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_int                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_in_ports_tensor_core                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_mem                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_gen                    8 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_sp                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_dp                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_sfu                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_int                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_tensor_core                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_mem                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_gen                    8 # number of collector unit in ports (default = 0)
+-gpgpu_coalesce_arch                   75 # Coalescing arch (GT200 = 13, Fermi = 20)
+-gpgpu_num_sched_per_core                    4 # Number of warp schedulers per core
+-gpgpu_max_insn_issue_per_warp                    1 # Max number of instructions that can be issued per warp in one cycle by scheduler (either 1 or 2)
+-gpgpu_dual_issue_diff_exec_units                    1 # should dual issue use two different execution unit resources (Default = 1)
+-gpgpu_simt_core_sim_order                    1 # Select the simulation order of cores in a cluster (0=Fix, 1=Round-Robin)
+-gpgpu_pipeline_widths 4,4,4,4,4,4,4,4,4,4,8,4,4 # Pipeline widths ID_OC_SP,ID_OC_DP,ID_OC_INT,ID_OC_SFU,ID_OC_MEM,OC_EX_SP,OC_EX_DP,OC_EX_INT,OC_EX_SFU,OC_EX_MEM,EX_WB,ID_OC_TENSOR_CORE,OC_EX_TENSOR_CORE
+-gpgpu_tensor_core_avail                    1 # Tensor Core Available (default=0)
+-gpgpu_num_sp_units                     4 # Number of SP units (default=1)
+-gpgpu_num_dp_units                     4 # Number of DP units (default=0)
+-gpgpu_num_int_units                    4 # Number of INT units (default=0)
+-gpgpu_num_sfu_units                    4 # Number of SF units (default=1)
+-gpgpu_num_tensor_core_units                    4 # Number of tensor_core units (default=1)
+-gpgpu_num_mem_units                    1 # Number if ldst units (default=1) WARNING: not hooked up to anything
+-kernelBased                            0 # Does the approximator work as kernel based (default = 0)
+-kernelId                               0 # Kernel ids where the approximation applied 
+-hybridApproximation                    0 # Hybrid approximator (default = 0)
+-errorPercentage                      100 # Error percentage (number of max flushed accesses)
+-l1dApproximator                        1 # Memory access delete unit (default = 0)
+-l1dSlicingAccessInterval                 5000 # Slice access window length (default = 1000)
+-l2Approximator                         0 # Memory access delete unit (default = 0)
+-l2SlicingAccessInterval                 5000 # Slice access window length (default = 1000)
+-smOccupancy                            0 # sm occupancy (default = 0)
+-smSlicingInterval                   5000 # Slice access window length (default = 1000)
+-gpgpu_scheduler                      lrr # Scheduler configuration: < lrr | gto | two_level_active > If two_level_active:<num_active_warps>:<inner_prioritization>:<outer_prioritization>For complete list of prioritization values see shader.h enum scheduler_prioritization_typeDefault: gto
+-gpgpu_concurrent_kernel_sm                    0 # Support concurrent kernels on a SM (default = disabled)
+-gpgpu_perfect_inst_const_cache                    1 # perfect inst and const cache mode, so all inst and const hits in the cache(default = disabled)
+-gpgpu_inst_fetch_throughput                    4 # the number of fetched intruction per warp each cycle
+-gpgpu_reg_file_port_throughput                    2 # the number ports of the register file
+-specialized_unit_1         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_2         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_3         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_4         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_5         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_6         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_7         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_8         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-gpgpu_perf_sim_memcpy                    1 # Fill the L2 cache on memcpy
+-gpgpu_simple_dram_model                    0 # simple_dram_model with fixed latency and BW
+-gpgpu_dram_scheduler                    1 # 0 = fifo, 1 = FR-FCFS (defaul)
+-gpgpu_dram_partition_queues          64:64:64:64 # i2$:$2d:d2$:$2i
+-l2_ideal                               0 # Use a ideal L2 cache that always hit
+-gpgpu_cache:dl2     S:64:128:16,L:B:m:L:P,A:192:4,32:0,32 # unified banked L2 data cache config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>}
+-gpgpu_cache:dl2_texture_only                    0 # L2 cache used for texture only
+-gpgpu_n_mem                           12 # number of memory modules (e.g. memory controllers) in gpu
+-gpgpu_n_sub_partition_per_mchannel                    2 # number of memory subpartition in each memory module
+-gpgpu_n_mem_per_ctrlr                    1 # number of memory chips per memory controller
+-gpgpu_memlatency_stat                   14 # track and display latency statistics 0x2 enables MC, 0x4 enables queue logs
+-gpgpu_frfcfs_dram_sched_queue_size                   64 # 0 = unlimited (default); # entries per chip
+-gpgpu_dram_return_queue_size                  192 # 0 = unlimited (default); # entries per chip
+-gpgpu_dram_buswidth                    2 # default = 4 bytes (8 bytes per cycle at DDR)
+-gpgpu_dram_burst_length                   16 # Burst length of each DRAM request (default = 4 data bus cycle)
+-dram_data_command_freq_ratio                    4 # Frequency ratio between DRAM data bus and command bus (default = 2 times, i.e. DDR)
+-gpgpu_dram_timing_opt nbk=16:CCD=4:RRD=12:RCD=24:RAS=55:RP=24:RC=78:CL=24:WL=8:CDLR=10:WR=24:nbkgrp=4:CCDL=6:RTPL=4 # DRAM timing parameters = {nbk:tCCD:tRRD:tRCD:tRAS:tRP:tRC:CL:WL:tCDLR:tWR:nbkgrp:tCCDL:tRTPL}
+-gpgpu_l2_rop_latency                  194 # ROP queue latency (default 85)
+-dram_latency                          96 # DRAM latency (default 30)
+-dram_dual_bus_interface                    0 # dual_bus_interface (default = 0) 
+-dram_bnk_indexing_policy                    0 # dram_bnk_indexing_policy (0 = normal indexing, 1 = Xoring with the higher bits) (Default = 0)
+-dram_bnkgrp_indexing_policy                    1 # dram_bnkgrp_indexing_policy (0 = take higher bits, 1 = take lower bits) (Default = 0)
+-dram_seperate_write_queue_enable                    0 # Seperate_Write_Queue_Enable
+-dram_write_queue_size             32:28:16 # Write_Queue_Size
+-dram_elimnate_rw_turnaround                    0 # elimnate_rw_turnaround i.e set tWTR and tRTW = 0
+-icnt_flit_size                        40 # icnt_flit_size
+-icnt_flit_size                        40 # icnt_flit_size
+-mem_profiler                           0 # memory access runtime profiling (0 = not enabled)
+-gpgpu_mem_addr_mapping dramid@8;00000000.00000000.00000000.00000000.0000RRRR.RRRRRRRR.RBBBCCCC.BCCSSSSS # mapping memory address to dram model {dramid@<start bit>;<memory address map>}
+-gpgpu_mem_addr_test                    0 # run sweep test to check address mapping for aliased address
+-gpgpu_mem_address_mask                    1 # 0 = old addressing mask, 1 = new addressing mask, 2 = new add. mask + flipped bank sel and chip sel bits
+-gpgpu_memory_partition_indexing                    0 # 0 = no indexing, 1 = bitwise xoring, 2 = IPoly, 3 = custom indexing
+-accelwattch_xml_file accelwattch_sass_sim.xml # AccelWattch XML file
+-power_simulation_enabled                    1 # Turn on power simulator (1=On, 0=Off)
+-power_per_cycle_dump                    1 # Dump detailed power output each cycle
+-hw_perf_file_name            hw_perf.csv # Hardware Performance Statistics file
+-hw_perf_bench_name    hw_perf_bench_name # Kernel Name in Hardware Performance Statistics file
+-power_simulation_mode                    0 # Switch performance counter input for power simulation (0=Sim, 1=HW, 2=HW-Sim Hybrid)
+-dvfs_enabled                           1 # Turn on DVFS for power model
+-aggregate_power_stats                    0 # Accumulate power across all kernels
+-accelwattch_hybrid_perfsim_L1_RH                    0 # Get L1 Read Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_RM                    0 # Get L1 Read Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_WH                    0 # Get L1 Write Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_WM                    0 # Get L1 Write Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_RH                    0 # Get L2 Read Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_RM                    0 # Get L2 Read Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_WH                    0 # Get L2 Write Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_WM                    0 # Get L2 Write Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_CC_ACC                    0 # Get Constant Cache Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_SHARED_ACC                    0 # Get Shared Memory Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_DRAM_RD                    0 # Get DRAM Reads for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_DRAM_WR                    0 # Get DRAM Writes for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_NOC                    0 # Get Interconnect Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_PIPE_DUTY                    0 # Get Pipeline Duty Cycle Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_NUM_SM_IDLE                    0 # Get Number of Idle SMs for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_CYCLES                    0 # Get Executed Cycles for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_VOLTAGE                    0 # Get Chip Voltage for Accelwattch-Hybrid from Accel-Sim
+-power_trace_enabled                    0 # produce a file for the power trace (1=On, 0=Off)
+-power_trace_zlevel                     0 # Compression level of the power trace output log (0=no comp, 9=highest)
+-steady_power_levels_enabled                    0 # produce a file for the steady power levels (1=On, 0=Off)
+-steady_state_definition                  8:4 # allowed deviation:number of samples
+-gpgpu_max_cycle                        0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_insn                         0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_cta                          0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_completed_cta                    0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_runtime_stat                  1000 # display runtime statistics such as dram utilization {<freq>:<flag>}
+-liveness_message_freq                    1 # Minimum number of seconds between simulation liveness messages (0 = always print)
+-gpgpu_compute_capability_major                    7 # Major compute capability version number
+-gpgpu_compute_capability_minor                    5 # Minor compute capability version number
+-gpgpu_flush_l1_cache                    1 # Flush L1 cache at the end of each kernel call
+-gpgpu_flush_l2_cache                    0 # Flush L2 cache at the end of each kernel call
+-gpgpu_deadlock_detect                    1 # Stop the simulation at deadlock (1=on (default), 0=off)
+-gpgpu_ptx_instruction_classification                    0 # if enabled will classify ptx instruction types per kernel (Max 255 kernels now)
+-gpgpu_ptx_sim_mode                     0 # Select between Performance (default) or Functional simulation (1)
+-gpgpu_clock_domains 1365:1365:1365:3500.5 # Clock Domain Frequencies in MhZ {<Core Clock>:<ICNT Clock>:<L2 Clock>:<DRAM Clock>}
+-gpgpu_max_concurrent_kernel                  128 # maximum kernels that can run concurrently on GPU, set this value according to max resident grids for your compute capability
+-gpgpu_cflog_interval                    0 # Interval between each snapshot in control flow logger
+-visualizer_enabled                     0 # Turn on visualizer output (1=On, 0=Off)
+-visualizer_outputfile                 NULL # Specifies the output log file for visualizer
+-visualizer_zlevel                      6 # Compression level of the visualizer output log (0=no comp, 9=highest)
+-gpgpu_stack_size_limit                 1024 # GPU thread stack size
+-gpgpu_heap_size_limit              8388608 # GPU malloc heap size 
+-gpgpu_runtime_sync_depth_limit                    2 # GPU device runtime synchronize depth
+-gpgpu_runtime_pending_launch_count_limit                 2048 # GPU device runtime pending launch count
+-trace_enabled                          0 # Turn on traces
+-trace_components                    none # comma seperated list of traces to enable. Complete list found in trace_streams.tup. Default none
+-trace_sampling_core                    0 # The core which is printed using CORE_DPRINTF. Default 0
+-trace_sampling_memory_partition                   -1 # The memory partition which is printed using MEMPART_DPRINTF. Default -1 (i.e. all)
+-enable_ptx_file_line_stats                    1 # Turn on PTX source line statistic profiling. (1 = On)
+-ptx_line_stats_filename gpgpu_inst_stats.txt # Output file for PTX source line statistics.
+-gpgpu_kernel_launch_latency                 5000 # Kernel launch latency in cycles. Default: 0
+-gpgpu_cdp_enabled                      0 # Turn on CDP
+-gpgpu_TB_launch_latency                    0 # thread block launch latency in cycles. Default: 0
+-mem_runtime_stat                     100 # memory access runtime profiling sampling freq
+-L1D_metrics                            0 # memory access runtime profiling for L1 data cache
+-noncoal_metrics                        0 # memory access runtime profiling for shared memory
+-L2_metrics                             0 # memory access runtime profiling for L2 cache
+-DRAM_metrics                           0 # memory access runtime profiling for DRAM
+-Shmem_metrics                          0 # memory access runtime profiling for noncoalesced accesses
+-store_enable                           0 # Enable stores for memory profiling
+-accumulate_stats                       0 # Accumulate stats for the memory profiling
+-dump_enable                            0 # Process dump enable flag - (def = 0)
+-flush_l1d                              0 # Enable flushings for L1D caches - (default = 0)
+-flush_l2                               0 # Enable flushings for L2 caches - (default = 0)
+-flush_dram                             0 # Enable flushings for DRAM - (default = 0)
+-flush_noncoalesceds                    0 # Enable flushings for non coalesced accesses - (default = 0)
+-flush_shmems                           0 # Enable flushings for shared memory accesses - (default = 0)
+-error_percentage                       2 # Error percentage for the flushes - (default = 1)
+-flush_acc_type                         2 # Flush access types
+-monitor_sampling_cycle                  200 # Monitoring sampling cycle - (default = 5000)
+DRAM Timing Options:
+nbk                                    16 # number of banks
+CCD                                     4 # column to column delay
+RRD                                    12 # minimal delay between activation of rows in different banks
+RCD                                    24 # row to column delay
+RAS                                    55 # time needed to activate row
+RP                                     24 # time needed to precharge (deactivate) row
+RC                                     78 # row cycle time
+CDLR                                   10 # switching from write to read (changes tWTR)
+WR                                     24 # last data-in to row precharge
+CL                                     24 # CAS latency
+WL                                      8 # Write latency
+nbkgrp                                  4 # number of bank groups
+CCDL                                    6 # column to column delay between accesses to different bank groups
+RTPL                                    4 # read to precharge delay between accesses to different bank groups
+Total number of memory sub partition = 24
+addr_dec_mask[CHIP]  = 0000000000000000 	high:64 low:0
+addr_dec_mask[BK]    = 0000000000007080 	high:15 low:7
+addr_dec_mask[ROW]   = 000000000fff8000 	high:28 low:15
+addr_dec_mask[COL]   = 0000000000000f7f 	high:12 low:0
+addr_dec_mask[BURST] = 000000000000001f 	high:5 low:0
+sub_partition_id_mask = 0000000000000080
+GPGPU-Sim uArch: clock freqs: 1365000000.000000:1365000000.000000:1365000000.000000:3500500000.000000
+GPGPU-Sim uArch: clock periods: 0.00000000073260073260:0.00000000073260073260:0.00000000073260073260:0.00000000028567347522
+*** Initializing Memory Statistics ***
+GPGPU-Sim uArch: performance model initialization complete.
+--------------------------------------------------------------
+L1D access stats (for 0'th SM) 
+--	Kid = 0 || L1D Acc = 6341926, -- Miss = 4424175, rate = 0.6976, -- PendHits = 62880, rate = 0.0099-- ResFail = 4651340, rate = 0.7334
+Error Per = 100 || Flushes = 44241 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 1'th SM) 
+--	Kid = 0 || L1D Acc = 6512277, -- Miss = 4574886, rate = 0.7025, -- PendHits = 64410, rate = 0.0099-- ResFail = 4588440, rate = 0.7046
+Error Per = 100 || Flushes = 45748 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 2'th SM) 
+--	Kid = 0 || L1D Acc = 6709493, -- Miss = 4820153, rate = 0.7184, -- PendHits = 64165, rate = 0.0096-- ResFail = 4932916, rate = 0.7352
+Error Per = 100 || Flushes = 48201 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 3'th SM) 
+--	Kid = 0 || L1D Acc = 5910009, -- Miss = 4100933, rate = 0.6939, -- PendHits = 58734, rate = 0.0099-- ResFail = 3945392, rate = 0.6676
+Error Per = 100 || Flushes = 41009 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 4'th SM) 
+--	Kid = 0 || L1D Acc = 5958266, -- Miss = 4045897, rate = 0.6790, -- PendHits = 59466, rate = 0.0100-- ResFail = 4128395, rate = 0.6929
+Error Per = 100 || Flushes = 40458 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 5'th SM) 
+--	Kid = 0 || L1D Acc = 6737596, -- Miss = 4810541, rate = 0.7140, -- PendHits = 65830, rate = 0.0098-- ResFail = 4881477, rate = 0.7245
+Error Per = 100 || Flushes = 48105 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 6'th SM) 
+--	Kid = 0 || L1D Acc = 6968233, -- Miss = 5083160, rate = 0.7295, -- PendHits = 67950, rate = 0.0098-- ResFail = 5697520, rate = 0.8176
+Error Per = 100 || Flushes = 50831 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 7'th SM) 
+--	Kid = 0 || L1D Acc = 6684329, -- Miss = 4754177, rate = 0.7112, -- PendHits = 66607, rate = 0.0100-- ResFail = 4719376, rate = 0.7060
+Error Per = 100 || Flushes = 47541 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 8'th SM) 
+--	Kid = 0 || L1D Acc = 6865532, -- Miss = 4836584, rate = 0.7045, -- PendHits = 66569, rate = 0.0097-- ResFail = 4616927, rate = 0.6725
+Error Per = 100 || Flushes = 48365 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 9'th SM) 
+--	Kid = 0 || L1D Acc = 6036929, -- Miss = 4055402, rate = 0.6718, -- PendHits = 63406, rate = 0.0105-- ResFail = 3998539, rate = 0.6623
+Error Per = 100 || Flushes = 40554 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 10'th SM) 
+--	Kid = 0 || L1D Acc = 6426123, -- Miss = 4461300, rate = 0.6942, -- PendHits = 64394, rate = 0.0100-- ResFail = 4219586, rate = 0.6566
+Error Per = 100 || Flushes = 44613 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 11'th SM) 
+--	Kid = 0 || L1D Acc = 6152313, -- Miss = 4251938, rate = 0.6911, -- PendHits = 62713, rate = 0.0102-- ResFail = 4293579, rate = 0.6979
+Error Per = 100 || Flushes = 42519 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 12'th SM) 
+--	Kid = 0 || L1D Acc = 7005332, -- Miss = 5100312, rate = 0.7281, -- PendHits = 66201, rate = 0.0095-- ResFail = 4861961, rate = 0.6940
+Error Per = 100 || Flushes = 51003 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 13'th SM) 
+--	Kid = 0 || L1D Acc = 6509629, -- Miss = 4558491, rate = 0.7003, -- PendHits = 64747, rate = 0.0099-- ResFail = 4680552, rate = 0.7190
+Error Per = 100 || Flushes = 45584 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 14'th SM) 
+--	Kid = 0 || L1D Acc = 5991445, -- Miss = 4056124, rate = 0.6770, -- PendHits = 61328, rate = 0.0102-- ResFail = 3632004, rate = 0.6062
+Error Per = 100 || Flushes = 40561 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 15'th SM) 
+--	Kid = 0 || L1D Acc = 6590306, -- Miss = 4668794, rate = 0.7084, -- PendHits = 65901, rate = 0.0100-- ResFail = 4900356, rate = 0.7436
+Error Per = 100 || Flushes = 46687 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 16'th SM) 
+--	Kid = 0 || L1D Acc = 6795070, -- Miss = 4890738, rate = 0.7197, -- PendHits = 66182, rate = 0.0097-- ResFail = 4713968, rate = 0.6937
+Error Per = 100 || Flushes = 48907 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 17'th SM) 
+--	Kid = 0 || L1D Acc = 6738222, -- Miss = 4838989, rate = 0.7181, -- PendHits = 63931, rate = 0.0095-- ResFail = 4927646, rate = 0.7313
+Error Per = 100 || Flushes = 48389 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 18'th SM) 
+--	Kid = 0 || L1D Acc = 6456982, -- Miss = 4603718, rate = 0.7130, -- PendHits = 62798, rate = 0.0097-- ResFail = 4894317, rate = 0.7580
+Error Per = 100 || Flushes = 46037 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 19'th SM) 
+--	Kid = 0 || L1D Acc = 6153435, -- Miss = 4215079, rate = 0.6850, -- PendHits = 60246, rate = 0.0098-- ResFail = 3959450, rate = 0.6435
+Error Per = 100 || Flushes = 42150 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 20'th SM) 
+--	Kid = 0 || L1D Acc = 6727221, -- Miss = 4757334, rate = 0.7072, -- PendHits = 65325, rate = 0.0097-- ResFail = 4430528, rate = 0.6586
+Error Per = 100 || Flushes = 47573 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 21'th SM) 
+--	Kid = 0 || L1D Acc = 7047059, -- Miss = 5113687, rate = 0.7256, -- PendHits = 68625, rate = 0.0097-- ResFail = 5168803, rate = 0.7335
+Error Per = 100 || Flushes = 51136 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 22'th SM) 
+--	Kid = 0 || L1D Acc = 6646846, -- Miss = 4648209, rate = 0.6993, -- PendHits = 64982, rate = 0.0098-- ResFail = 4175236, rate = 0.6282
+Error Per = 100 || Flushes = 46482 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 23'th SM) 
+--	Kid = 0 || L1D Acc = 6696861, -- Miss = 4683731, rate = 0.6994, -- PendHits = 63459, rate = 0.0095-- ResFail = 4102905, rate = 0.6127
+Error Per = 100 || Flushes = 46837 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 24'th SM) 
+--	Kid = 0 || L1D Acc = 6609895, -- Miss = 4615870, rate = 0.6983, -- PendHits = 64982, rate = 0.0098-- ResFail = 4753234, rate = 0.7191
+Error Per = 100 || Flushes = 46158 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 25'th SM) 
+--	Kid = 0 || L1D Acc = 6594576, -- Miss = 4602137, rate = 0.6979, -- PendHits = 61352, rate = 0.0093-- ResFail = 4834773, rate = 0.7331
+Error Per = 100 || Flushes = 46021 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 26'th SM) 
+--	Kid = 0 || L1D Acc = 6834008, -- Miss = 4952758, rate = 0.7247, -- PendHits = 65309, rate = 0.0096-- ResFail = 4884623, rate = 0.7148
+Error Per = 100 || Flushes = 49527 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 27'th SM) 
+--	Kid = 0 || L1D Acc = 6780832, -- Miss = 4924259, rate = 0.7262, -- PendHits = 65515, rate = 0.0097-- ResFail = 5005704, rate = 0.7382
+Error Per = 100 || Flushes = 49242 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 28'th SM) 
+--	Kid = 0 || L1D Acc = 6528130, -- Miss = 4598899, rate = 0.7045, -- PendHits = 64746, rate = 0.0099-- ResFail = 4405616, rate = 0.6749
+Error Per = 100 || Flushes = 45988 || slicingInterval = 5000
+--------------------------------------------------------------
+L1D access stats (for 29'th SM) 
+--	Kid = 0 || L1D Acc = 6418313, -- Miss = 4497954, rate = 0.7008, -- PendHits = 62616, rate = 0.0098-- ResFail = 4423496, rate = 0.6892
+Error Per = 100 || Flushes = 44979 || slicingInterval = 5000
+71222c4f3617a8b1cabdfefbc2d5f110  /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal
+Extracting PTX file and ptxas options    1: spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx -arch=sm_75
+Parallel calisiyor
+self exe links to: /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal
+self exe links to: /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal
+11.0
+GPGPU-Sim PTX: __cudaRegisterFatBinary, fat_cubin_handle = 1, filename=default
+self exe links to: /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal
+Running md5sum using "md5sum /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal "
+self exe links to: /home/pars/Documents/expSetups/a18/spmv_base_L1D_100__socLiveJournal
+Extracting specific PTX file named spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx 
+GPGPU-Sim PTX: __cudaRegisterFunction _Z15spmv_csr_scalariPKmPKiPKfS4_Pf : hostFun 0x0x557e7c6b537b, fat_cubin_handle = 1
+GPGPU-Sim PTX: Parsing spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx
+GPGPU-Sim PTX: Warning -- ignoring pragma 'nounroll'
+GPGPU-Sim PTX: instruction assembly for function '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...   done.
+GPGPU-Sim PTX: finished parsing EMBEDDED .ptx file spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx
+GPGPU-Sim PTX: loading globals with explicit initializers... 
+GPGPU-Sim PTX: finished loading globals (0 bytes total).
+GPGPU-Sim PTX: loading constants with explicit initializers...  done.
+GPGPU-Sim PTX: Loading PTXInfo from spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx
+GPGPU-Sim PTX: Kernel '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf' : regs=58, lmem=0, smem=0, cmem=400
+Sparse Matrix-Vector Multiplication by Xuhao Chen
+Reading (.mtx) input file ../../gardenia/datasets/soc-LiveJournal1.mtx
+Removing redundent edges... 0 redundent edges are removed
+|V| 4847571 |E| 68475391
+This graph maintains both incomming and outgoing edge-list
+Launching CUDA SpMV solver (18936 CTAs, 256 threads/CTA) ...
+GPGPU-Sim PTX: Setting up arguments for 4 bytes starting at 0x7ffcf04660cc..
+GPGPU-Sim PTX: Setting up arguments for 8 bytes starting at 0x7ffcf04660c0..
+GPGPU-Sim PTX: Setting up arguments for 8 bytes starting at 0x7ffcf04660b8..
+GPGPU-Sim PTX: Setting up arguments for 8 bytes starting at 0x7ffcf04660b0..
+GPGPU-Sim PTX: Setting up arguments for 8 bytes starting at 0x7ffcf04660a8..
+GPGPU-Sim PTX: Setting up arguments for 8 bytes starting at 0x7ffcf04660a0..
+
+GPGPU-Sim PTX: cudaLaunch for 0x0x557e7c6b537b (mode=performance simulation) on stream 0
+GPGPU-Sim PTX: finding reconvergence points for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: Finding dominators for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: Finding immediate dominators for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: Finding postdominators for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: Finding immediate postdominators for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: pre-decoding instructions for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'...
+GPGPU-Sim PTX: reconvergence points for _Z15spmv_csr_scalariPKmPKiPKfS4_Pf...
+GPGPU-Sim PTX:  1 (potential) branch divergence @  PC=0x070 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:44) @%p1 bra $L__BB0_9;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x2a8 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:130) ret;
+GPGPU-Sim PTX:  2 (potential) branch divergence @  PC=0x0c8 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:56) @%p2 bra $L__BB0_8;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x2a0 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:127) st.global.f32 [%rd4], %f27;
+GPGPU-Sim PTX:  3 (potential) branch divergence @  PC=0x0f0 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:62) @%p3 bra $L__BB0_5;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x178 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:85) not.b32 %r18, %r2;
+GPGPU-Sim PTX:  4 (potential) branch divergence @  PC=0x170 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:82) @%p4 bra $L__BB0_4;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x178 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:85) not.b32 %r18, %r2;
+GPGPU-Sim PTX:  5 (potential) branch divergence @  PC=0x190 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:88) @%p5 bra $L__BB0_8;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x2a0 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:127) st.global.f32 [%rd4], %f27;
+GPGPU-Sim PTX:  6 (potential) branch divergence @  PC=0x298 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:124) @%p6 bra $L__BB0_7;
+GPGPU-Sim PTX:    immediate post dominator      @  PC=0x2a0 (spmv_base_L1D_100__socLiveJournal.1.sm_75.ptx:127) st.global.f32 [%rd4], %f27;
+GPGPU-Sim PTX: ... end of reconvergence points for _Z15spmv_csr_scalariPKmPKiPKfS4_Pf
+GPGPU-Sim PTX: ... done pre-decoding instructions for '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'.
+GPGPU-Sim PTX: pushing kernel '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf' to stream 0, gridDim= (18936,1,1) blockDim = (256,1,1) 
+GPGPU-Sim uArch: Shader 0 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: CTA/core = 4, limited by: threads regs
+GPGPU-Sim: Reconfigure L1 cache to 64KB
+GPGPU-Sim uArch: Shader 1 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 2 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 3 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 4 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 5 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 6 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 7 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 8 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 9 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 10 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 11 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 12 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 13 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 14 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 15 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 16 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 17 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 18 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 19 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 20 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 21 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 22 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 23 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 24 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 25 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 26 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 27 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 28 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+GPGPU-Sim uArch: Shader 29 bind to kernel 1 '_Z15spmv_csr_scalariPKmPKiPKfS4_Pf'
+Simulation cycle for kernel 0 is = 10000
+Simulation cycle for kernel 0 is = 15000
+Simulation cycle for kernel 0 is = 20000
+Simulation cycle for kernel 0 is = 25000
+Simulation cycle for kernel 0 is = 30000
+Simulation cycle for kernel 0 is = 35000
+Simulation cycle for kernel 0 is = 40000
+Simulation cycle for kernel 0 is = 45000
+Simulation cycle for kernel 0 is = 50000
+Simulation cycle for kernel 0 is = 55000
+Simulation cycle for kernel 0 is = 60000
+Simulation cycle for kernel 0 is = 65000
+Simulation cycle for kernel 0 is = 70000
+Simulation cycle for kernel 0 is = 75000
+Simulation cycle for kernel 0 is = 80000
+Simulation cycle for kernel 0 is = 85000
+Simulation cycle for kernel 0 is = 90000
+Simulation cycle for kernel 0 is = 95000
+Simulation cycle for kernel 0 is = 100000
+Simulation cycle for kernel 0 is = 105000
+Simulation cycle for kernel 0 is = 110000
+Simulation cycle for kernel 0 is = 115000
+Simulation cycle for kernel 0 is = 120000
+Simulation cycle for kernel 0 is = 125000
+Simulation cycle for kernel 0 is = 130000
+Simulation cycle for kernel 0 is = 135000
+Simulation cycle for kernel 0 is = 140000
+Simulation cycle for kernel 0 is = 145000
+Simulation cycle for kernel 0 is = 150000
+Simulation cycle for kernel 0 is = 155000
+Simulation cycle for kernel 0 is = 160000
+Simulation cycle for kernel 0 is = 165000
+Simulation cycle for kernel 0 is = 170000
+Simulation cycle for kernel 0 is = 175000
+Simulation cycle for kernel 0 is = 180000
+Simulation cycle for kernel 0 is = 185000
+Simulation cycle for kernel 0 is = 190000
+Simulation cycle for kernel 0 is = 195000
+Simulation cycle for kernel 0 is = 200000
+Simulation cycle for kernel 0 is = 205000
+Simulation cycle for kernel 0 is = 210000
+Simulation cycle for kernel 0 is = 215000
+Simulation cycle for kernel 0 is = 220000
+Simulation cycle for kernel 0 is = 225000
+Simulation cycle for kernel 0 is = 230000
+Simulation cycle for kernel 0 is = 235000
+Simulation cycle for kernel 0 is = 240000
+Simulation cycle for kernel 0 is = 245000
+Simulation cycle for kernel 0 is = 250000
+Simulation cycle for kernel 0 is = 255000
+Simulation cycle for kernel 0 is = 260000
+Simulation cycle for kernel 0 is = 265000
+Simulation cycle for kernel 0 is = 270000
+Simulation cycle for kernel 0 is = 275000
+Simulation cycle for kernel 0 is = 280000
+Simulation cycle for kernel 0 is = 285000
+Simulation cycle for kernel 0 is = 290000
+Simulation cycle for kernel 0 is = 295000
+Simulation cycle for kernel 0 is = 300000
+Simulation cycle for kernel 0 is = 305000
+Simulation cycle for kernel 0 is = 310000
+Simulation cycle for kernel 0 is = 315000
+Simulation cycle for kernel 0 is = 320000
+Simulation cycle for kernel 0 is = 325000
+Simulation cycle for kernel 0 is = 330000
+Simulation cycle for kernel 0 is = 335000
+Simulation cycle for kernel 0 is = 340000
+Simulation cycle for kernel 0 is = 345000
+Simulation cycle for kernel 0 is = 350000
+Simulation cycle for kernel 0 is = 355000
+Simulation cycle for kernel 0 is = 360000
+Simulation cycle for kernel 0 is = 365000
+Simulation cycle for kernel 0 is = 370000
+Simulation cycle for kernel 0 is = 375000
+Simulation cycle for kernel 0 is = 380000
+Simulation cycle for kernel 0 is = 385000
+Simulation cycle for kernel 0 is = 390000
+Simulation cycle for kernel 0 is = 395000
+Simulation cycle for kernel 0 is = 400000
+Simulation cycle for kernel 0 is = 405000
+Simulation cycle for kernel 0 is = 410000
+Simulation cycle for kernel 0 is = 415000
+Simulation cycle for kernel 0 is = 420000
+Simulation cycle for kernel 0 is = 425000
+Simulation cycle for kernel 0 is = 430000
+Simulation cycle for kernel 0 is = 435000
+Simulation cycle for kernel 0 is = 440000
+Simulation cycle for kernel 0 is = 445000
+Simulation cycle for kernel 0 is = 450000
+Simulation cycle for kernel 0 is = 455000
+Simulation cycle for kernel 0 is = 460000
+Simulation cycle for kernel 0 is = 465000
+Simulation cycle for kernel 0 is = 470000
+Simulation cycle for kernel 0 is = 475000
+Simulation cycle for kernel 0 is = 480000
+Simulation cycle for kernel 0 is = 485000
+Simulation cycle for kernel 0 is = 490000
+Simulation cycle for kernel 0 is = 495000
+Simulation cycle for kernel 0 is = 500000
+Simulation cycle for kernel 0 is = 505000
+Simulation cycle for kernel 0 is = 510000
+Simulation cycle for kernel 0 is = 515000
+Simulation cycle for kernel 0 is = 520000
+Simulation cycle for kernel 0 is = 525000
+Simulation cycle for kernel 0 is = 530000
+Simulation cycle for kernel 0 is = 535000
+Simulation cycle for kernel 0 is = 540000
+Simulation cycle for kernel 0 is = 545000
+Simulation cycle for kernel 0 is = 550000
+Simulation cycle for kernel 0 is = 555000
+Simulation cycle for kernel 0 is = 560000
+Simulation cycle for kernel 0 is = 565000
+Simulation cycle for kernel 0 is = 570000
+Simulation cycle for kernel 0 is = 575000
+Simulation cycle for kernel 0 is = 580000
+Simulation cycle for kernel 0 is = 585000
+Simulation cycle for kernel 0 is = 590000
+Simulation cycle for kernel 0 is = 595000
+Simulation cycle for kernel 0 is = 600000
+Simulation cycle for kernel 0 is = 605000
+Simulation cycle for kernel 0 is = 610000
+Simulation cycle for kernel 0 is = 615000
+Simulation cycle for kernel 0 is = 620000
+Simulation cycle for kernel 0 is = 625000
+Simulation cycle for kernel 0 is = 630000
+Simulation cycle for kernel 0 is = 635000
+Simulation cycle for kernel 0 is = 640000
+Simulation cycle for kernel 0 is = 645000
+Simulation cycle for kernel 0 is = 650000
+Simulation cycle for kernel 0 is = 655000
+Simulation cycle for kernel 0 is = 660000
+Simulation cycle for kernel 0 is = 665000
+Simulation cycle for kernel 0 is = 670000
+Simulation cycle for kernel 0 is = 675000
+Simulation cycle for kernel 0 is = 680000
+Simulation cycle for kernel 0 is = 685000
+Simulation cycle for kernel 0 is = 690000
+Simulation cycle for kernel 0 is = 695000
+Simulation cycle for kernel 0 is = 700000
+Simulation cycle for kernel 0 is = 705000
+Simulation cycle for kernel 0 is = 710000
+Simulation cycle for kernel 0 is = 715000
+Simulation cycle for kernel 0 is = 720000
+Simulation cycle for kernel 0 is = 725000
+Simulation cycle for kernel 0 is = 730000
+Simulation cycle for kernel 0 is = 735000
+Simulation cycle for kernel 0 is = 740000
+Simulation cycle for kernel 0 is = 745000
+Simulation cycle for kernel 0 is = 750000
+Simulation cycle for kernel 0 is = 755000
+Simulation cycle for kernel 0 is = 760000
+Simulation cycle for kernel 0 is = 765000
+Simulation cycle for kernel 0 is = 770000
+Simulation cycle for kernel 0 is = 775000
+Simulation cycle for kernel 0 is = 780000
+Simulation cycle for kernel 0 is = 785000
+Simulation cycle for kernel 0 is = 790000
+Simulation cycle for kernel 0 is = 795000
+Simulation cycle for kernel 0 is = 800000
+Simulation cycle for kernel 0 is = 805000
+Simulation cycle for kernel 0 is = 810000
+Simulation cycle for kernel 0 is = 815000
+Simulation cycle for kernel 0 is = 820000
+Simulation cycle for kernel 0 is = 825000
+Simulation cycle for kernel 0 is = 830000
+Simulation cycle for kernel 0 is = 835000
+Simulation cycle for kernel 0 is = 840000
+Simulation cycle for kernel 0 is = 845000
+Simulation cycle for kernel 0 is = 850000
+Simulation cycle for kernel 0 is = 855000
+Simulation cycle for kernel 0 is = 860000
+Simulation cycle for kernel 0 is = 865000
+Simulation cycle for kernel 0 is = 870000
+Simulation cycle for kernel 0 is = 875000
+Simulation cycle for kernel 0 is = 880000
+Simulation cycle for kernel 0 is = 885000
+Simulation cycle for kernel 0 is = 890000
+Simulation cycle for kernel 0 is = 895000
+Simulation cycle for kernel 0 is = 900000
+Simulation cycle for kernel 0 is = 905000
+Simulation cycle for kernel 0 is = 910000
+Simulation cycle for kernel 0 is = 915000
+Simulation cycle for kernel 0 is = 920000
+Simulation cycle for kernel 0 is = 925000
+Simulation cycle for kernel 0 is = 930000
+Simulation cycle for kernel 0 is = 935000
+Simulation cycle for kernel 0 is = 940000
+Simulation cycle for kernel 0 is = 945000
+Simulation cycle for kernel 0 is = 950000
+Simulation cycle for kernel 0 is = 955000
+Simulation cycle for kernel 0 is = 960000
+Simulation cycle for kernel 0 is = 965000
+Simulation cycle for kernel 0 is = 970000
+Simulation cycle for kernel 0 is = 975000
+Simulation cycle for kernel 0 is = 980000
+Simulation cycle for kernel 0 is = 985000
+Simulation cycle for kernel 0 is = 990000
+Simulation cycle for kernel 0 is = 995000
+Simulation cycle for kernel 0 is = 1000000
+Simulation cycle for kernel 0 is = 1005000
+Simulation cycle for kernel 0 is = 1010000
+Simulation cycle for kernel 0 is = 1015000
+Simulation cycle for kernel 0 is = 1020000
+Simulation cycle for kernel 0 is = 1025000
+Simulation cycle for kernel 0 is = 1030000
+Simulation cycle for kernel 0 is = 1035000
+Simulation cycle for kernel 0 is = 1040000
+Simulation cycle for kernel 0 is = 1045000
+Simulation cycle for kernel 0 is = 1050000
+Simulation cycle for kernel 0 is = 1055000
+Simulation cycle for kernel 0 is = 1060000
+Simulation cycle for kernel 0 is = 1065000
+Simulation cycle for kernel 0 is = 1070000
+Simulation cycle for kernel 0 is = 1075000
+Simulation cycle for kernel 0 is = 1080000
+Simulation cycle for kernel 0 is = 1085000
+Simulation cycle for kernel 0 is = 1090000
+Simulation cycle for kernel 0 is = 1095000
+Simulation cycle for kernel 0 is = 1100000
+Simulation cycle for kernel 0 is = 1105000
+Simulation cycle for kernel 0 is = 1110000
+Simulation cycle for kernel 0 is = 1115000
+Simulation cycle for kernel 0 is = 1120000
+Simulation cycle for kernel 0 is = 1125000
+Simulation cycle for kernel 0 is = 1130000
+Simulation cycle for kernel 0 is = 1135000
+Simulation cycle for kernel 0 is = 1140000
+Simulation cycle for kernel 0 is = 1145000
+Simulation cycle for kernel 0 is = 1150000
+Simulation cycle for kernel 0 is = 1155000
+Simulation cycle for kernel 0 is = 1160000
+Simulation cycle for kernel 0 is = 1165000
+Simulation cycle for kernel 0 is = 1170000
+Simulation cycle for kernel 0 is = 1175000
+Simulation cycle for kernel 0 is = 1180000
+Simulation cycle for kernel 0 is = 1185000
+Simulation cycle for kernel 0 is = 1190000
+Simulation cycle for kernel 0 is = 1195000
+Simulation cycle for kernel 0 is = 1200000
+Simulation cycle for kernel 0 is = 1205000
+Simulation cycle for kernel 0 is = 1210000
+Simulation cycle for kernel 0 is = 1215000
+Simulation cycle for kernel 0 is = 1220000
+Simulation cycle for kernel 0 is = 1225000
+Simulation cycle for kernel 0 is = 1230000
+Simulation cycle for kernel 0 is = 1235000
+Simulation cycle for kernel 0 is = 1240000
+Simulation cycle for kernel 0 is = 1245000
+Simulation cycle for kernel 0 is = 1250000
+Simulation cycle for kernel 0 is = 1255000
+Simulation cycle for kernel 0 is = 1260000
+Simulation cycle for kernel 0 is = 1265000
+Simulation cycle for kernel 0 is = 1270000
+Simulation cycle for kernel 0 is = 1275000
+Simulation cycle for kernel 0 is = 1280000
+Simulation cycle for kernel 0 is = 1285000
+Simulation cycle for kernel 0 is = 1290000
+Simulation cycle for kernel 0 is = 1295000
+Simulation cycle for kernel 0 is = 1300000
+Simulation cycle for kernel 0 is = 1305000
+Simulation cycle for kernel 0 is = 1310000
+Simulation cycle for kernel 0 is = 1315000
+Simulation cycle for kernel 0 is = 1320000
+Simulation cycle for kernel 0 is = 1325000
+Simulation cycle for kernel 0 is = 1330000
+Simulation cycle for kernel 0 is = 1335000
+Simulation cycle for kernel 0 is = 1340000
+Simulation cycle for kernel 0 is = 1345000
+Simulation cycle for kernel 0 is = 1350000
+Simulation cycle for kernel 0 is = 1355000
+Simulation cycle for kernel 0 is = 1360000
+Simulation cycle for kernel 0 is = 1365000
+Simulation cycle for kernel 0 is = 1370000
+Simulation cycle for kernel 0 is = 1375000
+Simulation cycle for kernel 0 is = 1380000
+Simulation cycle for kernel 0 is = 1385000
+Simulation cycle for kernel 0 is = 1390000
+Simulation cycle for kernel 0 is = 1395000
+Simulation cycle for kernel 0 is = 1400000
+Simulation cycle for kernel 0 is = 1405000
+Simulation cycle for kernel 0 is = 1410000
+Simulation cycle for kernel 0 is = 1415000
+Simulation cycle for kernel 0 is = 1420000
+Simulation cycle for kernel 0 is = 1425000
+Simulation cycle for kernel 0 is = 1430000
+Simulation cycle for kernel 0 is = 1435000
+Simulation cycle for kernel 0 is = 1440000
+Simulation cycle for kernel 0 is = 1445000
+Simulation cycle for kernel 0 is = 1450000
+Simulation cycle for kernel 0 is = 1455000
+Simulation cycle for kernel 0 is = 1460000
+Simulation cycle for kernel 0 is = 1465000
+Simulation cycle for kernel 0 is = 1470000
+Simulation cycle for kernel 0 is = 1475000
+Simulation cycle for kernel 0 is = 1480000
+Simulation cycle for kernel 0 is = 1485000
+Simulation cycle for kernel 0 is = 1490000
+Simulation cycle for kernel 0 is = 1495000
+Simulation cycle for kernel 0 is = 1500000
+Simulation cycle for kernel 0 is = 1505000
+Simulation cycle for kernel 0 is = 1510000
+Simulation cycle for kernel 0 is = 1515000
+Simulation cycle for kernel 0 is = 1520000
+Simulation cycle for kernel 0 is = 1525000
+Simulation cycle for kernel 0 is = 1530000
+Simulation cycle for kernel 0 is = 1535000
+Simulation cycle for kernel 0 is = 1540000
+Simulation cycle for kernel 0 is = 1545000
+Simulation cycle for kernel 0 is = 1550000
+Simulation cycle for kernel 0 is = 1555000
+Simulation cycle for kernel 0 is = 1560000
+Simulation cycle for kernel 0 is = 1565000
+Simulation cycle for kernel 0 is = 1570000
+Simulation cycle for kernel 0 is = 1575000
+Simulation cycle for kernel 0 is = 1580000
+Simulation cycle for kernel 0 is = 1585000
+Simulation cycle for kernel 0 is = 1590000
+Simulation cycle for kernel 0 is = 1595000
+Simulation cycle for kernel 0 is = 1600000
+Simulation cycle for kernel 0 is = 1605000
+Simulation cycle for kernel 0 is = 1610000
+Simulation cycle for kernel 0 is = 1615000
+Simulation cycle for kernel 0 is = 1620000
+Simulation cycle for kernel 0 is = 1625000
+Simulation cycle for kernel 0 is = 1630000
+Simulation cycle for kernel 0 is = 1635000
+Simulation cycle for kernel 0 is = 1640000
+Simulation cycle for kernel 0 is = 1645000
+Simulation cycle for kernel 0 is = 1650000
+Simulation cycle for kernel 0 is = 1655000
+Simulation cycle for kernel 0 is = 1660000
+Simulation cycle for kernel 0 is = 1665000
+Simulation cycle for kernel 0 is = 1670000
+Simulation cycle for kernel 0 is = 1675000
+Simulation cycle for kernel 0 is = 1680000
+Simulation cycle for kernel 0 is = 1685000
+Simulation cycle for kernel 0 is = 1690000
+Simulation cycle for kernel 0 is = 1695000
+Simulation cycle for kernel 0 is = 1700000
+Simulation cycle for kernel 0 is = 1705000
+Simulation cycle for kernel 0 is = 1710000
+Simulation cycle for kernel 0 is = 1715000
+Simulation cycle for kernel 0 is = 1720000
+Simulation cycle for kernel 0 is = 1725000
+Simulation cycle for kernel 0 is = 1730000
+Simulation cycle for kernel 0 is = 1735000
+Simulation cycle for kernel 0 is = 1740000
+Simulation cycle for kernel 0 is = 1745000
+Simulation cycle for kernel 0 is = 1750000
+Simulation cycle for kernel 0 is = 1755000
+Simulation cycle for kernel 0 is = 1760000
+Simulation cycle for kernel 0 is = 1765000
+Simulation cycle for kernel 0 is = 1770000
+Simulation cycle for kernel 0 is = 1775000
+Simulation cycle for kernel 0 is = 1780000
+Simulation cycle for kernel 0 is = 1785000
+Simulation cycle for kernel 0 is = 1790000
+Simulation cycle for kernel 0 is = 1795000
+Simulation cycle for kernel 0 is = 1800000
+Simulation cycle for kernel 0 is = 1805000
+Simulation cycle for kernel 0 is = 1810000
+Simulation cycle for kernel 0 is = 1815000
+Simulation cycle for kernel 0 is = 1820000
+Simulation cycle for kernel 0 is = 1825000
+Simulation cycle for kernel 0 is = 1830000
+Simulation cycle for kernel 0 is = 1835000
+Simulation cycle for kernel 0 is = 1840000
+Simulation cycle for kernel 0 is = 1845000
+Simulation cycle for kernel 0 is = 1850000
+Simulation cycle for kernel 0 is = 1855000
+Simulation cycle for kernel 0 is = 1860000
+Simulation cycle for kernel 0 is = 1865000
+Simulation cycle for kernel 0 is = 1870000
+Simulation cycle for kernel 0 is = 1875000
+Simulation cycle for kernel 0 is = 1880000
+Simulation cycle for kernel 0 is = 1885000
+Simulation cycle for kernel 0 is = 1890000
+Simulation cycle for kernel 0 is = 1895000
+Simulation cycle for kernel 0 is = 1900000
+Simulation cycle for kernel 0 is = 1905000
+Simulation cycle for kernel 0 is = 1910000
+Simulation cycle for kernel 0 is = 1915000
+Simulation cycle for kernel 0 is = 1920000
+Simulation cycle for kernel 0 is = 1925000
+Simulation cycle for kernel 0 is = 1930000
+Simulation cycle for kernel 0 is = 1935000
+Simulation cycle for kernel 0 is = 1940000
+Simulation cycle for kernel 0 is = 1945000
+Simulation cycle for kernel 0 is = 1950000
+Simulation cycle for kernel 0 is = 1955000
+Simulation cycle for kernel 0 is = 1960000
+Simulation cycle for kernel 0 is = 1965000
+Simulation cycle for kernel 0 is = 1970000
+Simulation cycle for kernel 0 is = 1975000
+Simulation cycle for kernel 0 is = 1980000
+Simulation cycle for kernel 0 is = 1985000
+Simulation cycle for kernel 0 is = 1990000
+Simulation cycle for kernel 0 is = 1995000
+Simulation cycle for kernel 0 is = 2000000
+Simulation cycle for kernel 0 is = 2005000
+Simulation cycle for kernel 0 is = 2010000
+Simulation cycle for kernel 0 is = 2015000
+Simulation cycle for kernel 0 is = 2020000
+Simulation cycle for kernel 0 is = 2025000
+Simulation cycle for kernel 0 is = 2030000
+Simulation cycle for kernel 0 is = 2035000
+Simulation cycle for kernel 0 is = 2040000
+Simulation cycle for kernel 0 is = 2045000
+Simulation cycle for kernel 0 is = 2050000
+Simulation cycle for kernel 0 is = 2055000
+Simulation cycle for kernel 0 is = 2060000
+Simulation cycle for kernel 0 is = 2065000
+Simulation cycle for kernel 0 is = 2070000
+Simulation cycle for kernel 0 is = 2075000
+Simulation cycle for kernel 0 is = 2080000
+Simulation cycle for kernel 0 is = 2085000
+Simulation cycle for kernel 0 is = 2090000
+Simulation cycle for kernel 0 is = 2095000
+Simulation cycle for kernel 0 is = 2100000
+Simulation cycle for kernel 0 is = 2105000
+Simulation cycle for kernel 0 is = 2110000
+Simulation cycle for kernel 0 is = 2115000
+Simulation cycle for kernel 0 is = 2120000
+Simulation cycle for kernel 0 is = 2125000
+Simulation cycle for kernel 0 is = 2130000
+Simulation cycle for kernel 0 is = 2135000
+Simulation cycle for kernel 0 is = 2140000
+Simulation cycle for kernel 0 is = 2145000
+Simulation cycle for kernel 0 is = 2150000
+Simulation cycle for kernel 0 is = 2155000
+Simulation cycle for kernel 0 is = 2160000
+Simulation cycle for kernel 0 is = 2165000
+Simulation cycle for kernel 0 is = 2170000
+Simulation cycle for kernel 0 is = 2175000
+Simulation cycle for kernel 0 is = 2180000
+Simulation cycle for kernel 0 is = 2185000
+Simulation cycle for kernel 0 is = 2190000
+Simulation cycle for kernel 0 is = 2195000
+Simulation cycle for kernel 0 is = 2200000
+Simulation cycle for kernel 0 is = 2205000
+Simulation cycle for kernel 0 is = 2210000
+Simulation cycle for kernel 0 is = 2215000
+Simulation cycle for kernel 0 is = 2220000
+Simulation cycle for kernel 0 is = 2225000
+Simulation cycle for kernel 0 is = 2230000
+Simulation cycle for kernel 0 is = 2235000
+Simulation cycle for kernel 0 is = 2240000
+Simulation cycle for kernel 0 is = 2245000
+Simulation cycle for kernel 0 is = 2250000
+Simulation cycle for kernel 0 is = 2255000
+Simulation cycle for kernel 0 is = 2260000
+Simulation cycle for kernel 0 is = 2265000
+Simulation cycle for kernel 0 is = 2270000
+Simulation cycle for kernel 0 is = 2275000
+Simulation cycle for kernel 0 is = 2280000
+Simulation cycle for kernel 0 is = 2285000
+Simulation cycle for kernel 0 is = 2290000
+Simulation cycle for kernel 0 is = 2295000
+Simulation cycle for kernel 0 is = 2300000
+Simulation cycle for kernel 0 is = 2305000
+Simulation cycle for kernel 0 is = 2310000
+Simulation cycle for kernel 0 is = 2315000
+Simulation cycle for kernel 0 is = 2320000
+Simulation cycle for kernel 0 is = 2325000
+Simulation cycle for kernel 0 is = 2330000
+Simulation cycle for kernel 0 is = 2335000
+Simulation cycle for kernel 0 is = 2340000
+Simulation cycle for kernel 0 is = 2345000
+Simulation cycle for kernel 0 is = 2350000
+Simulation cycle for kernel 0 is = 2355000
+Simulation cycle for kernel 0 is = 2360000
+Simulation cycle for kernel 0 is = 2365000
+Simulation cycle for kernel 0 is = 2370000
+Simulation cycle for kernel 0 is = 2375000
+Simulation cycle for kernel 0 is = 2380000
+Simulation cycle for kernel 0 is = 2385000
+Simulation cycle for kernel 0 is = 2390000
+Simulation cycle for kernel 0 is = 2395000
+Simulation cycle for kernel 0 is = 2400000
+Simulation cycle for kernel 0 is = 2405000
+Simulation cycle for kernel 0 is = 2410000
+Simulation cycle for kernel 0 is = 2415000
+Simulation cycle for kernel 0 is = 2420000
+Simulation cycle for kernel 0 is = 2425000
+Simulation cycle for kernel 0 is = 2430000
+Simulation cycle for kernel 0 is = 2435000
+Simulation cycle for kernel 0 is = 2440000
+Simulation cycle for kernel 0 is = 2445000
+Simulation cycle for kernel 0 is = 2450000
+Simulation cycle for kernel 0 is = 2455000
+Simulation cycle for kernel 0 is = 2460000
+Simulation cycle for kernel 0 is = 2465000
+Simulation cycle for kernel 0 is = 2470000
+Simulation cycle for kernel 0 is = 2475000
+Simulation cycle for kernel 0 is = 2480000
+Simulation cycle for kernel 0 is = 2485000
+Simulation cycle for kernel 0 is = 2490000
+Simulation cycle for kernel 0 is = 2495000
+Simulation cycle for kernel 0 is = 2500000
+Simulation cycle for kernel 0 is = 2505000
+Simulation cycle for kernel 0 is = 2510000
+Simulation cycle for kernel 0 is = 2515000
+Simulation cycle for kernel 0 is = 2520000
+Simulation cycle for kernel 0 is = 2525000
+Simulation cycle for kernel 0 is = 2530000
+Simulation cycle for kernel 0 is = 2535000
+Simulation cycle for kernel 0 is = 2540000
+Simulation cycle for kernel 0 is = 2545000
+Simulation cycle for kernel 0 is = 2550000
+Simulation cycle for kernel 0 is = 2555000
+Simulation cycle for kernel 0 is = 2560000
+Simulation cycle for kernel 0 is = 2565000
+Simulation cycle for kernel 0 is = 2570000
+Simulation cycle for kernel 0 is = 2575000
+Simulation cycle for kernel 0 is = 2580000
+Simulation cycle for kernel 0 is = 2585000
+Simulation cycle for kernel 0 is = 2590000
+Simulation cycle for kernel 0 is = 2595000
+Simulation cycle for kernel 0 is = 2600000
+Simulation cycle for kernel 0 is = 2605000
+Simulation cycle for kernel 0 is = 2610000
+Simulation cycle for kernel 0 is = 2615000
+Simulation cycle for kernel 0 is = 2620000
+Simulation cycle for kernel 0 is = 2625000
+Simulation cycle for kernel 0 is = 2630000
+Simulation cycle for kernel 0 is = 2635000
+Simulation cycle for kernel 0 is = 2640000
+Simulation cycle for kernel 0 is = 2645000
+Simulation cycle for kernel 0 is = 2650000
+Simulation cycle for kernel 0 is = 2655000
+Simulation cycle for kernel 0 is = 2660000
+Simulation cycle for kernel 0 is = 2665000
+Simulation cycle for kernel 0 is = 2670000
+Simulation cycle for kernel 0 is = 2675000
+Simulation cycle for kernel 0 is = 2680000
+Simulation cycle for kernel 0 is = 2685000
+Simulation cycle for kernel 0 is = 2690000
+Simulation cycle for kernel 0 is = 2695000
+Simulation cycle for kernel 0 is = 2700000
+Simulation cycle for kernel 0 is = 2705000
+Simulation cycle for kernel 0 is = 2710000
+Simulation cycle for kernel 0 is = 2715000
+Simulation cycle for kernel 0 is = 2720000
+Simulation cycle for kernel 0 is = 2725000
+Simulation cycle for kernel 0 is = 2730000
+Simulation cycle for kernel 0 is = 2735000
+Simulation cycle for kernel 0 is = 2740000
+Simulation cycle for kernel 0 is = 2745000
+Simulation cycle for kernel 0 is = 2750000
+Simulation cycle for kernel 0 is = 2755000
+Simulation cycle for kernel 0 is = 2760000
+Simulation cycle for kernel 0 is = 2765000
+Simulation cycle for kernel 0 is = 2770000
+Simulation cycle for kernel 0 is = 2775000
+Simulation cycle for kernel 0 is = 2780000
+Simulation cycle for kernel 0 is = 2785000
+Simulation cycle for kernel 0 is = 2790000
+Simulation cycle for kernel 0 is = 2795000
+Simulation cycle for kernel 0 is = 2800000
+Simulation cycle for kernel 0 is = 2805000
+Simulation cycle for kernel 0 is = 2810000
+Simulation cycle for kernel 0 is = 2815000
+Simulation cycle for kernel 0 is = 2820000
+Simulation cycle for kernel 0 is = 2825000
+Simulation cycle for kernel 0 is = 2830000
+Simulation cycle for kernel 0 is = 2835000
+Simulation cycle for kernel 0 is = 2840000
+Simulation cycle for kernel 0 is = 2845000
+Simulation cycle for kernel 0 is = 2850000
+Simulation cycle for kernel 0 is = 2855000
+Simulation cycle for kernel 0 is = 2860000
+Simulation cycle for kernel 0 is = 2865000
+Simulation cycle for kernel 0 is = 2870000
+Simulation cycle for kernel 0 is = 2875000
+Simulation cycle for kernel 0 is = 2880000
+Simulation cycle for kernel 0 is = 2885000
+Simulation cycle for kernel 0 is = 2890000
+Simulation cycle for kernel 0 is = 2895000
+Simulation cycle for kernel 0 is = 2900000
+Simulation cycle for kernel 0 is = 2905000
+Simulation cycle for kernel 0 is = 2910000
+Simulation cycle for kernel 0 is = 2915000
+Simulation cycle for kernel 0 is = 2920000
+Simulation cycle for kernel 0 is = 2925000
+Simulation cycle for kernel 0 is = 2930000
+Simulation cycle for kernel 0 is = 2935000
+Simulation cycle for kernel 0 is = 2940000
+Simulation cycle for kernel 0 is = 2945000
+Simulation cycle for kernel 0 is = 2950000
+Simulation cycle for kernel 0 is = 2955000
+Simulation cycle for kernel 0 is = 2960000
+Simulation cycle for kernel 0 is = 2965000
+Simulation cycle for kernel 0 is = 2970000
+Simulation cycle for kernel 0 is = 2975000
+Simulation cycle for kernel 0 is = 2980000
+Simulation cycle for kernel 0 is = 2985000
+Simulation cycle for kernel 0 is = 2990000
+Simulation cycle for kernel 0 is = 2995000
+Simulation cycle for kernel 0 is = 3000000
+Simulation cycle for kernel 0 is = 3005000
+Simulation cycle for kernel 0 is = 3010000
+Simulation cycle for kernel 0 is = 3015000
+Simulation cycle for kernel 0 is = 3020000
+Simulation cycle for kernel 0 is = 3025000
+Simulation cycle for kernel 0 is = 3030000
+Simulation cycle for kernel 0 is = 3035000
+Simulation cycle for kernel 0 is = 3040000
+Simulation cycle for kernel 0 is = 3045000
+Simulation cycle for kernel 0 is = 3050000
+Simulation cycle for kernel 0 is = 3055000
+Simulation cycle for kernel 0 is = 3060000
+Simulation cycle for kernel 0 is = 3065000
+Simulation cycle for kernel 0 is = 3070000
+Simulation cycle for kernel 0 is = 3075000
+Simulation cycle for kernel 0 is = 3080000
+Simulation cycle for kernel 0 is = 3085000
+Simulation cycle for kernel 0 is = 3090000
+Simulation cycle for kernel 0 is = 3095000
+Simulation cycle for kernel 0 is = 3100000
+Simulation cycle for kernel 0 is = 3105000
+Simulation cycle for kernel 0 is = 3110000
+Simulation cycle for kernel 0 is = 3115000
+Simulation cycle for kernel 0 is = 3120000
+Simulation cycle for kernel 0 is = 3125000
+Simulation cycle for kernel 0 is = 3130000
+Simulation cycle for kernel 0 is = 3135000
+Simulation cycle for kernel 0 is = 3140000
+Simulation cycle for kernel 0 is = 3145000
+Simulation cycle for kernel 0 is = 3150000
+Simulation cycle for kernel 0 is = 3155000
+Simulation cycle for kernel 0 is = 3160000
+Simulation cycle for kernel 0 is = 3165000
+Simulation cycle for kernel 0 is = 3170000
+Simulation cycle for kernel 0 is = 3175000
+Simulation cycle for kernel 0 is = 3180000
+Simulation cycle for kernel 0 is = 3185000
+Simulation cycle for kernel 0 is = 3190000
+Simulation cycle for kernel 0 is = 3195000
+Simulation cycle for kernel 0 is = 3200000
+Simulation cycle for kernel 0 is = 3205000
+Simulation cycle for kernel 0 is = 3210000
+Simulation cycle for kernel 0 is = 3215000
+Simulation cycle for kernel 0 is = 3220000
+Simulation cycle for kernel 0 is = 3225000
+Simulation cycle for kernel 0 is = 3230000
+Simulation cycle for kernel 0 is = 3235000
+Simulation cycle for kernel 0 is = 3240000
+Simulation cycle for kernel 0 is = 3245000
+Simulation cycle for kernel 0 is = 3250000
+Simulation cycle for kernel 0 is = 3255000
+Simulation cycle for kernel 0 is = 3260000
+Simulation cycle for kernel 0 is = 3265000
+Simulation cycle for kernel 0 is = 3270000
+Simulation cycle for kernel 0 is = 3275000
+Simulation cycle for kernel 0 is = 3280000
+Simulation cycle for kernel 0 is = 3285000
+Simulation cycle for kernel 0 is = 3290000
+Simulation cycle for kernel 0 is = 3295000
+Simulation cycle for kernel 0 is = 3300000
+Simulation cycle for kernel 0 is = 3305000
+Simulation cycle for kernel 0 is = 3310000
+Simulation cycle for kernel 0 is = 3315000
+Simulation cycle for kernel 0 is = 3320000
+Simulation cycle for kernel 0 is = 3325000
+Simulation cycle for kernel 0 is = 3330000
+Simulation cycle for kernel 0 is = 3335000
+Simulation cycle for kernel 0 is = 3340000
+Simulation cycle for kernel 0 is = 3345000
+Simulation cycle for kernel 0 is = 3350000
+Simulation cycle for kernel 0 is = 3355000
+Simulation cycle for kernel 0 is = 3360000
+Simulation cycle for kernel 0 is = 3365000
+Simulation cycle for kernel 0 is = 3370000
+Simulation cycle for kernel 0 is = 3375000
+Simulation cycle for kernel 0 is = 3380000
+Simulation cycle for kernel 0 is = 3385000
+Simulation cycle for kernel 0 is = 3390000
+Simulation cycle for kernel 0 is = 3395000
+Simulation cycle for kernel 0 is = 3400000
+Simulation cycle for kernel 0 is = 3405000
+Simulation cycle for kernel 0 is = 3410000
+Simulation cycle for kernel 0 is = 3415000
+Simulation cycle for kernel 0 is = 3420000
+Simulation cycle for kernel 0 is = 3425000
+Simulation cycle for kernel 0 is = 3430000
+Simulation cycle for kernel 0 is = 3435000
+Simulation cycle for kernel 0 is = 3440000
+Simulation cycle for kernel 0 is = 3445000
+Simulation cycle for kernel 0 is = 3450000
+Simulation cycle for kernel 0 is = 3455000
+Simulation cycle for kernel 0 is = 3460000
+Simulation cycle for kernel 0 is = 3465000
+Simulation cycle for kernel 0 is = 3470000
+Simulation cycle for kernel 0 is = 3475000
+Simulation cycle for kernel 0 is = 3480000
+Simulation cycle for kernel 0 is = 3485000
+Simulation cycle for kernel 0 is = 3490000
+Simulation cycle for kernel 0 is = 3495000
+Simulation cycle for kernel 0 is = 3500000
+Simulation cycle for kernel 0 is = 3505000
+Simulation cycle for kernel 0 is = 3510000
+Simulation cycle for kernel 0 is = 3515000
+Simulation cycle for kernel 0 is = 3520000
+Simulation cycle for kernel 0 is = 3525000
+Simulation cycle for kernel 0 is = 3530000
+Simulation cycle for kernel 0 is = 3535000
+Simulation cycle for kernel 0 is = 3540000
+Simulation cycle for kernel 0 is = 3545000
+Simulation cycle for kernel 0 is = 3550000
+Simulation cycle for kernel 0 is = 3555000
+Simulation cycle for kernel 0 is = 3560000
+Simulation cycle for kernel 0 is = 3565000
+Simulation cycle for kernel 0 is = 3570000
+Simulation cycle for kernel 0 is = 3575000
+Simulation cycle for kernel 0 is = 3580000
+Simulation cycle for kernel 0 is = 3585000
+Simulation cycle for kernel 0 is = 3590000
+Simulation cycle for kernel 0 is = 3595000
+Simulation cycle for kernel 0 is = 3600000
+Simulation cycle for kernel 0 is = 3605000
+Simulation cycle for kernel 0 is = 3610000
+Simulation cycle for kernel 0 is = 3615000
+Simulation cycle for kernel 0 is = 3620000
+Simulation cycle for kernel 0 is = 3625000
+Simulation cycle for kernel 0 is = 3630000
+Simulation cycle for kernel 0 is = 3635000
+Simulation cycle for kernel 0 is = 3640000
+Simulation cycle for kernel 0 is = 3645000
+Simulation cycle for kernel 0 is = 3650000
+Simulation cycle for kernel 0 is = 3655000
+Simulation cycle for kernel 0 is = 3660000
+Simulation cycle for kernel 0 is = 3665000
+Simulation cycle for kernel 0 is = 3670000
+Simulation cycle for kernel 0 is = 3675000
+Simulation cycle for kernel 0 is = 3680000
+Simulation cycle for kernel 0 is = 3685000
+Simulation cycle for kernel 0 is = 3690000
+Simulation cycle for kernel 0 is = 3695000
+Simulation cycle for kernel 0 is = 3700000
+Simulation cycle for kernel 0 is = 3705000
+Simulation cycle for kernel 0 is = 3710000
+Simulation cycle for kernel 0 is = 3715000
+Simulation cycle for kernel 0 is = 3720000
+Simulation cycle for kernel 0 is = 3725000
+Simulation cycle for kernel 0 is = 3730000
+Simulation cycle for kernel 0 is = 3735000
+Simulation cycle for kernel 0 is = 3740000
+Simulation cycle for kernel 0 is = 3745000
+Simulation cycle for kernel 0 is = 3750000
+Simulation cycle for kernel 0 is = 3755000
+Simulation cycle for kernel 0 is = 3760000
+Simulation cycle for kernel 0 is = 3765000
+Simulation cycle for kernel 0 is = 3770000
+Simulation cycle for kernel 0 is = 3775000
+Simulation cycle for kernel 0 is = 3780000
+Simulation cycle for kernel 0 is = 3785000
+Simulation cycle for kernel 0 is = 3790000
+Simulation cycle for kernel 0 is = 3795000
+Simulation cycle for kernel 0 is = 3800000
+Simulation cycle for kernel 0 is = 3805000
+Simulation cycle for kernel 0 is = 3810000
+Simulation cycle for kernel 0 is = 3815000
+Simulation cycle for kernel 0 is = 3820000
+Simulation cycle for kernel 0 is = 3825000
+Simulation cycle for kernel 0 is = 3830000
+Simulation cycle for kernel 0 is = 3835000
+Simulation cycle for kernel 0 is = 3840000
+Simulation cycle for kernel 0 is = 3845000
+Simulation cycle for kernel 0 is = 3850000
+Simulation cycle for kernel 0 is = 3855000
+Simulation cycle for kernel 0 is = 3860000
+Simulation cycle for kernel 0 is = 3865000
+Simulation cycle for kernel 0 is = 3870000
+Simulation cycle for kernel 0 is = 3875000
+Simulation cycle for kernel 0 is = 3880000
+Simulation cycle for kernel 0 is = 3885000
+Simulation cycle for kernel 0 is = 3890000
+Simulation cycle for kernel 0 is = 3895000
+Simulation cycle for kernel 0 is = 3900000
+Simulation cycle for kernel 0 is = 3905000
+Simulation cycle for kernel 0 is = 3910000
+Simulation cycle for kernel 0 is = 3915000
+Simulation cycle for kernel 0 is = 3920000
+Simulation cycle for kernel 0 is = 3925000
+Simulation cycle for kernel 0 is = 3930000
+Simulation cycle for kernel 0 is = 3935000
+Simulation cycle for kernel 0 is = 3940000
+Simulation cycle for kernel 0 is = 3945000
+Simulation cycle for kernel 0 is = 3950000
+Simulation cycle for kernel 0 is = 3955000
+Simulation cycle for kernel 0 is = 3960000
+Simulation cycle for kernel 0 is = 3965000
+Simulation cycle for kernel 0 is = 3970000
+Simulation cycle for kernel 0 is = 3975000
+Simulation cycle for kernel 0 is = 3980000
+Simulation cycle for kernel 0 is = 3985000
+Simulation cycle for kernel 0 is = 3990000
+Simulation cycle for kernel 0 is = 3995000
+Simulation cycle for kernel 0 is = 4000000
+Simulation cycle for kernel 0 is = 4005000
+Simulation cycle for kernel 0 is = 4010000
+Simulation cycle for kernel 0 is = 4015000
+Simulation cycle for kernel 0 is = 4020000
+Simulation cycle for kernel 0 is = 4025000
+Simulation cycle for kernel 0 is = 4030000
+Simulation cycle for kernel 0 is = 4035000
+Simulation cycle for kernel 0 is = 4040000
+Simulation cycle for kernel 0 is = 4045000
+Simulation cycle for kernel 0 is = 4050000
+Simulation cycle for kernel 0 is = 4055000
+Simulation cycle for kernel 0 is = 4060000
+Simulation cycle for kernel 0 is = 4065000
+Simulation cycle for kernel 0 is = 4070000
+Simulation cycle for kernel 0 is = 4075000
+Simulation cycle for kernel 0 is = 4080000
+Simulation cycle for kernel 0 is = 4085000
+Simulation cycle for kernel 0 is = 4090000
+Simulation cycle for kernel 0 is = 4095000
+Simulation cycle for kernel 0 is = 4100000
+Simulation cycle for kernel 0 is = 4105000
+Simulation cycle for kernel 0 is = 4110000
+Simulation cycle for kernel 0 is = 4115000
+Simulation cycle for kernel 0 is = 4120000
+Simulation cycle for kernel 0 is = 4125000
+Simulation cycle for kernel 0 is = 4130000
+Simulation cycle for kernel 0 is = 4135000
+Simulation cycle for kernel 0 is = 4140000
+Simulation cycle for kernel 0 is = 4145000
+Simulation cycle for kernel 0 is = 4150000
+Simulation cycle for kernel 0 is = 4155000
+Simulation cycle for kernel 0 is = 4160000
+Simulation cycle for kernel 0 is = 4165000
+Simulation cycle for kernel 0 is = 4170000
+Simulation cycle for kernel 0 is = 4175000
+Simulation cycle for kernel 0 is = 4180000
+Simulation cycle for kernel 0 is = 4185000
+Simulation cycle for kernel 0 is = 4190000
+Simulation cycle for kernel 0 is = 4195000
+Simulation cycle for kernel 0 is = 4200000
+Simulation cycle for kernel 0 is = 4205000
+Simulation cycle for kernel 0 is = 4210000
+Simulation cycle for kernel 0 is = 4215000
+Simulation cycle for kernel 0 is = 4220000
+Simulation cycle for kernel 0 is = 4225000
+Simulation cycle for kernel 0 is = 4230000
+Simulation cycle for kernel 0 is = 4235000
+Simulation cycle for kernel 0 is = 4240000
+Simulation cycle for kernel 0 is = 4245000
+Simulation cycle for kernel 0 is = 4250000
+Simulation cycle for kernel 0 is = 4255000
+Simulation cycle for kernel 0 is = 4260000
+Simulation cycle for kernel 0 is = 4265000
+Simulation cycle for kernel 0 is = 4270000
+Simulation cycle for kernel 0 is = 4275000
+Simulation cycle for kernel 0 is = 4280000
+Simulation cycle for kernel 0 is = 4285000
+Simulation cycle for kernel 0 is = 4290000
+Simulation cycle for kernel 0 is = 4295000
+Simulation cycle for kernel 0 is = 4300000
+Simulation cycle for kernel 0 is = 4305000
+Simulation cycle for kernel 0 is = 4310000
+Simulation cycle for kernel 0 is = 4315000
+Simulation cycle for kernel 0 is = 4320000
+Simulation cycle for kernel 0 is = 4325000
+Simulation cycle for kernel 0 is = 4330000
+Simulation cycle for kernel 0 is = 4335000
+Simulation cycle for kernel 0 is = 4340000
+Simulation cycle for kernel 0 is = 4345000
+Simulation cycle for kernel 0 is = 4350000
+Simulation cycle for kernel 0 is = 4355000
+Simulation cycle for kernel 0 is = 4360000
+Simulation cycle for kernel 0 is = 4365000
+Simulation cycle for kernel 0 is = 4370000
+Simulation cycle for kernel 0 is = 4375000
+Simulation cycle for kernel 0 is = 4380000
+Simulation cycle for kernel 0 is = 4385000
+Simulation cycle for kernel 0 is = 4390000
+Simulation cycle for kernel 0 is = 4395000
+Simulation cycle for kernel 0 is = 4400000
+Simulation cycle for kernel 0 is = 4405000
+Simulation cycle for kernel 0 is = 4410000
+Simulation cycle for kernel 0 is = 4415000
+Simulation cycle for kernel 0 is = 4420000
+Simulation cycle for kernel 0 is = 4425000
+Simulation cycle for kernel 0 is = 4430000
+Simulation cycle for kernel 0 is = 4435000
+Simulation cycle for kernel 0 is = 4440000
+Simulation cycle for kernel 0 is = 4445000
+Simulation cycle for kernel 0 is = 4450000
+Simulation cycle for kernel 0 is = 4455000
+Simulation cycle for kernel 0 is = 4460000
+Simulation cycle for kernel 0 is = 4465000
+Simulation cycle for kernel 0 is = 4470000
+Simulation cycle for kernel 0 is = 4475000
+Simulation cycle for kernel 0 is = 4480000
+Simulation cycle for kernel 0 is = 4485000
+Simulation cycle for kernel 0 is = 4490000
+Simulation cycle for kernel 0 is = 4495000
+Simulation cycle for kernel 0 is = 4500000
+Simulation cycle for kernel 0 is = 4505000
+Simulation cycle for kernel 0 is = 4510000
+Simulation cycle for kernel 0 is = 4515000
+Simulation cycle for kernel 0 is = 4520000
+Simulation cycle for kernel 0 is = 4525000
+Simulation cycle for kernel 0 is = 4530000
+Simulation cycle for kernel 0 is = 4535000
+Simulation cycle for kernel 0 is = 4540000
+Simulation cycle for kernel 0 is = 4545000
+Simulation cycle for kernel 0 is = 4550000
+Simulation cycle for kernel 0 is = 4555000
+Simulation cycle for kernel 0 is = 4560000
+Simulation cycle for kernel 0 is = 4565000
+Simulation cycle for kernel 0 is = 4570000
+Simulation cycle for kernel 0 is = 4575000
+Simulation cycle for kernel 0 is = 4580000
+Simulation cycle for kernel 0 is = 4585000
+Simulation cycle for kernel 0 is = 4590000
+Simulation cycle for kernel 0 is = 4595000
+Simulation cycle for kernel 0 is = 4600000
+Simulation cycle for kernel 0 is = 4605000
+Simulation cycle for kernel 0 is = 4610000
+Simulation cycle for kernel 0 is = 4615000
+Simulation cycle for kernel 0 is = 4620000
+Simulation cycle for kernel 0 is = 4625000
+Simulation cycle for kernel 0 is = 4630000
+Simulation cycle for kernel 0 is = 4635000
+Simulation cycle for kernel 0 is = 4640000
+Simulation cycle for kernel 0 is = 4645000
+Simulation cycle for kernel 0 is = 4650000
+Simulation cycle for kernel 0 is = 4655000
+Simulation cycle for kernel 0 is = 4660000
+Simulation cycle for kernel 0 is = 4665000
+Simulation cycle for kernel 0 is = 4670000
+Simulation cycle for kernel 0 is = 4675000
+Simulation cycle for kernel 0 is = 4680000
+Simulation cycle for kernel 0 is = 4685000
+Simulation cycle for kernel 0 is = 4690000
+Simulation cycle for kernel 0 is = 4695000
+Simulation cycle for kernel 0 is = 4700000
+Simulation cycle for kernel 0 is = 4705000
+Simulation cycle for kernel 0 is = 4710000
+Simulation cycle for kernel 0 is = 4715000
+Simulation cycle for kernel 0 is = 4720000
+Simulation cycle for kernel 0 is = 4725000
+Simulation cycle for kernel 0 is = 4730000
+Simulation cycle for kernel 0 is = 4735000
+Simulation cycle for kernel 0 is = 4740000
+Simulation cycle for kernel 0 is = 4745000
+Simulation cycle for kernel 0 is = 4750000
+Simulation cycle for kernel 0 is = 4755000
+Simulation cycle for kernel 0 is = 4760000
+Simulation cycle for kernel 0 is = 4765000
+Simulation cycle for kernel 0 is = 4770000
+Simulation cycle for kernel 0 is = 4775000
+Simulation cycle for kernel 0 is = 4780000
+Simulation cycle for kernel 0 is = 4785000
+Simulation cycle for kernel 0 is = 4790000
+Simulation cycle for kernel 0 is = 4795000
+Simulation cycle for kernel 0 is = 4800000
+Simulation cycle for kernel 0 is = 4805000
+Simulation cycle for kernel 0 is = 4810000
+Simulation cycle for kernel 0 is = 4815000
+Simulation cycle for kernel 0 is = 4820000
+Simulation cycle for kernel 0 is = 4825000
+Simulation cycle for kernel 0 is = 4830000
+Simulation cycle for kernel 0 is = 4835000
+Simulation cycle for kernel 0 is = 4840000
+Simulation cycle for kernel 0 is = 4845000
+Simulation cycle for kernel 0 is = 4850000
+Simulation cycle for kernel 0 is = 4855000
+Simulation cycle for kernel 0 is = 4860000
+Simulation cycle for kernel 0 is = 4865000
+Simulation cycle for kernel 0 is = 4870000
+Simulation cycle for kernel 0 is = 4875000
+Simulation cycle for kernel 0 is = 4880000
+Simulation cycle for kernel 0 is = 4885000
+Simulation cycle for kernel 0 is = 4890000
+Simulation cycle for kernel 0 is = 4895000
+Simulation cycle for kernel 0 is = 4900000
+Simulation cycle for kernel 0 is = 4905000
+Simulation cycle for kernel 0 is = 4910000
+Simulation cycle for kernel 0 is = 4915000
+Simulation cycle for kernel 0 is = 4920000
+Simulation cycle for kernel 0 is = 4925000
+Simulation cycle for kernel 0 is = 4930000
+Simulation cycle for kernel 0 is = 4935000
+Simulation cycle for kernel 0 is = 4940000
+Simulation cycle for kernel 0 is = 4945000
+Simulation cycle for kernel 0 is = 4950000
+Simulation cycle for kernel 0 is = 4955000
+Simulation cycle for kernel 0 is = 4960000
+Simulation cycle for kernel 0 is = 4965000
+Simulation cycle for kernel 0 is = 4970000
+Simulation cycle for kernel 0 is = 4975000
+Simulation cycle for kernel 0 is = 4980000
+Simulation cycle for kernel 0 is = 4985000
+Simulation cycle for kernel 0 is = 4990000
+Simulation cycle for kernel 0 is = 4995000
+Simulation cycle for kernel 0 is = 5000000
+Simulation cycle for kernel 0 is = 5005000
+Simulation cycle for kernel 0 is = 5010000
+Simulation cycle for kernel 0 is = 5015000
+Simulation cycle for kernel 0 is = 5020000
+Simulation cycle for kernel 0 is = 5025000
+Simulation cycle for kernel 0 is = 5030000
+Simulation cycle for kernel 0 is = 5035000
+Simulation cycle for kernel 0 is = 5040000
+Simulation cycle for kernel 0 is = 5045000
+Simulation cycle for kernel 0 is = 5050000
+Simulation cycle for kernel 0 is = 5055000
+Simulation cycle for kernel 0 is = 5060000
+Simulation cycle for kernel 0 is = 5065000
+Simulation cycle for kernel 0 is = 5070000
+Simulation cycle for kernel 0 is = 5075000
+Simulation cycle for kernel 0 is = 5080000
+Simulation cycle for kernel 0 is = 5085000
+Simulation cycle for kernel 0 is = 5090000
+Simulation cycle for kernel 0 is = 5095000
+Simulation cycle for kernel 0 is = 5100000
+Simulation cycle for kernel 0 is = 5105000
+Simulation cycle for kernel 0 is = 5110000
+Simulation cycle for kernel 0 is = 5115000
+Simulation cycle for kernel 0 is = 5120000
+Simulation cycle for kernel 0 is = 5125000
+Simulation cycle for kernel 0 is = 5130000
+Simulation cycle for kernel 0 is = 5135000
+Simulation cycle for kernel 0 is = 5140000
+Simulation cycle for kernel 0 is = 5145000
+Simulation cycle for kernel 0 is = 5150000
+Simulation cycle for kernel 0 is = 5155000
+Simulation cycle for kernel 0 is = 5160000
+Simulation cycle for kernel 0 is = 5165000
+Simulation cycle for kernel 0 is = 5170000
+Simulation cycle for kernel 0 is = 5175000
+Simulation cycle for kernel 0 is = 5180000
+Simulation cycle for kernel 0 is = 5185000
+Simulation cycle for kernel 0 is = 5190000
+Simulation cycle for kernel 0 is = 5195000
+Simulation cycle for kernel 0 is = 5200000
+Simulation cycle for kernel 0 is = 5205000
+Simulation cycle for kernel 0 is = 5210000
+Simulation cycle for kernel 0 is = 5215000
+Simulation cycle for kernel 0 is = 5220000
+Simulation cycle for kernel 0 is = 5225000
+Simulation cycle for kernel 0 is = 5230000
+Simulation cycle for kernel 0 is = 5235000
+Simulation cycle for kernel 0 is = 5240000
+Simulation cycle for kernel 0 is = 5245000
+Simulation cycle for kernel 0 is = 5250000
+Simulation cycle for kernel 0 is = 5255000
+Simulation cycle for kernel 0 is = 5260000
+Simulation cycle for kernel 0 is = 5265000
+Simulation cycle for kernel 0 is = 5270000
+Simulation cycle for kernel 0 is = 5275000
+Simulation cycle for kernel 0 is = 5280000
+Simulation cycle for kernel 0 is = 5285000
+Simulation cycle for kernel 0 is = 5290000
+Simulation cycle for kernel 0 is = 5295000
+Simulation cycle for kernel 0 is = 5300000
+Simulation cycle for kernel 0 is = 5305000
+Simulation cycle for kernel 0 is = 5310000
+Simulation cycle for kernel 0 is = 5315000
+Simulation cycle for kernel 0 is = 5320000
+Simulation cycle for kernel 0 is = 5325000
+Simulation cycle for kernel 0 is = 5330000
+Simulation cycle for kernel 0 is = 5335000
+Simulation cycle for kernel 0 is = 5340000
+Simulation cycle for kernel 0 is = 5345000
+Simulation cycle for kernel 0 is = 5350000
+Simulation cycle for kernel 0 is = 5355000
+Simulation cycle for kernel 0 is = 5360000
+Simulation cycle for kernel 0 is = 5365000
+Simulation cycle for kernel 0 is = 5370000
+Simulation cycle for kernel 0 is = 5375000
+Simulation cycle for kernel 0 is = 5380000
+Simulation cycle for kernel 0 is = 5385000
+Simulation cycle for kernel 0 is = 5390000
+Simulation cycle for kernel 0 is = 5395000
+Simulation cycle for kernel 0 is = 5400000
+Simulation cycle for kernel 0 is = 5405000
+Simulation cycle for kernel 0 is = 5410000
+Simulation cycle for kernel 0 is = 5415000
+Simulation cycle for kernel 0 is = 5420000
+Simulation cycle for kernel 0 is = 5425000
+Simulation cycle for kernel 0 is = 5430000
+Simulation cycle for kernel 0 is = 5435000
+Simulation cycle for kernel 0 is = 5440000
+Simulation cycle for kernel 0 is = 5445000
+Simulation cycle for kernel 0 is = 5450000
+Simulation cycle for kernel 0 is = 5455000
+Simulation cycle for kernel 0 is = 5460000
+Simulation cycle for kernel 0 is = 5465000
+Simulation cycle for kernel 0 is = 5470000
+Simulation cycle for kernel 0 is = 5475000
+Simulation cycle for kernel 0 is = 5480000
+Simulation cycle for kernel 0 is = 5485000
+Simulation cycle for kernel 0 is = 5490000
+Simulation cycle for kernel 0 is = 5495000
+Simulation cycle for kernel 0 is = 5500000
+Simulation cycle for kernel 0 is = 5505000
+Simulation cycle for kernel 0 is = 5510000
+Simulation cycle for kernel 0 is = 5515000
+Simulation cycle for kernel 0 is = 5520000
+Simulation cycle for kernel 0 is = 5525000
+Simulation cycle for kernel 0 is = 5530000
+Simulation cycle for kernel 0 is = 5535000
+Simulation cycle for kernel 0 is = 5540000
+Simulation cycle for kernel 0 is = 5545000
+Simulation cycle for kernel 0 is = 5550000
+Simulation cycle for kernel 0 is = 5555000
+Simulation cycle for kernel 0 is = 5560000
+Simulation cycle for kernel 0 is = 5565000
+Simulation cycle for kernel 0 is = 5570000
+Simulation cycle for kernel 0 is = 5575000
+Simulation cycle for kernel 0 is = 5580000
+Simulation cycle for kernel 0 is = 5585000
+Simulation cycle for kernel 0 is = 5590000
+Simulation cycle for kernel 0 is = 5595000
+Simulation cycle for kernel 0 is = 5600000
+Simulation cycle for kernel 0 is = 5605000
+Simulation cycle for kernel 0 is = 5610000
+Simulation cycle for kernel 0 is = 5615000
+Simulation cycle for kernel 0 is = 5620000
+Simulation cycle for kernel 0 is = 5625000
+Simulation cycle for kernel 0 is = 5630000
+Simulation cycle for kernel 0 is = 5635000
+Simulation cycle for kernel 0 is = 5640000
+Simulation cycle for kernel 0 is = 5645000
+Simulation cycle for kernel 0 is = 5650000
+Simulation cycle for kernel 0 is = 5655000
+Simulation cycle for kernel 0 is = 5660000
+Simulation cycle for kernel 0 is = 5665000
+Simulation cycle for kernel 0 is = 5670000
+Simulation cycle for kernel 0 is = 5675000
+Simulation cycle for kernel 0 is = 5680000
+Simulation cycle for kernel 0 is = 5685000
+Simulation cycle for kernel 0 is = 5690000
+Simulation cycle for kernel 0 is = 5695000
+Simulation cycle for kernel 0 is = 5700000
+Simulation cycle for kernel 0 is = 5705000
+Simulation cycle for kernel 0 is = 5710000
+Simulation cycle for kernel 0 is = 5715000
+Simulation cycle for kernel 0 is = 5720000
+Simulation cycle for kernel 0 is = 5725000
+Simulation cycle for kernel 0 is = 5730000
+Simulation cycle for kernel 0 is = 5735000
+Simulation cycle for kernel 0 is = 5740000
+Simulation cycle for kernel 0 is = 5745000
+Simulation cycle for kernel 0 is = 5750000
+Simulation cycle for kernel 0 is = 5755000
+Simulation cycle for kernel 0 is = 5760000
+Simulation cycle for kernel 0 is = 5765000
+Simulation cycle for kernel 0 is = 5770000
+Simulation cycle for kernel 0 is = 5775000
+Simulation cycle for kernel 0 is = 5780000
+Simulation cycle for kernel 0 is = 5785000
+Simulation cycle for kernel 0 is = 5790000
+Simulation cycle for kernel 0 is = 5795000
+Simulation cycle for kernel 0 is = 5800000
+Simulation cycle for kernel 0 is = 5805000
+Simulation cycle for kernel 0 is = 5810000
+Simulation cycle for kernel 0 is = 5815000
+Simulation cycle for kernel 0 is = 5820000
+Simulation cycle for kernel 0 is = 5825000
+Simulation cycle for kernel 0 is = 5830000
+Simulation cycle for kernel 0 is = 5835000
+Simulation cycle for kernel 0 is = 5840000
+Simulation cycle for kernel 0 is = 5845000
+Simulation cycle for kernel 0 is = 5850000
+Simulation cycle for kernel 0 is = 5855000
+Simulation cycle for kernel 0 is = 5860000
+Simulation cycle for kernel 0 is = 5865000
+Simulation cycle for kernel 0 is = 5870000
+Simulation cycle for kernel 0 is = 5875000
+Simulation cycle for kernel 0 is = 5880000
+Simulation cycle for kernel 0 is = 5885000
+Simulation cycle for kernel 0 is = 5890000
+Simulation cycle for kernel 0 is = 5895000
+Simulation cycle for kernel 0 is = 5900000
+Simulation cycle for kernel 0 is = 5905000
+Simulation cycle for kernel 0 is = 5910000
+Simulation cycle for kernel 0 is = 5915000
+Simulation cycle for kernel 0 is = 5920000
+Simulation cycle for kernel 0 is = 5925000
+Simulation cycle for kernel 0 is = 5930000
+Simulation cycle for kernel 0 is = 5935000
+Simulation cycle for kernel 0 is = 5940000
+Simulation cycle for kernel 0 is = 5945000
+Simulation cycle for kernel 0 is = 5950000
+Simulation cycle for kernel 0 is = 5955000
+Simulation cycle for kernel 0 is = 5960000
+Simulation cycle for kernel 0 is = 5965000
+Simulation cycle for kernel 0 is = 5970000
+Simulation cycle for kernel 0 is = 5975000
+Simulation cycle for kernel 0 is = 5980000
+Simulation cycle for kernel 0 is = 5985000
+Simulation cycle for kernel 0 is = 5990000
+Simulation cycle for kernel 0 is = 5995000
+Simulation cycle for kernel 0 is = 6000000
+Simulation cycle for kernel 0 is = 6005000
+Simulation cycle for kernel 0 is = 6010000
+Simulation cycle for kernel 0 is = 6015000
+Simulation cycle for kernel 0 is = 6020000
+Simulation cycle for kernel 0 is = 6025000
+Simulation cycle for kernel 0 is = 6030000
+Simulation cycle for kernel 0 is = 6035000
+Simulation cycle for kernel 0 is = 6040000
+Simulation cycle for kernel 0 is = 6045000
+Simulation cycle for kernel 0 is = 6050000
+Simulation cycle for kernel 0 is = 6055000
+Simulation cycle for kernel 0 is = 6060000
+Simulation cycle for kernel 0 is = 6065000
+Simulation cycle for kernel 0 is = 6070000
+Simulation cycle for kernel 0 is = 6075000
+Simulation cycle for kernel 0 is = 6080000
+Simulation cycle for kernel 0 is = 6085000
+Simulation cycle for kernel 0 is = 6090000
+Simulation cycle for kernel 0 is = 6095000
+Simulation cycle for kernel 0 is = 6100000
+Simulation cycle for kernel 0 is = 6105000
+Simulation cycle for kernel 0 is = 6110000
+Simulation cycle for kernel 0 is = 6115000
+Simulation cycle for kernel 0 is = 6120000
+Simulation cycle for kernel 0 is = 6125000
+Simulation cycle for kernel 0 is = 6130000
+Simulation cycle for kernel 0 is = 6135000
+Simulation cycle for kernel 0 is = 6140000
+Simulation cycle for kernel 0 is = 6145000
+Simulation cycle for kernel 0 is = 6150000
+Simulation cycle for kernel 0 is = 6155000
+Simulation cycle for kernel 0 is = 6160000
+Simulation cycle for kernel 0 is = 6165000
+Simulation cycle for kernel 0 is = 6170000
+Simulation cycle for kernel 0 is = 6175000
+Simulation cycle for kernel 0 is = 6180000
+Simulation cycle for kernel 0 is = 6185000
+Simulation cycle for kernel 0 is = 6190000
+Simulation cycle for kernel 0 is = 6195000
+Simulation cycle for kernel 0 is = 6200000
+Simulation cycle for kernel 0 is = 6205000
+Simulation cycle for kernel 0 is = 6210000
+Simulation cycle for kernel 0 is = 6215000
+Simulation cycle for kernel 0 is = 6220000
+Simulation cycle for kernel 0 is = 6225000
+Simulation cycle for kernel 0 is = 6230000
+Simulation cycle for kernel 0 is = 6235000
+Simulation cycle for kernel 0 is = 6240000
+Simulation cycle for kernel 0 is = 6245000
+Simulation cycle for kernel 0 is = 6250000
+Simulation cycle for kernel 0 is = 6255000
+Simulation cycle for kernel 0 is = 6260000
+Simulation cycle for kernel 0 is = 6265000
+Simulation cycle for kernel 0 is = 6270000
+Simulation cycle for kernel 0 is = 6275000
+Simulation cycle for kernel 0 is = 6280000
+Simulation cycle for kernel 0 is = 6285000
+Simulation cycle for kernel 0 is = 6290000
+Simulation cycle for kernel 0 is = 6295000
+Simulation cycle for kernel 0 is = 6300000
+Simulation cycle for kernel 0 is = 6305000
+Simulation cycle for kernel 0 is = 6310000
+Simulation cycle for kernel 0 is = 6315000
+Simulation cycle for kernel 0 is = 6320000
+Simulation cycle for kernel 0 is = 6325000
+Simulation cycle for kernel 0 is = 6330000
+Simulation cycle for kernel 0 is = 6335000
+Simulation cycle for kernel 0 is = 6340000
+Simulation cycle for kernel 0 is = 6345000
+Simulation cycle for kernel 0 is = 6350000
+Simulation cycle for kernel 0 is = 6355000
+Simulation cycle for kernel 0 is = 6360000
+Simulation cycle for kernel 0 is = 6365000
+Simulation cycle for kernel 0 is = 6370000
+Simulation cycle for kernel 0 is = 6375000
+Simulation cycle for kernel 0 is = 6380000
+Simulation cycle for kernel 0 is = 6385000
+Simulation cycle for kernel 0 is = 6390000
+Simulation cycle for kernel 0 is = 6395000
+Simulation cycle for kernel 0 is = 6400000
+Simulation cycle for kernel 0 is = 6405000
+Simulation cycle for kernel 0 is = 6410000
+Simulation cycle for kernel 0 is = 6415000
+Simulation cycle for kernel 0 is = 6420000
+Simulation cycle for kernel 0 is = 6425000
+Simulation cycle for kernel 0 is = 6430000
+Simulation cycle for kernel 0 is = 6435000
+Simulation cycle for kernel 0 is = 6440000
+Simulation cycle for kernel 0 is = 6445000
+Simulation cycle for kernel 0 is = 6450000
+Simulation cycle for kernel 0 is = 6455000
+Simulation cycle for kernel 0 is = 6460000
+Simulation cycle for kernel 0 is = 6465000
+Simulation cycle for kernel 0 is = 6470000
+Simulation cycle for kernel 0 is = 6475000
+Simulation cycle for kernel 0 is = 6480000
+Simulation cycle for kernel 0 is = 6485000
+Simulation cycle for kernel 0 is = 6490000
+Simulation cycle for kernel 0 is = 6495000
+Simulation cycle for kernel 0 is = 6500000
+Simulation cycle for kernel 0 is = 6505000
+Simulation cycle for kernel 0 is = 6510000
+Simulation cycle for kernel 0 is = 6515000
+Simulation cycle for kernel 0 is = 6520000
+Simulation cycle for kernel 0 is = 6525000
+Simulation cycle for kernel 0 is = 6530000
+Simulation cycle for kernel 0 is = 6535000
+Simulation cycle for kernel 0 is = 6540000
+Simulation cycle for kernel 0 is = 6545000
+Simulation cycle for kernel 0 is = 6550000
+Simulation cycle for kernel 0 is = 6555000
+Simulation cycle for kernel 0 is = 6560000
+Simulation cycle for kernel 0 is = 6565000
+Simulation cycle for kernel 0 is = 6570000
+Simulation cycle for kernel 0 is = 6575000
+Simulation cycle for kernel 0 is = 6580000
+Simulation cycle for kernel 0 is = 6585000
+Simulation cycle for kernel 0 is = 6590000
+Simulation cycle for kernel 0 is = 6595000
+Simulation cycle for kernel 0 is = 6600000
+Simulation cycle for kernel 0 is = 6605000
+Simulation cycle for kernel 0 is = 6610000
+Simulation cycle for kernel 0 is = 6615000
+Simulation cycle for kernel 0 is = 6620000
+Simulation cycle for kernel 0 is = 6625000
+Simulation cycle for kernel 0 is = 6630000
+Simulation cycle for kernel 0 is = 6635000
+Simulation cycle for kernel 0 is = 6640000
+Simulation cycle for kernel 0 is = 6645000
+Simulation cycle for kernel 0 is = 6650000
+Simulation cycle for kernel 0 is = 6655000
+Simulation cycle for kernel 0 is = 6660000
+Simulation cycle for kernel 0 is = 6665000
+Simulation cycle for kernel 0 is = 6670000
+Simulation cycle for kernel 0 is = 6675000
+Simulation cycle for kernel 0 is = 6680000
+Simulation cycle for kernel 0 is = 6685000
+Simulation cycle for kernel 0 is = 6690000
+Simulation cycle for kernel 0 is = 6695000
+Simulation cycle for kernel 0 is = 6700000
+Simulation cycle for kernel 0 is = 6705000
+Simulation cycle for kernel 0 is = 6710000
+Simulation cycle for kernel 0 is = 6715000
+Simulation cycle for kernel 0 is = 6720000
+Simulation cycle for kernel 0 is = 6725000
+Simulation cycle for kernel 0 is = 6730000
+Simulation cycle for kernel 0 is = 6735000
+Simulation cycle for kernel 0 is = 6740000
+Simulation cycle for kernel 0 is = 6745000
+Simulation cycle for kernel 0 is = 6750000
+Simulation cycle for kernel 0 is = 6755000
+Simulation cycle for kernel 0 is = 6760000
+Simulation cycle for kernel 0 is = 6765000
+Simulation cycle for kernel 0 is = 6770000
+Simulation cycle for kernel 0 is = 6775000
+Simulation cycle for kernel 0 is = 6780000
+Simulation cycle for kernel 0 is = 6785000
+Simulation cycle for kernel 0 is = 6790000
+Simulation cycle for kernel 0 is = 6795000
+Simulation cycle for kernel 0 is = 6800000
+Simulation cycle for kernel 0 is = 6805000
+Simulation cycle for kernel 0 is = 6810000
+Simulation cycle for kernel 0 is = 6815000
+Simulation cycle for kernel 0 is = 6820000
+Simulation cycle for kernel 0 is = 6825000
+Simulation cycle for kernel 0 is = 6830000
+Simulation cycle for kernel 0 is = 6835000
+Simulation cycle for kernel 0 is = 6840000
+Simulation cycle for kernel 0 is = 6845000
+Simulation cycle for kernel 0 is = 6850000
+Simulation cycle for kernel 0 is = 6855000
+Simulation cycle for kernel 0 is = 6860000
+Simulation cycle for kernel 0 is = 6865000
+Simulation cycle for kernel 0 is = 6870000
+Simulation cycle for kernel 0 is = 6875000
+Simulation cycle for kernel 0 is = 6880000
+Simulation cycle for kernel 0 is = 6885000
+Simulation cycle for kernel 0 is = 6890000
+Simulation cycle for kernel 0 is = 6895000
+Simulation cycle for kernel 0 is = 6900000
+Simulation cycle for kernel 0 is = 6905000
+Simulation cycle for kernel 0 is = 6910000
+Simulation cycle for kernel 0 is = 6915000
+Simulation cycle for kernel 0 is = 6920000
+Simulation cycle for kernel 0 is = 6925000
+Simulation cycle for kernel 0 is = 6930000
+Simulation cycle for kernel 0 is = 6935000
+Simulation cycle for kernel 0 is = 6940000
+Simulation cycle for kernel 0 is = 6945000
+Simulation cycle for kernel 0 is = 6950000
+Simulation cycle for kernel 0 is = 6955000
+Simulation cycle for kernel 0 is = 6960000
+Simulation cycle for kernel 0 is = 6965000
+Simulation cycle for kernel 0 is = 6970000
+Simulation cycle for kernel 0 is = 6975000
+Simulation cycle for kernel 0 is = 6980000
+Simulation cycle for kernel 0 is = 6985000
+Simulation cycle for kernel 0 is = 6990000
+Simulation cycle for kernel 0 is = 6995000
+Simulation cycle for kernel 0 is = 7000000
+Simulation cycle for kernel 0 is = 7005000
+Simulation cycle for kernel 0 is = 7010000
+Simulation cycle for kernel 0 is = 7015000
+Simulation cycle for kernel 0 is = 7020000
+Simulation cycle for kernel 0 is = 7025000
+Simulation cycle for kernel 0 is = 7030000
+Simulation cycle for kernel 0 is = 7035000
+Simulation cycle for kernel 0 is = 7040000
+Simulation cycle for kernel 0 is = 7045000
+Simulation cycle for kernel 0 is = 7050000
+Simulation cycle for kernel 0 is = 7055000
+Simulation cycle for kernel 0 is = 7060000
+Simulation cycle for kernel 0 is = 7065000
+Simulation cycle for kernel 0 is = 7070000
+Simulation cycle for kernel 0 is = 7075000
+Simulation cycle for kernel 0 is = 7080000
+Simulation cycle for kernel 0 is = 7085000
+Simulation cycle for kernel 0 is = 7090000
+Simulation cycle for kernel 0 is = 7095000
+Simulation cycle for kernel 0 is = 7100000
+Simulation cycle for kernel 0 is = 7105000
+Simulation cycle for kernel 0 is = 7110000
+Simulation cycle for kernel 0 is = 7115000
+Simulation cycle for kernel 0 is = 7120000
+Simulation cycle for kernel 0 is = 7125000
+Simulation cycle for kernel 0 is = 7130000
+Simulation cycle for kernel 0 is = 7135000
+Simulation cycle for kernel 0 is = 7140000
+Simulation cycle for kernel 0 is = 7145000
+Simulation cycle for kernel 0 is = 7150000
+Simulation cycle for kernel 0 is = 7155000
+Simulation cycle for kernel 0 is = 7160000
+Simulation cycle for kernel 0 is = 7165000
+Simulation cycle for kernel 0 is = 7170000
+Simulation cycle for kernel 0 is = 7175000
+Simulation cycle for kernel 0 is = 7180000
+Simulation cycle for kernel 0 is = 7185000
+Simulation cycle for kernel 0 is = 7190000
+Simulation cycle for kernel 0 is = 7195000
+Simulation cycle for kernel 0 is = 7200000
+Simulation cycle for kernel 0 is = 7205000
+Simulation cycle for kernel 0 is = 7210000
+Simulation cycle for kernel 0 is = 7215000
+Simulation cycle for kernel 0 is = 7220000
+Simulation cycle for kernel 0 is = 7225000
+Simulation cycle for kernel 0 is = 7230000
+Simulation cycle for kernel 0 is = 7235000
+Simulation cycle for kernel 0 is = 7240000
+Simulation cycle for kernel 0 is = 7245000
+Simulation cycle for kernel 0 is = 7250000
+Simulation cycle for kernel 0 is = 7255000
+Simulation cycle for kernel 0 is = 7260000
+Simulation cycle for kernel 0 is = 7265000
+Simulation cycle for kernel 0 is = 7270000
+Simulation cycle for kernel 0 is = 7275000
+Simulation cycle for kernel 0 is = 7280000
+Simulation cycle for kernel 0 is = 7285000
+Simulation cycle for kernel 0 is = 7290000
+Simulation cycle for kernel 0 is = 7295000
+Simulation cycle for kernel 0 is = 7300000
+Simulation cycle for kernel 0 is = 7305000
+Simulation cycle for kernel 0 is = 7310000
+Simulation cycle for kernel 0 is = 7315000
+Simulation cycle for kernel 0 is = 7320000
+Simulation cycle for kernel 0 is = 7325000
+Simulation cycle for kernel 0 is = 7330000
+Simulation cycle for kernel 0 is = 7335000
+Simulation cycle for kernel 0 is = 7340000
+Simulation cycle for kernel 0 is = 7345000
+Simulation cycle for kernel 0 is = 7350000
+Simulation cycle for kernel 0 is = 7355000
+Simulation cycle for kernel 0 is = 7360000
+Simulation cycle for kernel 0 is = 7365000
+Simulation cycle for kernel 0 is = 7370000
+Simulation cycle for kernel 0 is = 7375000
+Simulation cycle for kernel 0 is = 7380000
+Simulation cycle for kernel 0 is = 7385000
+Simulation cycle for kernel 0 is = 7390000
+Simulation cycle for kernel 0 is = 7395000
+Simulation cycle for kernel 0 is = 7400000
+Simulation cycle for kernel 0 is = 7405000
+Simulation cycle for kernel 0 is = 7410000
+Simulation cycle for kernel 0 is = 7415000
+Simulation cycle for kernel 0 is = 7420000
+Simulation cycle for kernel 0 is = 7425000
+Simulation cycle for kernel 0 is = 7430000
+Simulation cycle for kernel 0 is = 7435000
+Simulation cycle for kernel 0 is = 7440000
+Simulation cycle for kernel 0 is = 7445000
+Simulation cycle for kernel 0 is = 7450000
+Simulation cycle for kernel 0 is = 7455000
+Simulation cycle for kernel 0 is = 7460000
+Simulation cycle for kernel 0 is = 7465000
+Simulation cycle for kernel 0 is = 7470000
+Simulation cycle for kernel 0 is = 7475000
+Simulation cycle for kernel 0 is = 7480000
+Simulation cycle for kernel 0 is = 7485000
+Simulation cycle for kernel 0 is = 7490000
+Simulation cycle for kernel 0 is = 7495000
+Simulation cycle for kernel 0 is = 7500000
+Simulation cycle for kernel 0 is = 7505000
+Simulation cycle for kernel 0 is = 7510000
+Simulation cycle for kernel 0 is = 7515000
+Simulation cycle for kernel 0 is = 7520000
+Simulation cycle for kernel 0 is = 7525000
+Simulation cycle for kernel 0 is = 7530000
+Simulation cycle for kernel 0 is = 7535000
+Simulation cycle for kernel 0 is = 7540000
+Simulation cycle for kernel 0 is = 7545000
+Simulation cycle for kernel 0 is = 7550000
+Simulation cycle for kernel 0 is = 7555000
+Simulation cycle for kernel 0 is = 7560000
+Simulation cycle for kernel 0 is = 7565000
+Simulation cycle for kernel 0 is = 7570000
+Simulation cycle for kernel 0 is = 7575000
+Simulation cycle for kernel 0 is = 7580000
+Simulation cycle for kernel 0 is = 7585000
+Simulation cycle for kernel 0 is = 7590000
+Simulation cycle for kernel 0 is = 7595000
+Simulation cycle for kernel 0 is = 7600000
+Simulation cycle for kernel 0 is = 7605000
+Simulation cycle for kernel 0 is = 7610000
+Simulation cycle for kernel 0 is = 7615000
+Simulation cycle for kernel 0 is = 7620000
+Simulation cycle for kernel 0 is = 7625000
+Simulation cycle for kernel 0 is = 7630000
+Simulation cycle for kernel 0 is = 7635000
+Simulation cycle for kernel 0 is = 7640000
+Simulation cycle for kernel 0 is = 7645000
+Simulation cycle for kernel 0 is = 7650000
+Simulation cycle for kernel 0 is = 7655000
+Simulation cycle for kernel 0 is = 7660000
+Simulation cycle for kernel 0 is = 7665000
+Simulation cycle for kernel 0 is = 7670000
+Simulation cycle for kernel 0 is = 7675000
+Simulation cycle for kernel 0 is = 7680000
+Simulation cycle for kernel 0 is = 7685000
+Simulation cycle for kernel 0 is = 7690000
+Simulation cycle for kernel 0 is = 7695000
+Simulation cycle for kernel 0 is = 7700000
+Simulation cycle for kernel 0 is = 7705000
+Simulation cycle for kernel 0 is = 7710000
+Simulation cycle for kernel 0 is = 7715000
+Simulation cycle for kernel 0 is = 7720000
+Simulation cycle for kernel 0 is = 7725000
+Simulation cycle for kernel 0 is = 7730000
+Simulation cycle for kernel 0 is = 7735000
+Simulation cycle for kernel 0 is = 7740000
+Simulation cycle for kernel 0 is = 7745000
+Simulation cycle for kernel 0 is = 7750000
+Simulation cycle for kernel 0 is = 7755000
+Simulation cycle for kernel 0 is = 7760000
+Simulation cycle for kernel 0 is = 7765000
+Simulation cycle for kernel 0 is = 7770000
+Simulation cycle for kernel 0 is = 7775000
+Simulation cycle for kernel 0 is = 7780000
+Simulation cycle for kernel 0 is = 7785000
+Simulation cycle for kernel 0 is = 7790000
+Simulation cycle for kernel 0 is = 7795000
+Simulation cycle for kernel 0 is = 7800000
+Simulation cycle for kernel 0 is = 7805000
+Simulation cycle for kernel 0 is = 7810000
+Simulation cycle for kernel 0 is = 7815000
+Simulation cycle for kernel 0 is = 7820000
+Simulation cycle for kernel 0 is = 7825000
+Simulation cycle for kernel 0 is = 7830000
+Simulation cycle for kernel 0 is = 7835000
+Simulation cycle for kernel 0 is = 7840000
+Simulation cycle for kernel 0 is = 7845000
+Simulation cycle for kernel 0 is = 7850000
+Simulation cycle for kernel 0 is = 7855000
+Simulation cycle for kernel 0 is = 7860000
+Simulation cycle for kernel 0 is = 7865000
+Simulation cycle for kernel 0 is = 7870000
+Simulation cycle for kernel 0 is = 7875000
+Simulation cycle for kernel 0 is = 7880000
+Simulation cycle for kernel 0 is = 7885000
+Simulation cycle for kernel 0 is = 7890000
+Simulation cycle for kernel 0 is = 7895000
+Simulation cycle for kernel 0 is = 7900000
+Simulation cycle for kernel 0 is = 7905000
+Simulation cycle for kernel 0 is = 7910000
+Simulation cycle for kernel 0 is = 7915000
+Simulation cycle for kernel 0 is = 7920000
+Simulation cycle for kernel 0 is = 7925000
+Simulation cycle for kernel 0 is = 7930000
+Simulation cycle for kernel 0 is = 7935000
+Simulation cycle for kernel 0 is = 7940000
+Simulation cycle for kernel 0 is = 7945000
+Simulation cycle for kernel 0 is = 7950000
+Simulation cycle for kernel 0 is = 7955000
+Simulation cycle for kernel 0 is = 7960000
+Simulation cycle for kernel 0 is = 7965000
+Simulation cycle for kernel 0 is = 7970000
+Simulation cycle for kernel 0 is = 7975000
+Simulation cycle for kernel 0 is = 7980000
+Simulation cycle for kernel 0 is = 7985000
+Simulation cycle for kernel 0 is = 7990000
+Simulation cycle for kernel 0 is = 7995000
+Simulation cycle for kernel 0 is = 8000000
+Simulation cycle for kernel 0 is = 8005000
+Simulation cycle for kernel 0 is = 8010000
+Simulation cycle for kernel 0 is = 8015000
+Simulation cycle for kernel 0 is = 8020000
+Simulation cycle for kernel 0 is = 8025000
+Simulation cycle for kernel 0 is = 8030000
+Simulation cycle for kernel 0 is = 8035000
+Simulation cycle for kernel 0 is = 8040000
+Simulation cycle for kernel 0 is = 8045000
+Simulation cycle for kernel 0 is = 8050000
+Simulation cycle for kernel 0 is = 8055000
+Simulation cycle for kernel 0 is = 8060000
+Simulation cycle for kernel 0 is = 8065000
+Simulation cycle for kernel 0 is = 8070000
+Simulation cycle for kernel 0 is = 8075000
+Simulation cycle for kernel 0 is = 8080000
+Simulation cycle for kernel 0 is = 8085000
+Simulation cycle for kernel 0 is = 8090000
+Simulation cycle for kernel 0 is = 8095000
+Simulation cycle for kernel 0 is = 8100000
+Simulation cycle for kernel 0 is = 8105000
+Simulation cycle for kernel 0 is = 8110000
+Simulation cycle for kernel 0 is = 8115000
+Simulation cycle for kernel 0 is = 8120000
+Simulation cycle for kernel 0 is = 8125000
+Simulation cycle for kernel 0 is = 8130000
+Simulation cycle for kernel 0 is = 8135000
+Simulation cycle for kernel 0 is = 8140000
+Simulation cycle for kernel 0 is = 8145000
+Simulation cycle for kernel 0 is = 8150000
+Simulation cycle for kernel 0 is = 8155000
+Simulation cycle for kernel 0 is = 8160000
+Simulation cycle for kernel 0 is = 8165000
+Simulation cycle for kernel 0 is = 8170000
+Simulation cycle for kernel 0 is = 8175000
+Simulation cycle for kernel 0 is = 8180000
+Simulation cycle for kernel 0 is = 8185000
+Simulation cycle for kernel 0 is = 8190000
+Simulation cycle for kernel 0 is = 8195000
+Simulation cycle for kernel 0 is = 8200000
+Simulation cycle for kernel 0 is = 8205000
+Simulation cycle for kernel 0 is = 8210000
+Simulation cycle for kernel 0 is = 8215000
+Simulation cycle for kernel 0 is = 8220000
+Simulation cycle for kernel 0 is = 8225000
+Simulation cycle for kernel 0 is = 8230000
+Simulation cycle for kernel 0 is = 8235000
+Simulation cycle for kernel 0 is = 8240000
+Simulation cycle for kernel 0 is = 8245000
+Simulation cycle for kernel 0 is = 8250000
+Simulation cycle for kernel 0 is = 8255000
+Simulation cycle for kernel 0 is = 8260000
+Simulation cycle for kernel 0 is = 8265000
+Simulation cycle for kernel 0 is = 8270000
+Simulation cycle for kernel 0 is = 8275000
+Simulation cycle for kernel 0 is = 8280000
+Simulation cycle for kernel 0 is = 8285000
+Simulation cycle for kernel 0 is = 8290000
+Simulation cycle for kernel 0 is = 8295000
+Simulation cycle for kernel 0 is = 8300000
+Simulation cycle for kernel 0 is = 8305000
+Simulation cycle for kernel 0 is = 8310000
+Simulation cycle for kernel 0 is = 8315000
+Simulation cycle for kernel 0 is = 8320000
+Simulation cycle for kernel 0 is = 8325000
+Simulation cycle for kernel 0 is = 8330000
+Simulation cycle for kernel 0 is = 8335000
+Simulation cycle for kernel 0 is = 8340000
+Simulation cycle for kernel 0 is = 8345000
+Simulation cycle for kernel 0 is = 8350000
+Simulation cycle for kernel 0 is = 8355000
+Simulation cycle for kernel 0 is = 8360000
+Simulation cycle for kernel 0 is = 8365000
+Simulation cycle for kernel 0 is = 8370000
+Simulation cycle for kernel 0 is = 8375000
+Simulation cycle for kernel 0 is = 8380000
+Simulation cycle for kernel 0 is = 8385000
+Simulation cycle for kernel 0 is = 8390000
+Simulation cycle for kernel 0 is = 8395000
+Simulation cycle for kernel 0 is = 8400000
+Simulation cycle for kernel 0 is = 8405000
+Simulation cycle for kernel 0 is = 8410000
+Simulation cycle for kernel 0 is = 8415000
+Simulation cycle for kernel 0 is = 8420000
+Simulation cycle for kernel 0 is = 8425000
+Simulation cycle for kernel 0 is = 8430000
+Simulation cycle for kernel 0 is = 8435000
+Simulation cycle for kernel 0 is = 8440000
+Simulation cycle for kernel 0 is = 8445000
+Simulation cycle for kernel 0 is = 8450000
+Simulation cycle for kernel 0 is = 8455000
+Simulation cycle for kernel 0 is = 8460000
+Simulation cycle for kernel 0 is = 8465000
+Simulation cycle for kernel 0 is = 8470000
+Simulation cycle for kernel 0 is = 8475000
+Simulation cycle for kernel 0 is = 8480000
+Simulation cycle for kernel 0 is = 8485000
+Simulation cycle for kernel 0 is = 8490000
+Simulation cycle for kernel 0 is = 8495000
+Simulation cycle for kernel 0 is = 8500000
+Simulation cycle for kernel 0 is = 8505000
+Simulation cycle for kernel 0 is = 8510000
+Simulation cycle for kernel 0 is = 8515000
+Simulation cycle for kernel 0 is = 8520000
+Simulation cycle for kernel 0 is = 8525000
+Simulation cycle for kernel 0 is = 8530000
+Simulation cycle for kernel 0 is = 8535000
+Simulation cycle for kernel 0 is = 8540000
+Simulation cycle for kernel 0 is = 8545000
+Simulation cycle for kernel 0 is = 8550000
+Simulation cycle for kernel 0 is = 8555000
+Simulation cycle for kernel 0 is = 8560000
+Simulation cycle for kernel 0 is = 8565000
+Simulation cycle for kernel 0 is = 8570000
+Simulation cycle for kernel 0 is = 8575000
+Simulation cycle for kernel 0 is = 8580000
+Simulation cycle for kernel 0 is = 8585000
+Simulation cycle for kernel 0 is = 8590000
+Simulation cycle for kernel 0 is = 8595000
+Simulation cycle for kernel 0 is = 8600000
+Simulation cycle for kernel 0 is = 8605000
+Simulation cycle for kernel 0 is = 8610000
+Simulation cycle for kernel 0 is = 8615000
+Simulation cycle for kernel 0 is = 8620000
+Simulation cycle for kernel 0 is = 8625000
+Simulation cycle for kernel 0 is = 8630000
+Simulation cycle for kernel 0 is = 8635000
+Simulation cycle for kernel 0 is = 8640000
+Simulation cycle for kernel 0 is = 8645000
+Simulation cycle for kernel 0 is = 8650000
+Simulation cycle for kernel 0 is = 8655000
+Simulation cycle for kernel 0 is = 8660000
+Simulation cycle for kernel 0 is = 8665000
+Simulation cycle for kernel 0 is = 8670000
+Simulation cycle for kernel 0 is = 8675000
+Simulation cycle for kernel 0 is = 8680000
+Simulation cycle for kernel 0 is = 8685000
+Simulation cycle for kernel 0 is = 8690000
+Simulation cycle for kernel 0 is = 8695000
+Simulation cycle for kernel 0 is = 8700000
+Simulation cycle for kernel 0 is = 8705000
+Simulation cycle for kernel 0 is = 8710000
+Simulation cycle for kernel 0 is = 8715000
+Simulation cycle for kernel 0 is = 8720000
+Simulation cycle for kernel 0 is = 8725000
+Simulation cycle for kernel 0 is = 8730000
+Simulation cycle for kernel 0 is = 8735000
+Simulation cycle for kernel 0 is = 8740000
+Simulation cycle for kernel 0 is = 8745000
+Simulation cycle for kernel 0 is = 8750000
+Simulation cycle for kernel 0 is = 8755000
+Simulation cycle for kernel 0 is = 8760000
+Simulation cycle for kernel 0 is = 8765000
+Simulation cycle for kernel 0 is = 8770000
+Simulation cycle for kernel 0 is = 8775000
+Simulation cycle for kernel 0 is = 8780000
+Simulation cycle for kernel 0 is = 8785000
+Simulation cycle for kernel 0 is = 8790000
+Simulation cycle for kernel 0 is = 8795000
+Simulation cycle for kernel 0 is = 8800000
+Simulation cycle for kernel 0 is = 8805000
+Simulation cycle for kernel 0 is = 8810000
+Simulation cycle for kernel 0 is = 8815000
+Simulation cycle for kernel 0 is = 8820000
+Simulation cycle for kernel 0 is = 8825000
+Simulation cycle for kernel 0 is = 8830000
+Simulation cycle for kernel 0 is = 8835000
+Simulation cycle for kernel 0 is = 8840000
+Simulation cycle for kernel 0 is = 8845000
+Simulation cycle for kernel 0 is = 8850000
+Simulation cycle for kernel 0 is = 8855000
+Simulation cycle for kernel 0 is = 8860000
+Simulation cycle for kernel 0 is = 8865000
+Simulation cycle for kernel 0 is = 8870000
+Simulation cycle for kernel 0 is = 8875000
+Simulation cycle for kernel 0 is = 8880000
+Simulation cycle for kernel 0 is = 8885000
+Simulation cycle for kernel 0 is = 8890000
+Simulation cycle for kernel 0 is = 8895000
+Simulation cycle for kernel 0 is = 8900000
+Simulation cycle for kernel 0 is = 8905000
+Simulation cycle for kernel 0 is = 8910000
+Simulation cycle for kernel 0 is = 8915000
+Simulation cycle for kernel 0 is = 8920000
+Simulation cycle for kernel 0 is = 8925000
+Simulation cycle for kernel 0 is = 8930000
+Simulation cycle for kernel 0 is = 8935000
+Simulation cycle for kernel 0 is = 8940000
+Simulation cycle for kernel 0 is = 8945000
+Simulation cycle for kernel 0 is = 8950000
+Simulation cycle for kernel 0 is = 8955000
+Simulation cycle for kernel 0 is = 8960000
+Simulation cycle for kernel 0 is = 8965000
+Simulation cycle for kernel 0 is = 8970000
+Simulation cycle for kernel 0 is = 8975000
+Simulation cycle for kernel 0 is = 8980000
+Simulation cycle for kernel 0 is = 8985000
+Simulation cycle for kernel 0 is = 8990000
+Simulation cycle for kernel 0 is = 8995000
+Simulation cycle for kernel 0 is = 9000000
+Simulation cycle for kernel 0 is = 9005000
+Simulation cycle for kernel 0 is = 9010000
+Simulation cycle for kernel 0 is = 9015000
+Simulation cycle for kernel 0 is = 9020000
+Simulation cycle for kernel 0 is = 9025000
+Simulation cycle for kernel 0 is = 9030000
+Simulation cycle for kernel 0 is = 9035000
+Simulation cycle for kernel 0 is = 9040000
+Simulation cycle for kernel 0 is = 9045000
+Simulation cycle for kernel 0 is = 9050000
+Simulation cycle for kernel 0 is = 9055000
+Simulation cycle for kernel 0 is = 9060000
+Simulation cycle for kernel 0 is = 9065000
+Simulation cycle for kernel 0 is = 9070000
+Simulation cycle for kernel 0 is = 9075000
+Simulation cycle for kernel 0 is = 9080000
+Simulation cycle for kernel 0 is = 9085000
+Simulation cycle for kernel 0 is = 9090000
+Simulation cycle for kernel 0 is = 9095000
+Simulation cycle for kernel 0 is = 9100000
+Simulation cycle for kernel 0 is = 9105000
+Simulation cycle for kernel 0 is = 9110000
+Simulation cycle for kernel 0 is = 9115000
+Simulation cycle for kernel 0 is = 9120000
+Simulation cycle for kernel 0 is = 9125000
+Simulation cycle for kernel 0 is = 9130000
+Simulation cycle for kernel 0 is = 9135000
+Simulation cycle for kernel 0 is = 9140000
+Simulation cycle for kernel 0 is = 9145000
+Simulation cycle for kernel 0 is = 9150000
+Simulation cycle for kernel 0 is = 9155000
+Simulation cycle for kernel 0 is = 9160000
+Simulation cycle for kernel 0 is = 9165000
+Simulation cycle for kernel 0 is = 9170000
+Simulation cycle for kernel 0 is = 9175000
+Simulation cycle for kernel 0 is = 9180000
+Simulation cycle for kernel 0 is = 9185000
+Simulation cycle for kernel 0 is = 9190000
+Simulation cycle for kernel 0 is = 9195000
+Simulation cycle for kernel 0 is = 9200000
+Simulation cycle for kernel 0 is = 9205000
+Simulation cycle for kernel 0 is = 9210000
+Simulation cycle for kernel 0 is = 9215000
+Simulation cycle for kernel 0 is = 9220000
+Simulation cycle for kernel 0 is = 9225000
+Simulation cycle for kernel 0 is = 9230000
+Simulation cycle for kernel 0 is = 9235000
+Simulation cycle for kernel 0 is = 9240000
+Simulation cycle for kernel 0 is = 9245000
+Simulation cycle for kernel 0 is = 9250000
+Simulation cycle for kernel 0 is = 9255000
+Simulation cycle for kernel 0 is = 9260000
+Simulation cycle for kernel 0 is = 9265000
+Simulation cycle for kernel 0 is = 9270000
+Simulation cycle for kernel 0 is = 9275000
+Simulation cycle for kernel 0 is = 9280000
+Simulation cycle for kernel 0 is = 9285000
+Simulation cycle for kernel 0 is = 9290000
+Simulation cycle for kernel 0 is = 9295000
+Simulation cycle for kernel 0 is = 9300000
+Simulation cycle for kernel 0 is = 9305000
+Simulation cycle for kernel 0 is = 9310000
+Simulation cycle for kernel 0 is = 9315000
+Simulation cycle for kernel 0 is = 9320000
+Simulation cycle for kernel 0 is = 9325000
+Simulation cycle for kernel 0 is = 9330000
+Simulation cycle for kernel 0 is = 9335000
+Simulation cycle for kernel 0 is = 9340000
+Simulation cycle for kernel 0 is = 9345000
+Simulation cycle for kernel 0 is = 9350000
+Simulation cycle for kernel 0 is = 9355000
+Simulation cycle for kernel 0 is = 9360000
+Simulation cycle for kernel 0 is = 9365000
+Simulation cycle for kernel 0 is = 9370000
+Simulation cycle for kernel 0 is = 9375000
+Simulation cycle for kernel 0 is = 9380000
+Simulation cycle for kernel 0 is = 9385000
+Simulation cycle for kernel 0 is = 9390000
+Simulation cycle for kernel 0 is = 9395000
+Simulation cycle for kernel 0 is = 9400000
+Simulation cycle for kernel 0 is = 9405000
+Simulation cycle for kernel 0 is = 9410000
+Simulation cycle for kernel 0 is = 9415000
+Simulation cycle for kernel 0 is = 9420000
+Simulation cycle for kernel 0 is = 9425000
+Simulation cycle for kernel 0 is = 9430000
+Simulation cycle for kernel 0 is = 9435000
+Simulation cycle for kernel 0 is = 9440000
+Simulation cycle for kernel 0 is = 9445000
+Simulation cycle for kernel 0 is = 9450000
+Simulation cycle for kernel 0 is = 9455000
+Simulation cycle for kernel 0 is = 9460000
+Simulation cycle for kernel 0 is = 9465000
+Simulation cycle for kernel 0 is = 9470000
+Simulation cycle for kernel 0 is = 9475000
+Simulation cycle for kernel 0 is = 9480000
+Simulation cycle for kernel 0 is = 9485000
+Simulation cycle for kernel 0 is = 9490000
+Simulation cycle for kernel 0 is = 9495000
+Simulation cycle for kernel 0 is = 9500000
+Simulation cycle for kernel 0 is = 9505000
+Simulation cycle for kernel 0 is = 9510000
+Simulation cycle for kernel 0 is = 9515000
+Simulation cycle for kernel 0 is = 9520000
+Simulation cycle for kernel 0 is = 9525000
+Simulation cycle for kernel 0 is = 9530000
+Simulation cycle for kernel 0 is = 9535000
+Simulation cycle for kernel 0 is = 9540000
+Simulation cycle for kernel 0 is = 9545000
+Simulation cycle for kernel 0 is = 9550000
+Simulation cycle for kernel 0 is = 9555000
+Simulation cycle for kernel 0 is = 9560000
+Simulation cycle for kernel 0 is = 9565000
+Simulation cycle for kernel 0 is = 9570000
+Simulation cycle for kernel 0 is = 9575000
+Simulation cycle for kernel 0 is = 9580000
+Simulation cycle for kernel 0 is = 9585000
+Simulation cycle for kernel 0 is = 9590000
+Simulation cycle for kernel 0 is = 9595000
+Simulation cycle for kernel 0 is = 9600000
+Simulation cycle for kernel 0 is = 9605000
+Simulation cycle for kernel 0 is = 9610000
+Simulation cycle for kernel 0 is = 9615000
+Simulation cycle for kernel 0 is = 9620000
+Simulation cycle for kernel 0 is = 9625000
+Simulation cycle for kernel 0 is = 9630000
+Simulation cycle for kernel 0 is = 9635000
+Simulation cycle for kernel 0 is = 9640000
+Simulation cycle for kernel 0 is = 9645000
+Simulation cycle for kernel 0 is = 9650000
+Simulation cycle for kernel 0 is = 9655000
+Simulation cycle for kernel 0 is = 9660000
+Simulation cycle for kernel 0 is = 9665000
+Simulation cycle for kernel 0 is = 9670000
+Simulation cycle for kernel 0 is = 9675000
+Simulation cycle for kernel 0 is = 9680000
+Simulation cycle for kernel 0 is = 9685000
+Simulation cycle for kernel 0 is = 9690000
+Simulation cycle for kernel 0 is = 9695000
+Simulation cycle for kernel 0 is = 9700000
+Simulation cycle for kernel 0 is = 9705000
+Simulation cycle for kernel 0 is = 9710000
+Simulation cycle for kernel 0 is = 9715000
+Simulation cycle for kernel 0 is = 9720000
+Simulation cycle for kernel 0 is = 9725000
+Simulation cycle for kernel 0 is = 9730000
+Simulation cycle for kernel 0 is = 9735000
+Simulation cycle for kernel 0 is = 9740000
+Simulation cycle for kernel 0 is = 9745000
+Simulation cycle for kernel 0 is = 9750000
+Simulation cycle for kernel 0 is = 9755000
+Simulation cycle for kernel 0 is = 9760000
+Simulation cycle for kernel 0 is = 9765000
+Simulation cycle for kernel 0 is = 9770000
+Simulation cycle for kernel 0 is = 9775000
+Simulation cycle for kernel 0 is = 9780000
+Simulation cycle for kernel 0 is = 9785000
+Simulation cycle for kernel 0 is = 9790000
+Simulation cycle for kernel 0 is = 9795000
+Simulation cycle for kernel 0 is = 9800000
+Simulation cycle for kernel 0 is = 9805000
+Simulation cycle for kernel 0 is = 9810000
+Simulation cycle for kernel 0 is = 9815000
+Simulation cycle for kernel 0 is = 9820000
+Simulation cycle for kernel 0 is = 9825000
+Simulation cycle for kernel 0 is = 9830000
+Simulation cycle for kernel 0 is = 9835000
+Simulation cycle for kernel 0 is = 9840000
+Simulation cycle for kernel 0 is = 9845000
+Simulation cycle for kernel 0 is = 9850000
+Simulation cycle for kernel 0 is = 9855000
+Simulation cycle for kernel 0 is = 9860000
+Simulation cycle for kernel 0 is = 9865000
+Simulation cycle for kernel 0 is = 9870000
+Simulation cycle for kernel 0 is = 9875000
+Simulation cycle for kernel 0 is = 9880000
+Simulation cycle for kernel 0 is = 9885000
+Simulation cycle for kernel 0 is = 9890000
+Simulation cycle for kernel 0 is = 9895000
+Simulation cycle for kernel 0 is = 9900000
+Simulation cycle for kernel 0 is = 9905000
+Simulation cycle for kernel 0 is = 9910000
+Simulation cycle for kernel 0 is = 9915000
+Simulation cycle for kernel 0 is = 9920000
+Simulation cycle for kernel 0 is = 9925000
+Simulation cycle for kernel 0 is = 9930000
+Simulation cycle for kernel 0 is = 9935000
+Simulation cycle for kernel 0 is = 9940000
+Simulation cycle for kernel 0 is = 9945000
+Simulation cycle for kernel 0 is = 9950000
+Simulation cycle for kernel 0 is = 9955000
+Simulation cycle for kernel 0 is = 9960000
+Simulation cycle for kernel 0 is = 9965000
+Simulation cycle for kernel 0 is = 9970000
+Simulation cycle for kernel 0 is = 9975000
+Simulation cycle for kernel 0 is = 9980000
+Simulation cycle for kernel 0 is = 9985000
+Simulation cycle for kernel 0 is = 9990000
+Simulation cycle for kernel 0 is = 9995000
+Simulation cycle for kernel 0 is = 10000000
+Simulation cycle for kernel 0 is = 10005000
+Simulation cycle for kernel 0 is = 10010000
+Simulation cycle for kernel 0 is = 10015000
+Simulation cycle for kernel 0 is = 10020000
+Simulation cycle for kernel 0 is = 10025000
+Simulation cycle for kernel 0 is = 10030000
+Simulation cycle for kernel 0 is = 10035000
+Simulation cycle for kernel 0 is = 10040000
+Simulation cycle for kernel 0 is = 10045000
+Simulation cycle for kernel 0 is = 10050000
+Simulation cycle for kernel 0 is = 10055000
+Simulation cycle for kernel 0 is = 10060000
+Simulation cycle for kernel 0 is = 10065000
+Simulation cycle for kernel 0 is = 10070000
+Simulation cycle for kernel 0 is = 10075000
+Simulation cycle for kernel 0 is = 10080000
+Simulation cycle for kernel 0 is = 10085000
+Simulation cycle for kernel 0 is = 10090000
+Simulation cycle for kernel 0 is = 10095000
+Simulation cycle for kernel 0 is = 10100000
+Simulation cycle for kernel 0 is = 10105000
+Simulation cycle for kernel 0 is = 10110000
+Simulation cycle for kernel 0 is = 10115000
+Simulation cycle for kernel 0 is = 10120000
+Simulation cycle for kernel 0 is = 10125000
+Simulation cycle for kernel 0 is = 10130000
+Simulation cycle for kernel 0 is = 10135000
+Simulation cycle for kernel 0 is = 10140000
+Simulation cycle for kernel 0 is = 10145000
+Simulation cycle for kernel 0 is = 10150000
+Simulation cycle for kernel 0 is = 10155000
+Simulation cycle for kernel 0 is = 10160000
+Simulation cycle for kernel 0 is = 10165000
+Simulation cycle for kernel 0 is = 10170000
+Simulation cycle for kernel 0 is = 10175000
+Simulation cycle for kernel 0 is = 10180000
+Simulation cycle for kernel 0 is = 10185000
+Simulation cycle for kernel 0 is = 10190000
+Simulation cycle for kernel 0 is = 10195000
+Simulation cycle for kernel 0 is = 10200000
+Simulation cycle for kernel 0 is = 10205000
+Simulation cycle for kernel 0 is = 10210000
+Simulation cycle for kernel 0 is = 10215000
+Simulation cycle for kernel 0 is = 10220000
+Simulation cycle for kernel 0 is = 10225000
+Simulation cycle for kernel 0 is = 10230000
+Simulation cycle for kernel 0 is = 10235000
+Simulation cycle for kernel 0 is = 10240000
+Simulation cycle for kernel 0 is = 10245000
+Simulation cycle for kernel 0 is = 10250000
+Simulation cycle for kernel 0 is = 10255000
+Simulation cycle for kernel 0 is = 10260000
+Simulation cycle for kernel 0 is = 10265000
+Simulation cycle for kernel 0 is = 10270000
+Simulation cycle for kernel 0 is = 10275000
+Simulation cycle for kernel 0 is = 10280000
+Simulation cycle for kernel 0 is = 10285000
+Simulation cycle for kernel 0 is = 10290000
+Simulation cycle for kernel 0 is = 10295000
+Simulation cycle for kernel 0 is = 10300000
+Simulation cycle for kernel 0 is = 10305000
+Simulation cycle for kernel 0 is = 10310000
+Simulation cycle for kernel 0 is = 10315000
+Simulation cycle for kernel 0 is = 10320000
+Simulation cycle for kernel 0 is = 10325000
+Simulation cycle for kernel 0 is = 10330000
+Simulation cycle for kernel 0 is = 10335000
+Simulation cycle for kernel 0 is = 10340000
+Simulation cycle for kernel 0 is = 10345000
+Simulation cycle for kernel 0 is = 10350000
+Simulation cycle for kernel 0 is = 10355000
+Simulation cycle for kernel 0 is = 10360000
+Simulation cycle for kernel 0 is = 10365000
+Simulation cycle for kernel 0 is = 10370000
+Simulation cycle for kernel 0 is = 10375000
+Simulation cycle for kernel 0 is = 10380000
+Simulation cycle for kernel 0 is = 10385000
+Simulation cycle for kernel 0 is = 10390000
+Simulation cycle for kernel 0 is = 10395000
+Simulation cycle for kernel 0 is = 10400000
+Simulation cycle for kernel 0 is = 10405000
+Simulation cycle for kernel 0 is = 10410000
+Simulation cycle for kernel 0 is = 10415000
+Simulation cycle for kernel 0 is = 10420000
+Simulation cycle for kernel 0 is = 10425000
+Simulation cycle for kernel 0 is = 10430000
+Simulation cycle for kernel 0 is = 10435000
+Simulation cycle for kernel 0 is = 10440000
+Simulation cycle for kernel 0 is = 10445000
+Simulation cycle for kernel 0 is = 10450000
+Simulation cycle for kernel 0 is = 10455000
+Simulation cycle for kernel 0 is = 10460000
+Simulation cycle for kernel 0 is = 10465000
+Simulation cycle for kernel 0 is = 10470000
+Simulation cycle for kernel 0 is = 10475000
+Simulation cycle for kernel 0 is = 10480000
+Simulation cycle for kernel 0 is = 10485000
+Simulation cycle for kernel 0 is = 10490000
+Simulation cycle for kernel 0 is = 10495000
+Simulation cycle for kernel 0 is = 10500000
+Simulation cycle for kernel 0 is = 10505000
+Simulation cycle for kernel 0 is = 10510000
+Simulation cycle for kernel 0 is = 10515000
+Simulation cycle for kernel 0 is = 10520000
+Simulation cycle for kernel 0 is = 10525000
+Simulation cycle for kernel 0 is = 10530000
+Simulation cycle for kernel 0 is = 10535000
+Simulation cycle for kernel 0 is = 10540000
+Simulation cycle for kernel 0 is = 10545000
+Simulation cycle for kernel 0 is = 10550000
+Simulation cycle for kernel 0 is = 10555000
+Simulation cycle for kernel 0 is = 10560000
+Simulation cycle for kernel 0 is = 10565000
+Simulation cycle for kernel 0 is = 10570000
+Simulation cycle for kernel 0 is = 10575000
+Simulation cycle for kernel 0 is = 10580000
+Simulation cycle for kernel 0 is = 10585000
+Simulation cycle for kernel 0 is = 10590000
+Simulation cycle for kernel 0 is = 10595000
+Simulation cycle for kernel 0 is = 10600000
+Simulation cycle for kernel 0 is = 10605000
+Simulation cycle for kernel 0 is = 10610000
+Simulation cycle for kernel 0 is = 10615000
+Simulation cycle for kernel 0 is = 10620000
+Simulation cycle for kernel 0 is = 10625000
+Simulation cycle for kernel 0 is = 10630000
+Simulation cycle for kernel 0 is = 10635000
+Simulation cycle for kernel 0 is = 10640000
+Simulation cycle for kernel 0 is = 10645000
+Simulation cycle for kernel 0 is = 10650000
+Simulation cycle for kernel 0 is = 10655000
+Simulation cycle for kernel 0 is = 10660000
+Simulation cycle for kernel 0 is = 10665000
+Simulation cycle for kernel 0 is = 10670000
+Simulation cycle for kernel 0 is = 10675000
+Simulation cycle for kernel 0 is = 10680000
+Simulation cycle for kernel 0 is = 10685000
+Simulation cycle for kernel 0 is = 10690000
+Simulation cycle for kernel 0 is = 10695000
+Simulation cycle for kernel 0 is = 10700000
+Simulation cycle for kernel 0 is = 10705000
+Simulation cycle for kernel 0 is = 10710000
+Simulation cycle for kernel 0 is = 10715000
+Simulation cycle for kernel 0 is = 10720000
+Simulation cycle for kernel 0 is = 10725000
+Simulation cycle for kernel 0 is = 10730000
+Simulation cycle for kernel 0 is = 10735000
+Simulation cycle for kernel 0 is = 10740000
+Simulation cycle for kernel 0 is = 10745000
+Simulation cycle for kernel 0 is = 10750000
+Simulation cycle for kernel 0 is = 10755000
+Simulation cycle for kernel 0 is = 10760000
+Simulation cycle for kernel 0 is = 10765000
+Simulation cycle for kernel 0 is = 10770000
+Simulation cycle for kernel 0 is = 10775000
+Simulation cycle for kernel 0 is = 10780000
+Simulation cycle for kernel 0 is = 10785000
+Simulation cycle for kernel 0 is = 10790000
+Simulation cycle for kernel 0 is = 10795000
+Simulation cycle for kernel 0 is = 10800000
+Simulation cycle for kernel 0 is = 10805000
+Simulation cycle for kernel 0 is = 10810000
+Simulation cycle for kernel 0 is = 10815000
+Simulation cycle for kernel 0 is = 10820000
+Simulation cycle for kernel 0 is = 10825000
+Simulation cycle for kernel 0 is = 10830000
+Simulation cycle for kernel 0 is = 10835000
+Simulation cycle for kernel 0 is = 10840000
+Simulation cycle for kernel 0 is = 10845000
+Simulation cycle for kernel 0 is = 10850000
+Simulation cycle for kernel 0 is = 10855000
+Simulation cycle for kernel 0 is = 10860000
+Simulation cycle for kernel 0 is = 10865000
+Simulation cycle for kernel 0 is = 10870000
+Simulation cycle for kernel 0 is = 10875000
+Simulation cycle for kernel 0 is = 10880000
+Simulation cycle for kernel 0 is = 10885000
+Simulation cycle for kernel 0 is = 10890000
+Simulation cycle for kernel 0 is = 10895000
+Simulation cycle for kernel 0 is = 10900000
+Simulation cycle for kernel 0 is = 10905000
+Simulation cycle for kernel 0 is = 10910000
+Simulation cycle for kernel 0 is = 10915000
+Simulation cycle for kernel 0 is = 10920000
+Simulation cycle for kernel 0 is = 10925000
+Simulation cycle for kernel 0 is = 10930000
+Simulation cycle for kernel 0 is = 10935000
+Simulation cycle for kernel 0 is = 10940000
+Simulation cycle for kernel 0 is = 10945000
+Simulation cycle for kernel 0 is = 10950000
+Simulation cycle for kernel 0 is = 10955000
+Simulation cycle for kernel 0 is = 10960000
+Simulation cycle for kernel 0 is = 10965000
+Simulation cycle for kernel 0 is = 10970000
+Simulation cycle for kernel 0 is = 10975000
+Simulation cycle for kernel 0 is = 10980000
+Simulation cycle for kernel 0 is = 10985000
+Simulation cycle for kernel 0 is = 10990000
+Simulation cycle for kernel 0 is = 10995000
+Simulation cycle for kernel 0 is = 11000000
+Simulation cycle for kernel 0 is = 11005000
+Simulation cycle for kernel 0 is = 11010000
+Simulation cycle for kernel 0 is = 11015000
+Simulation cycle for kernel 0 is = 11020000
+Simulation cycle for kernel 0 is = 11025000
+Simulation cycle for kernel 0 is = 11030000
+Simulation cycle for kernel 0 is = 11035000
+Simulation cycle for kernel 0 is = 11040000
+Simulation cycle for kernel 0 is = 11045000
+Simulation cycle for kernel 0 is = 11050000
+Simulation cycle for kernel 0 is = 11055000
+Simulation cycle for kernel 0 is = 11060000
+Simulation cycle for kernel 0 is = 11065000
+Simulation cycle for kernel 0 is = 11070000
+Simulation cycle for kernel 0 is = 11075000
+Simulation cycle for kernel 0 is = 11080000
+Simulation cycle for kernel 0 is = 11085000
+Simulation cycle for kernel 0 is = 11090000
+Simulation cycle for kernel 0 is = 11095000
+Simulation cycle for kernel 0 is = 11100000
+Simulation cycle for kernel 0 is = 11105000
+Simulation cycle for kernel 0 is = 11110000
+Simulation cycle for kernel 0 is = 11115000
+Simulation cycle for kernel 0 is = 11120000
+Simulation cycle for kernel 0 is = 11125000
+Simulation cycle for kernel 0 is = 11130000
+Simulation cycle for kernel 0 is = 11135000
+Simulation cycle for kernel 0 is = 11140000
+Simulation cycle for kernel 0 is = 11145000
+Simulation cycle for kernel 0 is = 11150000
+Simulation cycle for kernel 0 is = 11155000
+Simulation cycle for kernel 0 is = 11160000
+Simulation cycle for kernel 0 is = 11165000
+Simulation cycle for kernel 0 is = 11170000
+Simulation cycle for kernel 0 is = 11175000
+Simulation cycle for kernel 0 is = 11180000
+Simulation cycle for kernel 0 is = 11185000
+Simulation cycle for kernel 0 is = 11190000
+Simulation cycle for kernel 0 is = 11195000
+Simulation cycle for kernel 0 is = 11200000
+Simulation cycle for kernel 0 is = 11205000
+Simulation cycle for kernel 0 is = 11210000
+Simulation cycle for kernel 0 is = 11215000
+Simulation cycle for kernel 0 is = 11220000
+Simulation cycle for kernel 0 is = 11225000
+Simulation cycle for kernel 0 is = 11230000
+Simulation cycle for kernel 0 is = 11235000
+Simulation cycle for kernel 0 is = 11240000
+Simulation cycle for kernel 0 is = 11245000
+Simulation cycle for kernel 0 is = 11250000
+Simulation cycle for kernel 0 is = 11255000
+Simulation cycle for kernel 0 is = 11260000
+Simulation cycle for kernel 0 is = 11265000
+Simulation cycle for kernel 0 is = 11270000
+Simulation cycle for kernel 0 is = 11275000
+Simulation cycle for kernel 0 is = 11280000
+Simulation cycle for kernel 0 is = 11285000
+Simulation cycle for kernel 0 is = 11290000
+Simulation cycle for kernel 0 is = 11295000
+Simulation cycle for kernel 0 is = 11300000
+Simulation cycle for kernel 0 is = 11305000
+Simulation cycle for kernel 0 is = 11310000
+Simulation cycle for kernel 0 is = 11315000
+Simulation cycle for kernel 0 is = 11320000
+Simulation cycle for kernel 0 is = 11325000
+Simulation cycle for kernel 0 is = 11330000
+Simulation cycle for kernel 0 is = 11335000
+Simulation cycle for kernel 0 is = 11340000
+Simulation cycle for kernel 0 is = 11345000
+Simulation cycle for kernel 0 is = 11350000
+Simulation cycle for kernel 0 is = 11355000
+Simulation cycle for kernel 0 is = 11360000
+Simulation cycle for kernel 0 is = 11365000
+Simulation cycle for kernel 0 is = 11370000
+Simulation cycle for kernel 0 is = 11375000
+Simulation cycle for kernel 0 is = 11380000
+Simulation cycle for kernel 0 is = 11385000
+Simulation cycle for kernel 0 is = 11390000
+Simulation cycle for kernel 0 is = 11395000
+Simulation cycle for kernel 0 is = 11400000
+Simulation cycle for kernel 0 is = 11405000
+Simulation cycle for kernel 0 is = 11410000
+Simulation cycle for kernel 0 is = 11415000
+Simulation cycle for kernel 0 is = 11420000
+Simulation cycle for kernel 0 is = 11425000
+Simulation cycle for kernel 0 is = 11430000
+Simulation cycle for kernel 0 is = 11435000
+Simulation cycle for kernel 0 is = 11440000
+Simulation cycle for kernel 0 is = 11445000
+Simulation cycle for kernel 0 is = 11450000
+Simulation cycle for kernel 0 is = 11455000
+Simulation cycle for kernel 0 is = 11460000
+Simulation cycle for kernel 0 is = 11465000
+Simulation cycle for kernel 0 is = 11470000
+Simulation cycle for kernel 0 is = 11475000
+Simulation cycle for kernel 0 is = 11480000
+Simulation cycle for kernel 0 is = 11485000
+Simulation cycle for kernel 0 is = 11490000
+Simulation cycle for kernel 0 is = 11495000
+Simulation cycle for kernel 0 is = 11500000
+Simulation cycle for kernel 0 is = 11505000
+Simulation cycle for kernel 0 is = 11510000
+Simulation cycle for kernel 0 is = 11515000
+Simulation cycle for kernel 0 is = 11520000
+Simulation cycle for kernel 0 is = 11525000
+Simulation cycle for kernel 0 is = 11530000
+Simulation cycle for kernel 0 is = 11535000
+Simulation cycle for kernel 0 is = 11540000
+Simulation cycle for kernel 0 is = 11545000
+Simulation cycle for kernel 0 is = 11550000
+Simulation cycle for kernel 0 is = 11555000
+Simulation cycle for kernel 0 is = 11560000
+Simulation cycle for kernel 0 is = 11565000
+Simulation cycle for kernel 0 is = 11570000
+Simulation cycle for kernel 0 is = 11575000
+Simulation cycle for kernel 0 is = 11580000
+Simulation cycle for kernel 0 is = 11585000
+Simulation cycle for kernel 0 is = 11590000
+Simulation cycle for kernel 0 is = 11595000
+Simulation cycle for kernel 0 is = 11600000
+Simulation cycle for kernel 0 is = 11605000
+Simulation cycle for kernel 0 is = 11610000
+Simulation cycle for kernel 0 is = 11615000
+Simulation cycle for kernel 0 is = 11620000
+Simulation cycle for kernel 0 is = 11625000
+Simulation cycle for kernel 0 is = 11630000
+Simulation cycle for kernel 0 is = 11635000
+Simulation cycle for kernel 0 is = 11640000
+Simulation cycle for kernel 0 is = 11645000
+Simulation cycle for kernel 0 is = 11650000
+Simulation cycle for kernel 0 is = 11655000
+Simulation cycle for kernel 0 is = 11660000
+Simulation cycle for kernel 0 is = 11665000
+Simulation cycle for kernel 0 is = 11670000
+Simulation cycle for kernel 0 is = 11675000
+Simulation cycle for kernel 0 is = 11680000
+Simulation cycle for kernel 0 is = 11685000
+Simulation cycle for kernel 0 is = 11690000
+Simulation cycle for kernel 0 is = 11695000
+Simulation cycle for kernel 0 is = 11700000
+Simulation cycle for kernel 0 is = 11705000
+Simulation cycle for kernel 0 is = 11710000
+Simulation cycle for kernel 0 is = 11715000
+Simulation cycle for kernel 0 is = 11720000
+Simulation cycle for kernel 0 is = 11725000
+Simulation cycle for kernel 0 is = 11730000
+Simulation cycle for kernel 0 is = 11735000
+Simulation cycle for kernel 0 is = 11740000
+Simulation cycle for kernel 0 is = 11745000
+Simulation cycle for kernel 0 is = 11750000
+Simulation cycle for kernel 0 is = 11755000
+Simulation cycle for kernel 0 is = 11760000
+Simulation cycle for kernel 0 is = 11765000
+Simulation cycle for kernel 0 is = 11770000
+Simulation cycle for kernel 0 is = 11775000
+Simulation cycle for kernel 0 is = 11780000
+Simulation cycle for kernel 0 is = 11785000
+Simulation cycle for kernel 0 is = 11790000
+Simulation cycle for kernel 0 is = 11795000
+Simulation cycle for kernel 0 is = 11800000
+Simulation cycle for kernel 0 is = 11805000
+Simulation cycle for kernel 0 is = 11810000
+Simulation cycle for kernel 0 is = 11815000
+Simulation cycle for kernel 0 is = 11820000
+Simulation cycle for kernel 0 is = 11825000
+Simulation cycle for kernel 0 is = 11830000
+Simulation cycle for kernel 0 is = 11835000
+Simulation cycle for kernel 0 is = 11840000
+Simulation cycle for kernel 0 is = 11845000
+Simulation cycle for kernel 0 is = 11850000
+Simulation cycle for kernel 0 is = 11855000
+Simulation cycle for kernel 0 is = 11860000
+Simulation cycle for kernel 0 is = 11865000
+Simulation cycle for kernel 0 is = 11870000
+Simulation cycle for kernel 0 is = 11875000
+Simulation cycle for kernel 0 is = 11880000
+Simulation cycle for kernel 0 is = 11885000
+Simulation cycle for kernel 0 is = 11890000
+Simulation cycle for kernel 0 is = 11895000
+Simulation cycle for kernel 0 is = 11900000
+Simulation cycle for kernel 0 is = 11905000
+Simulation cycle for kernel 0 is = 11910000
+Simulation cycle for kernel 0 is = 11915000
+Simulation cycle for kernel 0 is = 11920000
+Simulation cycle for kernel 0 is = 11925000
+Simulation cycle for kernel 0 is = 11930000
+Simulation cycle for kernel 0 is = 11935000
+Simulation cycle for kernel 0 is = 11940000
+Simulation cycle for kernel 0 is = 11945000
+Simulation cycle for kernel 0 is = 11950000
+Simulation cycle for kernel 0 is = 11955000
+Simulation cycle for kernel 0 is = 11960000
+Simulation cycle for kernel 0 is = 11965000
+Simulation cycle for kernel 0 is = 11970000
+Simulation cycle for kernel 0 is = 11975000
+Simulation cycle for kernel 0 is = 11980000
+Simulation cycle for kernel 0 is = 11985000
+Simulation cycle for kernel 0 is = 11990000
+Simulation cycle for kernel 0 is = 11995000
+Simulation cycle for kernel 0 is = 12000000
+Simulation cycle for kernel 0 is = 12005000
+Simulation cycle for kernel 0 is = 12010000
+Simulation cycle for kernel 0 is = 12015000
+Simulation cycle for kernel 0 is = 12020000
+Simulation cycle for kernel 0 is = 12025000
+Simulation cycle for kernel 0 is = 12030000
+Simulation cycle for kernel 0 is = 12035000
+Simulation cycle for kernel 0 is = 12040000
+Simulation cycle for kernel 0 is = 12045000
+Simulation cycle for kernel 0 is = 12050000
+Simulation cycle for kernel 0 is = 12055000
+Simulation cycle for kernel 0 is = 12060000
+Simulation cycle for kernel 0 is = 12065000
+Simulation cycle for kernel 0 is = 12070000
+Simulation cycle for kernel 0 is = 12075000
+Simulation cycle for kernel 0 is = 12080000
+Simulation cycle for kernel 0 is = 12085000
+Simulation cycle for kernel 0 is = 12090000
+Simulation cycle for kernel 0 is = 12095000
+Simulation cycle for kernel 0 is = 12100000
+Simulation cycle for kernel 0 is = 12105000
+Simulation cycle for kernel 0 is = 12110000
+Simulation cycle for kernel 0 is = 12115000
+Simulation cycle for kernel 0 is = 12120000
+Simulation cycle for kernel 0 is = 12125000
+Simulation cycle for kernel 0 is = 12130000
+Simulation cycle for kernel 0 is = 12135000
+Simulation cycle for kernel 0 is = 12140000
+Simulation cycle for kernel 0 is = 12145000
+Simulation cycle for kernel 0 is = 12150000
+Simulation cycle for kernel 0 is = 12155000
+Simulation cycle for kernel 0 is = 12160000
+Simulation cycle for kernel 0 is = 12165000
+Simulation cycle for kernel 0 is = 12170000
+Simulation cycle for kernel 0 is = 12175000
+Simulation cycle for kernel 0 is = 12180000
+Simulation cycle for kernel 0 is = 12185000
+Simulation cycle for kernel 0 is = 12190000
+Simulation cycle for kernel 0 is = 12195000
+Simulation cycle for kernel 0 is = 12200000
+Simulation cycle for kernel 0 is = 12205000
+Simulation cycle for kernel 0 is = 12210000
+Simulation cycle for kernel 0 is = 12215000
+Simulation cycle for kernel 0 is = 12220000
+Simulation cycle for kernel 0 is = 12225000
+Simulation cycle for kernel 0 is = 12230000
+Simulation cycle for kernel 0 is = 12235000
+Simulation cycle for kernel 0 is = 12240000
+Simulation cycle for kernel 0 is = 12245000
+Simulation cycle for kernel 0 is = 12250000
+Simulation cycle for kernel 0 is = 12255000
+Simulation cycle for kernel 0 is = 12260000
+Simulation cycle for kernel 0 is = 12265000
+Simulation cycle for kernel 0 is = 12270000
+Simulation cycle for kernel 0 is = 12275000
+Simulation cycle for kernel 0 is = 12280000
+Simulation cycle for kernel 0 is = 12285000
+Simulation cycle for kernel 0 is = 12290000
+Simulation cycle for kernel 0 is = 12295000
+Simulation cycle for kernel 0 is = 12300000
+Simulation cycle for kernel 0 is = 12305000
+Simulation cycle for kernel 0 is = 12310000
+Simulation cycle for kernel 0 is = 12315000
+Simulation cycle for kernel 0 is = 12320000
+Simulation cycle for kernel 0 is = 12325000
+Simulation cycle for kernel 0 is = 12330000
+Simulation cycle for kernel 0 is = 12335000
+Simulation cycle for kernel 0 is = 12340000
+Simulation cycle for kernel 0 is = 12345000
+Simulation cycle for kernel 0 is = 12350000
+Simulation cycle for kernel 0 is = 12355000
+Simulation cycle for kernel 0 is = 12360000
+Simulation cycle for kernel 0 is = 12365000
+Simulation cycle for kernel 0 is = 12370000
+Simulation cycle for kernel 0 is = 12375000
+Simulation cycle for kernel 0 is = 12380000
+Simulation cycle for kernel 0 is = 12385000
+Simulation cycle for kernel 0 is = 12390000
+Simulation cycle for kernel 0 is = 12395000
+Simulation cycle for kernel 0 is = 12400000
+Simulation cycle for kernel 0 is = 12405000
+Simulation cycle for kernel 0 is = 12410000
+Simulation cycle for kernel 0 is = 12415000
+Simulation cycle for kernel 0 is = 12420000
+Simulation cycle for kernel 0 is = 12425000
+Simulation cycle for kernel 0 is = 12430000
+Simulation cycle for kernel 0 is = 12435000
+Simulation cycle for kernel 0 is = 12440000
+Simulation cycle for kernel 0 is = 12445000
+Simulation cycle for kernel 0 is = 12450000
+Simulation cycle for kernel 0 is = 12455000
+Simulation cycle for kernel 0 is = 12460000
+Simulation cycle for kernel 0 is = 12465000
+Simulation cycle for kernel 0 is = 12470000
+Simulation cycle for kernel 0 is = 12475000
+Simulation cycle for kernel 0 is = 12480000
+Simulation cycle for kernel 0 is = 12485000
+Simulation cycle for kernel 0 is = 12490000
+Simulation cycle for kernel 0 is = 12495000
+Simulation cycle for kernel 0 is = 12500000
+Simulation cycle for kernel 0 is = 12505000
+Simulation cycle for kernel 0 is = 12510000
+Simulation cycle for kernel 0 is = 12515000
+Simulation cycle for kernel 0 is = 12520000
+Simulation cycle for kernel 0 is = 12525000
+Simulation cycle for kernel 0 is = 12530000
+Simulation cycle for kernel 0 is = 12535000
+Simulation cycle for kernel 0 is = 12540000
+Simulation cycle for kernel 0 is = 12545000
+Simulation cycle for kernel 0 is = 12550000
+Simulation cycle for kernel 0 is = 12555000
+Simulation cycle for kernel 0 is = 12560000
+Simulation cycle for kernel 0 is = 12565000
+Simulation cycle for kernel 0 is = 12570000
+Simulation cycle for kernel 0 is = 12575000
+Simulation cycle for kernel 0 is = 12580000
+Simulation cycle for kernel 0 is = 12585000
+Simulation cycle for kernel 0 is = 12590000
+Simulation cycle for kernel 0 is = 12595000
+Simulation cycle for kernel 0 is = 12600000
+Simulation cycle for kernel 0 is = 12605000
+Simulation cycle for kernel 0 is = 12610000
+Simulation cycle for kernel 0 is = 12615000
+Simulation cycle for kernel 0 is = 12620000
+Simulation cycle for kernel 0 is = 12625000
+Simulation cycle for kernel 0 is = 12630000
+Simulation cycle for kernel 0 is = 12635000
+Simulation cycle for kernel 0 is = 12640000
+Simulation cycle for kernel 0 is = 12645000
+Simulation cycle for kernel 0 is = 12650000
+Simulation cycle for kernel 0 is = 12655000
+Simulation cycle for kernel 0 is = 12660000
+Simulation cycle for kernel 0 is = 12665000
+Simulation cycle for kernel 0 is = 12670000
+Simulation cycle for kernel 0 is = 12675000
+Simulation cycle for kernel 0 is = 12680000
+Simulation cycle for kernel 0 is = 12685000
+Simulation cycle for kernel 0 is = 12690000
+Simulation cycle for kernel 0 is = 12695000
+Simulation cycle for kernel 0 is = 12700000
+Simulation cycle for kernel 0 is = 12705000
+Simulation cycle for kernel 0 is = 12710000
+Simulation cycle for kernel 0 is = 12715000
+Simulation cycle for kernel 0 is = 12720000
+Simulation cycle for kernel 0 is = 12725000
+Simulation cycle for kernel 0 is = 12730000
+Simulation cycle for kernel 0 is = 12735000
+Simulation cycle for kernel 0 is = 12740000
+Simulation cycle for kernel 0 is = 12745000
+Simulation cycle for kernel 0 is = 12750000
+Simulation cycle for kernel 0 is = 12755000
+Simulation cycle for kernel 0 is = 12760000
+Simulation cycle for kernel 0 is = 12765000
+Simulation cycle for kernel 0 is = 12770000
+Simulation cycle for kernel 0 is = 12775000
+Simulation cycle for kernel 0 is = 12780000
+Simulation cycle for kernel 0 is = 12785000
+Simulation cycle for kernel 0 is = 12790000
+Simulation cycle for kernel 0 is = 12795000
+Simulation cycle for kernel 0 is = 12800000
+Simulation cycle for kernel 0 is = 12805000
+Simulation cycle for kernel 0 is = 12810000
+Simulation cycle for kernel 0 is = 12815000
+Simulation cycle for kernel 0 is = 12820000
+Simulation cycle for kernel 0 is = 12825000
+Simulation cycle for kernel 0 is = 12830000
+Simulation cycle for kernel 0 is = 12835000
+Simulation cycle for kernel 0 is = 12840000
+Simulation cycle for kernel 0 is = 12845000
+Simulation cycle for kernel 0 is = 12850000
+Simulation cycle for kernel 0 is = 12855000
+Simulation cycle for kernel 0 is = 12860000
+Simulation cycle for kernel 0 is = 12865000
+Simulation cycle for kernel 0 is = 12870000
+Simulation cycle for kernel 0 is = 12875000
+Simulation cycle for kernel 0 is = 12880000
+Simulation cycle for kernel 0 is = 12885000
+Simulation cycle for kernel 0 is = 12890000
+Simulation cycle for kernel 0 is = 12895000
+Simulation cycle for kernel 0 is = 12900000
+Simulation cycle for kernel 0 is = 12905000
+Simulation cycle for kernel 0 is = 12910000
+Simulation cycle for kernel 0 is = 12915000
+Simulation cycle for kernel 0 is = 12920000
+Simulation cycle for kernel 0 is = 12925000
+Simulation cycle for kernel 0 is = 12930000
+Simulation cycle for kernel 0 is = 12935000
+Simulation cycle for kernel 0 is = 12940000
+Simulation cycle for kernel 0 is = 12945000
+Simulation cycle for kernel 0 is = 12950000

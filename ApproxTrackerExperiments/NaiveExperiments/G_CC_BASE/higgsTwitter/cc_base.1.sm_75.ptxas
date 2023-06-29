@@ -1,0 +1,9 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z8shortcutiPi' for 'sm_75'
+ptxas info    : Function properties for _Z8shortcutiPi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z4hookiPKmPKiPiPb' for 'sm_75'
+ptxas info    : Function properties for _Z4hookiPKmPKiPiPb
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 392 bytes cmem[0]

@@ -1,0 +1,454 @@
+
+
+
+
+
+
+
+
+.version 7.6
+.target sm_75
+.address_size 64
+
+
+.extern .func __assertfail
+(
+.param .b64 __assertfail_param_0,
+.param .b64 __assertfail_param_1,
+.param .b32 __assertfail_param_2,
+.param .b64 __assertfail_param_3,
+.param .b64 __assertfail_param_4
+)
+;
+.global .align 1 .b8 __unnamed_1[86] = {118, 111, 105, 100, 32, 98, 102, 115, 95, 107, 101, 114, 110, 101, 108, 40, 105, 110, 116, 44, 32, 99, 111, 110, 115, 116, 32, 117, 110, 115, 105, 103, 110, 101, 100, 32, 108, 111, 110, 103, 32, 42, 44, 32, 99, 111, 110, 115, 116, 32, 105, 110, 116, 32, 42, 44, 32, 105, 110, 116, 32, 42, 44, 32, 87, 111, 114, 107, 108, 105, 115, 116, 50, 44, 32, 87, 111, 114, 107, 108, 105, 115, 116, 50, 41, 0};
+.global .align 1 .b8 $str[20] = {111, 117, 116, 95, 113, 117, 101, 117, 101, 46, 112, 117, 115, 104, 40, 100, 115, 116, 41, 0};
+.global .align 1 .b8 $str$1[15] = {108, 105, 110, 101, 97, 114, 95, 98, 97, 115, 101, 46, 99, 117, 0};
+
+.visible .entry _Z10bfs_kerneliPKmPKiPi9Worklist2S4_(
+.param .u32 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_0,
+.param .u64 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_1,
+.param .u64 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_2,
+.param .u64 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_3,
+.param .align 8 .b8 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_4[32],
+.param .align 8 .b8 _Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_5[32]
+)
+{
+.reg .pred %p<31>;
+.reg .b32 %r<72>;
+.reg .b64 %rd<90>;
+
+
+ld.param.u64 %rd22, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_1];
+ld.param.u64 %rd23, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_2];
+ld.param.u64 %rd24, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_3];
+cvta.to.global.u64 %rd1, %rd24;
+cvta.to.global.u64 %rd2, %rd23;
+ld.param.u64 %rd6, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_4+24];
+ld.param.u64 %rd3, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_4];
+cvta.to.global.u64 %rd25, %rd6;
+ld.param.u64 %rd26, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_5+24];
+ld.param.u64 %rd27, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_5+16];
+ld.param.u64 %rd28, [_Z10bfs_kerneliPKmPKiPi9Worklist2S4__param_5];
+cvta.to.global.u64 %rd7, %rd28;
+cvta.to.global.u64 %rd8, %rd27;
+cvta.to.global.u64 %rd9, %rd26;
+mov.u32 %r30, %ntid.x;
+mov.u32 %r31, %ctaid.x;
+mov.u32 %r32, %tid.x;
+mad.lo.s32 %r1, %r31, %r30, %r32;
+ld.global.u32 %r33, [%rd25];
+setp.le.s32 %p3, %r33, %r1;
+mov.pred %p30, -1;
+@%p3 bra $L__BB0_2;
+
+cvta.to.global.u64 %rd29, %rd3;
+mul.wide.s32 %rd30, %r1, 4;
+add.s64 %rd31, %rd29, %rd30;
+ld.global.u32 %r67, [%rd31];
+mov.pred %p30, 0;
+
+$L__BB0_2:
+@%p30 bra $L__BB0_40;
+
+cvta.to.global.u64 %rd32, %rd22;
+mul.wide.s32 %rd33, %r67, 8;
+add.s64 %rd34, %rd32, %rd33;
+ld.global.u32 %r4, [%rd34];
+ld.global.u32 %r5, [%rd34+8];
+setp.le.s32 %p5, %r5, %r4;
+@%p5 bra $L__BB0_40;
+
+mul.wide.s32 %rd35, %r67, 4;
+add.s64 %rd10, %rd1, %rd35;
+sub.s32 %r34, %r5, %r4;
+and.b32 %r69, %r34, 3;
+setp.eq.s32 %p6, %r69, 0;
+mov.u32 %r70, %r4;
+@%p6 bra $L__BB0_13;
+
+mul.wide.s32 %rd36, %r4, 4;
+add.s64 %rd88, %rd2, %rd36;
+mov.u32 %r70, %r4;
+
+$L__BB0_6:
+.pragma "nounroll";
+ld.global.u32 %r9, [%rd88];
+mul.wide.s32 %rd37, %r9, 4;
+add.s64 %rd13, %rd1, %rd37;
+ld.global.u32 %r35, [%rd13];
+setp.ne.s32 %p7, %r35, 1000000000;
+@%p7 bra $L__BB0_12;
+
+ld.global.u32 %r36, [%rd10];
+add.s32 %r37, %r36, 1;
+mov.u32 %r38, 1000000000;
+atom.global.cas.b32 %r39, [%rd13], %r38, %r37;
+setp.ne.s32 %p8, %r39, 1000000000;
+@%p8 bra $L__BB0_12;
+
+atom.global.add.u32 %r10, [%rd9], 1;
+ld.global.u32 %r11, [%rd8];
+setp.ge.s32 %p9, %r10, %r11;
+@%p9 bra $L__BB0_10;
+
+mul.wide.s32 %rd38, %r10, 4;
+add.s64 %rd39, %rd7, %rd38;
+st.global.u32 [%rd39], %r9;
+
+$L__BB0_10:
+setp.lt.s32 %p10, %r10, %r11;
+@%p10 bra $L__BB0_12;
+
+mov.u64 %rd40, $str;
+cvta.global.u64 %rd41, %rd40;
+mov.u64 %rd42, $str$1;
+cvta.global.u64 %rd43, %rd42;
+mov.u64 %rd44, __unnamed_1;
+cvta.global.u64 %rd45, %rd44;
+mov.u32 %r40, 22;
+mov.u64 %rd46, 1;
+{ 
+	.reg .b32 temp_param_reg;
+.param .b64 param0;
+st.param.b64 [param0+0], %rd41;
+.param .b64 param1;
+st.param.b64 [param1+0], %rd43;
+.param .b32 param2;
+st.param.b32 [param2+0], %r40;
+.param .b64 param3;
+st.param.b64 [param3+0], %rd45;
+.param .b64 param4;
+st.param.b64 [param4+0], %rd46;
+call.uni 
+__assertfail, 
+(
+param0, 
+param1, 
+param2, 
+param3, 
+param4
+);
+} 
+
+$L__BB0_12:
+add.s32 %r70, %r70, 1;
+add.s64 %rd88, %rd88, 4;
+add.s32 %r69, %r69, -1;
+setp.ne.s32 %p11, %r69, 0;
+@%p11 bra $L__BB0_6;
+
+$L__BB0_13:
+not.b32 %r41, %r4;
+add.s32 %r42, %r41, %r5;
+setp.lt.u32 %p12, %r42, 3;
+@%p12 bra $L__BB0_40;
+
+mul.wide.s32 %rd47, %r70, 4;
+add.s64 %rd89, %rd2, %rd47;
+
+$L__BB0_15:
+ld.global.u32 %r16, [%rd89];
+mul.wide.s32 %rd48, %r16, 4;
+add.s64 %rd17, %rd1, %rd48;
+ld.global.u32 %r43, [%rd17];
+setp.ne.s32 %p13, %r43, 1000000000;
+@%p13 bra $L__BB0_21;
+
+ld.global.u32 %r44, [%rd10];
+add.s32 %r45, %r44, 1;
+mov.u32 %r46, 1000000000;
+atom.global.cas.b32 %r47, [%rd17], %r46, %r45;
+setp.ne.s32 %p14, %r47, 1000000000;
+@%p14 bra $L__BB0_21;
+
+atom.global.add.u32 %r17, [%rd9], 1;
+ld.global.u32 %r18, [%rd8];
+setp.ge.s32 %p15, %r17, %r18;
+@%p15 bra $L__BB0_19;
+
+mul.wide.s32 %rd49, %r17, 4;
+add.s64 %rd50, %rd7, %rd49;
+st.global.u32 [%rd50], %r16;
+
+$L__BB0_19:
+setp.lt.s32 %p16, %r17, %r18;
+@%p16 bra $L__BB0_21;
+
+mov.u64 %rd51, $str;
+cvta.global.u64 %rd52, %rd51;
+mov.u64 %rd53, $str$1;
+cvta.global.u64 %rd54, %rd53;
+mov.u64 %rd55, __unnamed_1;
+cvta.global.u64 %rd56, %rd55;
+mov.u32 %r48, 22;
+mov.u64 %rd57, 1;
+{ 
+	.reg .b32 temp_param_reg;
+.param .b64 param0;
+st.param.b64 [param0+0], %rd52;
+.param .b64 param1;
+st.param.b64 [param1+0], %rd54;
+.param .b32 param2;
+st.param.b32 [param2+0], %r48;
+.param .b64 param3;
+st.param.b64 [param3+0], %rd56;
+.param .b64 param4;
+st.param.b64 [param4+0], %rd57;
+call.uni 
+__assertfail, 
+(
+param0, 
+param1, 
+param2, 
+param3, 
+param4
+);
+} 
+
+$L__BB0_21:
+ld.global.u32 %r19, [%rd89+4];
+mul.wide.s32 %rd58, %r19, 4;
+add.s64 %rd18, %rd1, %rd58;
+ld.global.u32 %r49, [%rd18];
+setp.ne.s32 %p17, %r49, 1000000000;
+@%p17 bra $L__BB0_27;
+
+ld.global.u32 %r50, [%rd10];
+add.s32 %r51, %r50, 1;
+mov.u32 %r52, 1000000000;
+atom.global.cas.b32 %r53, [%rd18], %r52, %r51;
+setp.ne.s32 %p18, %r53, 1000000000;
+@%p18 bra $L__BB0_27;
+
+atom.global.add.u32 %r20, [%rd9], 1;
+ld.global.u32 %r21, [%rd8];
+setp.ge.s32 %p19, %r20, %r21;
+@%p19 bra $L__BB0_25;
+
+mul.wide.s32 %rd59, %r20, 4;
+add.s64 %rd60, %rd7, %rd59;
+st.global.u32 [%rd60], %r19;
+
+$L__BB0_25:
+setp.lt.s32 %p20, %r20, %r21;
+@%p20 bra $L__BB0_27;
+
+mov.u64 %rd61, $str;
+cvta.global.u64 %rd62, %rd61;
+mov.u64 %rd63, $str$1;
+cvta.global.u64 %rd64, %rd63;
+mov.u64 %rd65, __unnamed_1;
+cvta.global.u64 %rd66, %rd65;
+mov.u32 %r54, 22;
+mov.u64 %rd67, 1;
+{ 
+	.reg .b32 temp_param_reg;
+.param .b64 param0;
+st.param.b64 [param0+0], %rd62;
+.param .b64 param1;
+st.param.b64 [param1+0], %rd64;
+.param .b32 param2;
+st.param.b32 [param2+0], %r54;
+.param .b64 param3;
+st.param.b64 [param3+0], %rd66;
+.param .b64 param4;
+st.param.b64 [param4+0], %rd67;
+call.uni 
+__assertfail, 
+(
+param0, 
+param1, 
+param2, 
+param3, 
+param4
+);
+} 
+
+$L__BB0_27:
+ld.global.u32 %r22, [%rd89+8];
+mul.wide.s32 %rd68, %r22, 4;
+add.s64 %rd19, %rd1, %rd68;
+ld.global.u32 %r55, [%rd19];
+setp.ne.s32 %p21, %r55, 1000000000;
+@%p21 bra $L__BB0_33;
+
+ld.global.u32 %r56, [%rd10];
+add.s32 %r57, %r56, 1;
+mov.u32 %r58, 1000000000;
+atom.global.cas.b32 %r59, [%rd19], %r58, %r57;
+setp.ne.s32 %p22, %r59, 1000000000;
+@%p22 bra $L__BB0_33;
+
+atom.global.add.u32 %r23, [%rd9], 1;
+ld.global.u32 %r24, [%rd8];
+setp.ge.s32 %p23, %r23, %r24;
+@%p23 bra $L__BB0_31;
+
+mul.wide.s32 %rd69, %r23, 4;
+add.s64 %rd70, %rd7, %rd69;
+st.global.u32 [%rd70], %r22;
+
+$L__BB0_31:
+setp.lt.s32 %p24, %r23, %r24;
+@%p24 bra $L__BB0_33;
+
+mov.u64 %rd71, $str;
+cvta.global.u64 %rd72, %rd71;
+mov.u64 %rd73, $str$1;
+cvta.global.u64 %rd74, %rd73;
+mov.u64 %rd75, __unnamed_1;
+cvta.global.u64 %rd76, %rd75;
+mov.u32 %r60, 22;
+mov.u64 %rd77, 1;
+{ 
+	.reg .b32 temp_param_reg;
+.param .b64 param0;
+st.param.b64 [param0+0], %rd72;
+.param .b64 param1;
+st.param.b64 [param1+0], %rd74;
+.param .b32 param2;
+st.param.b32 [param2+0], %r60;
+.param .b64 param3;
+st.param.b64 [param3+0], %rd76;
+.param .b64 param4;
+st.param.b64 [param4+0], %rd77;
+call.uni 
+__assertfail, 
+(
+param0, 
+param1, 
+param2, 
+param3, 
+param4
+);
+} 
+
+$L__BB0_33:
+ld.global.u32 %r25, [%rd89+12];
+mul.wide.s32 %rd78, %r25, 4;
+add.s64 %rd20, %rd1, %rd78;
+ld.global.u32 %r61, [%rd20];
+setp.ne.s32 %p25, %r61, 1000000000;
+@%p25 bra $L__BB0_39;
+
+ld.global.u32 %r62, [%rd10];
+add.s32 %r63, %r62, 1;
+mov.u32 %r64, 1000000000;
+atom.global.cas.b32 %r65, [%rd20], %r64, %r63;
+setp.ne.s32 %p26, %r65, 1000000000;
+@%p26 bra $L__BB0_39;
+
+atom.global.add.u32 %r26, [%rd9], 1;
+ld.global.u32 %r27, [%rd8];
+setp.ge.s32 %p27, %r26, %r27;
+@%p27 bra $L__BB0_37;
+
+mul.wide.s32 %rd79, %r26, 4;
+add.s64 %rd80, %rd7, %rd79;
+st.global.u32 [%rd80], %r25;
+
+$L__BB0_37:
+setp.lt.s32 %p28, %r26, %r27;
+@%p28 bra $L__BB0_39;
+
+mov.u64 %rd81, $str;
+cvta.global.u64 %rd82, %rd81;
+mov.u64 %rd83, $str$1;
+cvta.global.u64 %rd84, %rd83;
+mov.u64 %rd85, __unnamed_1;
+cvta.global.u64 %rd86, %rd85;
+mov.u32 %r66, 22;
+mov.u64 %rd87, 1;
+{ 
+	.reg .b32 temp_param_reg;
+.param .b64 param0;
+st.param.b64 [param0+0], %rd82;
+.param .b64 param1;
+st.param.b64 [param1+0], %rd84;
+.param .b32 param2;
+st.param.b32 [param2+0], %r66;
+.param .b64 param3;
+st.param.b64 [param3+0], %rd86;
+.param .b64 param4;
+st.param.b64 [param4+0], %rd87;
+call.uni 
+__assertfail, 
+(
+param0, 
+param1, 
+param2, 
+param3, 
+param4
+);
+} 
+
+$L__BB0_39:
+add.s32 %r70, %r70, 4;
+setp.lt.s32 %p29, %r70, %r5;
+add.s64 %rd89, %rd89, 16;
+@%p29 bra $L__BB0_15;
+
+$L__BB0_40:
+ret;
+
+}
+
+.visible .entry _Z6inserti9Worklist2(
+.param .u32 _Z6inserti9Worklist2_param_0,
+.param .align 8 .b8 _Z6inserti9Worklist2_param_1[32]
+)
+{
+.reg .pred %p<3>;
+.reg .b32 %r<9>;
+.reg .b64 %rd<14>;
+
+
+ld.param.u32 %r2, [_Z6inserti9Worklist2_param_0];
+ld.param.u64 %rd8, [_Z6inserti9Worklist2_param_1+24];
+ld.param.u64 %rd7, [_Z6inserti9Worklist2_param_1+16];
+ld.param.u64 %rd5, [_Z6inserti9Worklist2_param_1];
+mov.u32 %r3, %ntid.x;
+mov.u32 %r4, %ctaid.x;
+mul.lo.s32 %r5, %r4, %r3;
+mov.u32 %r6, %tid.x;
+neg.s32 %r7, %r6;
+setp.ne.s32 %p1, %r5, %r7;
+@%p1 bra $L__BB1_3;
+
+cvta.to.global.u64 %rd9, %rd8;
+cvta.to.global.u64 %rd10, %rd7;
+atom.global.add.u32 %r1, [%rd9], 1;
+ld.global.u32 %r8, [%rd10];
+setp.ge.s32 %p2, %r1, %r8;
+@%p2 bra $L__BB1_3;
+
+cvta.to.global.u64 %rd11, %rd5;
+mul.wide.s32 %rd12, %r1, 4;
+add.s64 %rd13, %rd11, %rd12;
+st.global.u32 [%rd13], %r2;
+
+$L__BB1_3:
+ret;
+
+}
+

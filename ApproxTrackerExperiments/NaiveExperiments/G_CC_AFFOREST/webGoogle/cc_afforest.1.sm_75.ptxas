@@ -1,0 +1,17 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z17afforest_directediiPKmPKiS0_S2_Pii' for 'sm_75'
+ptxas info    : Function properties for _Z17afforest_directediiPKmPKiS0_S2_Pii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 404 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z19afforest_undirectediiPKmPKiPii' for 'sm_75'
+ptxas info    : Function properties for _Z19afforest_undirectediiPKmPKiPii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 388 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8afforestiPKmPKiPii' for 'sm_75'
+ptxas info    : Function properties for _Z8afforestiPKmPKiPii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 388 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8compressiPi' for 'sm_75'
+ptxas info    : Function properties for _Z8compressiPi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 368 bytes cmem[0]

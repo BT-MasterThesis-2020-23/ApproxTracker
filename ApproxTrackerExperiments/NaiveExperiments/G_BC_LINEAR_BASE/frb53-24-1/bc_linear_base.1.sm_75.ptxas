@@ -1,0 +1,73 @@
+ptxas info    : 143 bytes gmem
+ptxas info    : Compiling entry function '_ZN3cub11EmptyKernelIvEEvv' for 'sm_75'
+ptxas info    : Function properties for _ZN3cub11EmptyKernelIvEEvv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 4 registers, 352 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_11__transform17unary_transform_fIPNS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EESA_NS5_14no_stencil_tagENS_8identityIS9_EENS5_21always_true_predicateEEElEESF_lEEvT0_T1_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_11__transform17unary_transform_fIPNS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EESA_NS5_14no_stencil_tagENS_8identityIS9_EENS5_21always_true_predicateEEElEESF_lEEvT0_T1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 14 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_20__uninitialized_copy7functorIPNS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EENS_7pointerIS9_NS0_5par_tENS_11use_defaultESD_EEEElEESF_lEEvT0_T1_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_20__uninitialized_copy7functorIPNS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EENS_7pointerIS9_NS0_5par_tENS_11use_defaultESD_EEEElEESF_lEEvT0_T1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_10for_each_fINS_7pointerINS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EENS0_5par_tENS_11use_defaultESB_EENS_6detail16wrapped_functionINSD_23allocator_traits_detail5gozerEvEEEElEESI_lEEvT0_T1_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_14__parallel_for16ParallelForAgentINS0_10for_each_fINS_7pointerINS_5tupleIflNS_9null_typeES8_S8_S8_S8_S8_S8_S8_EENS0_5par_tENS_11use_defaultESB_EENS_6detail16wrapped_functionINSD_23allocator_traits_detail5gozerEvEEEElEESI_lEEvT0_T1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 4 registers, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentIPNS_5tupleIflNS_9null_typeES6_S6_S6_S6_S6_S6_S6_EES8_S7_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEES8_S8_iSD_EEvT0_T1_T2_T3_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentIPNS_5tupleIflNS_9null_typeES6_S6_S6_S6_S6_S6_S6_EES8_S7_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEES8_S8_iSD_EEvT0_T1_T2_T3_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 34 registers, 373 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce10DrainAgentIlEEN3cub9GridQueueIyEElEEvT0_T1_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce10DrainAgentIlEEN3cub9GridQueueIyEElEEvT0_T1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 6 registers, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_lN3cub13GridEvenShareIlEENSL_9GridQueueIyEESJ_EEvT0_T1_T2_T3_T4_T5_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_lN3cub13GridEvenShareIlEENSL_9GridQueueIyEESJ_EEvT0_T1_T2_T3_T4_T5_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 465 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_lSJ_EEvT0_T1_T2_T3_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_lNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_lSJ_EEvT0_T1_T2_T3_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 385 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentIPNS_5tupleIflNS_9null_typeES6_S6_S6_S6_S6_S6_S6_EES8_S7_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEES8_S8_iSD_EEvT0_T1_T2_T3_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentIPNS_5tupleIflNS_9null_typeES6_S6_S6_S6_S6_S6_S6_EES8_S7_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEES8_S8_iSD_EEvT0_T1_T2_T3_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 34 registers, 373 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce10DrainAgentIiEEN3cub9GridQueueIjEEiEEvT0_T1_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce10DrainAgentIiEEN3cub9GridQueueIjEEiEEvT0_T1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 4 registers, 364 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_iN3cub13GridEvenShareIiEENSL_9GridQueueIjEESJ_EEvT0_T1_T2_T3_T4_T5_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_iN3cub13GridEvenShareIiEENSL_9GridQueueIjEESJ_EEvT0_T1_T2_T3_T4_T5_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 433 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_iSJ_EEvT0_T1_T2_T3_' for 'sm_75'
+ptxas info    : Function properties for _ZN6thrust8cuda_cub4core13_kernel_agentINS0_8__reduce11ReduceAgentINS_12zip_iteratorINS_5tupleIPfNS0_19counting_iterator_tIlEENS_9null_typeESA_SA_SA_SA_SA_SA_SA_EEEEPNS6_IflSA_SA_SA_SA_SA_SA_SA_SA_EESD_iNS0_9__extrema9arg_max_fIflNS_4lessIfEEEEEESC_SE_iSJ_EEvT0_T1_T2_T3_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 381 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z10bc_reverseiPKmPKiS2_S2_S2_iPfS3_' for 'sm_75'
+ptxas info    : Function properties for _Z10bc_reverseiPKmPKiS2_S2_S2_iPfS3_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 27 registers, 424 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z10bc_forwardPKmPKiPiS3_i9Worklist2S4_' for 'sm_75'
+ptxas info    : Function properties for _Z10bc_forwardPKmPKiPiS3_i9Worklist2S4_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 456 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z12bc_normalizeiPff' for 'sm_75'
+ptxas info    : Function properties for _Z12bc_normalizeiPff
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 372 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z13push_frontier9Worklist2Pii' for 'sm_75'
+ptxas info    : Function properties for _Z13push_frontier9Worklist2Pii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 8 registers, 396 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z6insert9Worklist2iPiS0_' for 'sm_75'
+ptxas info    : Function properties for _Z6insert9Worklist2iPiS0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 15 registers, 408 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z10initializeiPi' for 'sm_75'
+ptxas info    : Function properties for _Z10initializeiPi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 8 registers, 368 bytes cmem[0]

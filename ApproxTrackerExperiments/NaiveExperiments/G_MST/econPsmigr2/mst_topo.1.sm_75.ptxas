@@ -1,0 +1,33 @@
+ptxas info    : 48 bytes gmem
+ptxas info    : Compiling entry function '_ZN3cub11EmptyKernelIvEEvv' for 'sm_75'
+ptxas info    : Function properties for _ZN3cub11EmptyKernelIvEEvv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 4 registers, 352 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z15dfindcompmintwoiPj14ComponentSpaceS_S_S_Pb13GlobalBarrierS1_S_' for 'sm_75'
+ptxas info    : Function properties for _Z15dfindcompmintwoiPj14ComponentSpaceS_S_S_Pb13GlobalBarrierS1_S_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 23 registers, 456 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z15verify_min_elemiPiS_S_14ComponentSpacePjS1_PbS1_' for 'sm_75'
+ptxas info    : Function properties for _Z15verify_min_elemiPiS_S_14ComponentSpacePjS1_PbS1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 448 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z12dfindelemin2iPiS_S_14ComponentSpacePjS1_S1_S1_' for 'sm_75'
+ptxas info    : Function properties for _Z12dfindelemin2iPiS_S_14ComponentSpacePjS1_S1_S1_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 448 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z11dfindeleminiPiS_S_Pj14ComponentSpaceS0_S0_S0_' for 'sm_75'
+ptxas info    : Function properties for _Z11dfindeleminiPiS_S_Pj14ComponentSpaceS0_S0_S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 22 registers, 448 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z5dinitiPjS_S_PbS_' for 'sm_75'
+ptxas info    : Function properties for _Z5dinitiPjS_S_PbS_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 400 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z7dinitcsjPjS_' for 'sm_75'
+ptxas info    : Function properties for _Z7dinitcsjPjS_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8print1x114ComponentSpace' for 'sm_75'
+ptxas info    : Function properties for _Z8print1x114ComponentSpace
+    8 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 384 bytes cmem[0]

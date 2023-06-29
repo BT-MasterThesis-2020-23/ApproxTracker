@@ -1,0 +1,6 @@
+cycle,instruction,cta_id,cluster_id,warp_id,tid
+6812410, PC=0x2f0 (pr_base.1.sm_75.ptx:188) cvta.to.global.u64 %rd31 %rd9,836,28,3,ffffffff
+6812411, PC=0x2f8 (pr_base.1.sm_75.ptx:189) mul.wide.s32 %rd32 %r1 4,836,28,3,ffffffff
+6812420, PC=0x300 (pr_base.1.sm_75.ptx:190) add.s64 %rd33 %rd31 %rd32,836,28,3,ffffffff
+6812429, PC=0x308 (pr_base.1.sm_75.ptx:191) st.global.f32 [%rd33] %f24,836,28,3,ffffffff
+6812430, PC=0x310 (pr_base.1.sm_75.ptx:194) ret,836,28,3,ffffffff

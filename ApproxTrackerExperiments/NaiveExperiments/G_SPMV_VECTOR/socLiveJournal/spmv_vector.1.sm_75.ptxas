@@ -1,0 +1,21 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z18spmv_vector_kernelILi8ELi32EEviPKmPKiPKfS5_Pf' for 'sm_75'
+ptxas info    : Function properties for _Z18spmv_vector_kernelILi8ELi32EEviPKmPKiPKfS5_Pf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 49 registers, 1152 bytes smem, 404 bytes cmem[0], 1 textures
+ptxas info    : Compiling entry function '_Z18spmv_vector_kernelILi16ELi16EEviPKmPKiPKfS5_Pf' for 'sm_75'
+ptxas info    : Function properties for _Z18spmv_vector_kernelILi16ELi16EEviPKmPKiPKfS5_Pf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 49 registers, 1184 bytes smem, 404 bytes cmem[0], 1 textures
+ptxas info    : Compiling entry function '_Z18spmv_vector_kernelILi32ELi8EEviPKmPKiPKfS5_Pf' for 'sm_75'
+ptxas info    : Function properties for _Z18spmv_vector_kernelILi32ELi8EEviPKmPKiPKfS5_Pf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 49 registers, 1296 bytes smem, 404 bytes cmem[0], 1 textures
+ptxas info    : Compiling entry function '_Z18spmv_vector_kernelILi64ELi4EEviPKmPKiPKfS5_Pf' for 'sm_75'
+ptxas info    : Function properties for _Z18spmv_vector_kernelILi64ELi4EEviPKmPKiPKfS5_Pf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 49 registers, 1544 bytes smem, 404 bytes cmem[0], 1 textures
+ptxas info    : Compiling entry function '_Z18spmv_vector_kernelILi128ELi2EEviPKmPKiPKfS5_Pf' for 'sm_75'
+ptxas info    : Function properties for _Z18spmv_vector_kernelILi128ELi2EEviPKmPKiPKfS5_Pf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 49 registers, 2052 bytes smem, 404 bytes cmem[0], 1 textures

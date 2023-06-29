@@ -1,0 +1,9 @@
+ptxas info    : 121 bytes gmem
+ptxas info    : Compiling entry function '_Z6inserti9Worklist2' for 'sm_75'
+ptxas info    : Function properties for _Z6inserti9Worklist2
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z10bfs_kerneliPKmPKiPi9Worklist2S4_' for 'sm_75'
+ptxas info    : Function properties for _Z10bfs_kerneliPKmPKiPi9Worklist2S4_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 448 bytes cmem[0]

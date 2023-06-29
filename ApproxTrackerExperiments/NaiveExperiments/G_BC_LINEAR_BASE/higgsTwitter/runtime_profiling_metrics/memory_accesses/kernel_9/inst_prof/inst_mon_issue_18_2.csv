@@ -1,0 +1,12 @@
+cycle,instruction,cta_id,cluster_id,warp_id,tid
+1008371, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,9,18,6,ffffffff
+1045550, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,39,18,12,ffffffff
+1075224, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,17,ffffffff
+1079989, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,99,18,25,ffffffff
+1089644, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,18,ffffffff
+1097938, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,22,ffffffff
+1133605, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,20,ffffffff
+1139014, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,21,ffffffff
+1143286, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,16,ffffffff
+1145700, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,23,ffffffff
+1249331, PC=0xad0 (linear_base.1.sm_75.ptx:630) ret,140,18,19,ffffffff

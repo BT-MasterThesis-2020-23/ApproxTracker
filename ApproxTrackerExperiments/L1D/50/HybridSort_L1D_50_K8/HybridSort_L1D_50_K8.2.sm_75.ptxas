@@ -1,0 +1,13 @@
+ptxas info    : 0 bytes gmem, 12296 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z9mergepackPfS_' for 'sm_75'
+ptxas info    : Function properties for _Z9mergepackPfS_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z13mergeSortPassP6float4ii' for 'sm_75'
+ptxas info    : Function properties for _Z13mergeSortPassP6float4ii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 372 bytes cmem[0], 1 textures
+ptxas info    : Compiling entry function '_Z14mergeSortFirstP6float4i' for 'sm_75'
+ptxas info    : Function properties for _Z14mergeSortFirstP6float4i
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 368 bytes cmem[0], 1 textures

@@ -1,0 +1,9 @@
+cycle,pc,cta_id,cluster_id,warp_id,tid
+1085905,ad0,145,1,15,ffffffff
+1093375,ad0,145,1,14,ffffffff
+1151257,ad0,145,1,13,ffffffff
+1160123,ad0,145,1,12,ffffffff
+1180095,ad0,145,1,8,ffffffff
+1184748,ad0,145,1,10,ffffffff
+1215521,ad0,145,1,11,ffffffff
+1310841,ad0,145,1,9,ffffffff

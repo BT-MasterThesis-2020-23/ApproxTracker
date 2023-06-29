@@ -1,0 +1,3 @@
+cycle,instruction,cta_id,cluster_id,warp_id,tid
+4603338, PC=0x2a0 (spmv_base.1.sm_75.ptx:127) st.global.f32 [%rd4] %f27,0,0,2,ffffffff
+4603339, PC=0x2a8 (spmv_base.1.sm_75.ptx:130) ret,0,0,2,ffffffff
